@@ -1,0 +1,31 @@
+JULIUS WORKROOM v1.0.1
+- v1.0で誤って削除された tempLabel() を復元。
+- PROJECTS / TIMER / STATS / CALENDAR / EXERCISE / LOG 等が空になる描画停止不具合を修正。
+- 旧版ローカルHTMLからのデータ移行についてREADMEに正しい手順を明記。
+- v0.1〜v0.9系JSONインポート互換を維持。
+
+JULIUS WORKROOM CHANGELOG
+==========================
+
+v1.0
+- PC正式版として安定化
+- v0.xで残っていた重複JavaScript関数を整理
+- 保存スキーマを正式版 version 10 へ更新
+- v0.1〜v0.9系データ / JSONバックアップ互換を維持
+- JSONバックアップ名とメタデータをv1向けに統一
+- ユーザー向けバージョン表記をv1.0へ統一
+- 設定画面にローカル保存 / バックアップ注意書きを追加
+- READMEを正式版向けに全面更新
+- ROOM機能はv0.9で廃止済みのため正式版には含めない
+- v0.9.1の強化タイマー終了SEを正式仕様として採用
+
+
+v1.1
+----
+- スマホ幅専用レスポンシブUI
+- 下部5タブナビ（HOME / WORK / BODY / CAL / MORE）
+- MOREシートへTIMER/STATS/LOG/設定/JSONを集約
+- Web App Manifest / iOS touch icon追加
+- Service WorkerによるApp Shellキャッシュ
+- standalone PWA対応
+- v1.0.2の保存形式を維持

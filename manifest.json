@@ -1,0 +1,57 @@
+{
+  "id": "./",
+  "name": "JULIUS WORKROOM — 今日、何をする。",
+  "short_name": "WORKROOM",
+  "description": "作業と運動を、ジュリアスへ報告しながら記録する個人用WORKROOM。",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "orientation": "any",
+  "categories": [
+    "productivity",
+    "health"
+  ],
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "運動を報告",
+      "short_name": "BODY",
+      "url": "./?view=exercise",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "作業プロジェクト",
+      "short_name": "WORK",
+      "url": "./?view=projects",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
