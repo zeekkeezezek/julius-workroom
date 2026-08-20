@@ -11,7 +11,7 @@
 <link rel="manifest" href="manifest.json" />
 <link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
-<title>今日、何をする。 — JULIUS WORKROOM v1.2</title>
+<title>今日、何をする。 — JULIUS WORKROOM v1.2.1</title>
 <style>
 :root{--bg:#0a0d12;--panel:#151c27;--panel2:#1b2431;--line:#2a3545;--text:#eef2f7;--muted:#99a6b6;--gold:#d8bd7b;--green:#91c8a1;--red:#cf8d93;--blue:#87a8d8;--shadow:0 20px 60px rgba(0,0,0,.35)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Yu Gothic UI","Yu Gothic","Meiryo",sans-serif;background:var(--bg);color:var(--text)}
@@ -106,7 +106,7 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 .calendarDay.exerciseLv1:hover{background:#fbedef}.calendarDay.exerciseLv2:hover{background:#f8dce0}.calendarDay.exerciseLv3:hover{background:#f1c7ce}.calendarDay.exerciseLv4:hover{background:#e9adb8}
 
 
-/* v1.2 CLOUD SYNC */
+/* v1.2.1 CLOUD SYNC */
 .syncButton{display:flex;align-items:center;gap:6px;white-space:nowrap}.syncDot{width:8px;height:8px;border-radius:50%;background:#8a929e;box-shadow:0 0 0 3px rgba(138,146,158,.12)}
 .syncButton[data-state="synced"] .syncDot{background:#2c9b62;box-shadow:0 0 0 3px rgba(44,155,98,.12)}.syncButton[data-state="saving"] .syncDot{background:#d79c22}.syncButton[data-state="offline"] .syncDot{background:#68707c}.syncButton[data-state="conflict"] .syncDot,.syncButton[data-state="error"] .syncDot{background:#cf3347}
 .cloudPanel{border-left:4px solid #2468d8}.cloudIdentity{display:flex;align-items:center;gap:10px;margin:9px 0}.cloudAvatar{width:34px;height:34px;border-radius:50%;object-fit:cover;background:#edf1f6}.cloudIdentityText{min-width:0}.cloudIdentityText strong,.cloudIdentityText span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cloudIdentityText span{font-size:10px;color:#68707c;margin-top:2px}
@@ -179,7 +179,7 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 </head>
 <body>
 <div class="app">
-<header class="top"><div class="brand"><small>PERSONAL LIFE COMMANDER v1.2 CLOUD SYNC</small><strong>今日、何をする。</strong></div><div class="topActions"><button class="btn small syncButton" id="cloudStatusBtn" data-state="local"><span class="syncDot"></span><span id="cloudStatusLabel">ローカル保存</span></button><button class="btn small" id="backupBtn">JSONを書き出す</button><button class="btn small" id="importBtn">JSONを読み込む</button><input type="file" id="importFile" accept="application/json" hidden><button class="btn small" id="settingsBtn">設定</button></div></header>
+<header class="top"><div class="brand"><small>PERSONAL LIFE COMMANDER v1.2.1 CLOUD SYNC</small><strong>今日、何をする。</strong></div><div class="topActions"><button class="btn small syncButton" id="cloudStatusBtn" data-state="local"><span class="syncDot"></span><span id="cloudStatusLabel">ローカル保存</span></button><button class="btn small" id="backupBtn">JSONを書き出す</button><button class="btn small" id="importBtn">JSONを読み込む</button><input type="file" id="importFile" accept="application/json" hidden><button class="btn small" id="settingsBtn">設定</button></div></header>
 <div class="layout">
 <aside class="side">
 <div class="date" id="todayLabel"></div>
@@ -261,7 +261,7 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 
 <div class="toast" id="toast"></div>
 <script>
-const APP_VERSION='1.2.0';
+const APP_VERSION='1.2.1';
 const KEY='julius_workroom_v1',OLD_KEY_V09='julius_workroom_v09',OLD_KEY_V8='julius_workroom_v08',OLD_KEY_V7='julius_workroom_v07',OLD_KEY_V6='julius_workroom_v06',OLD_KEY_V5='julius_workroom_v05',OLD_KEY_V4='julius_workroom_v04',OLD_KEY_V3='julius_workroom_v03',OLD_KEY_V2='julius_workroom_v02',OLD_KEY_V1='julius_workroom_v01';
 const juliusPortraits={normal:'assets/julius/normal.png',soft:'assets/julius/soft.png',think:'assets/julius/think.png',stern:'assets/julius/stern.png'};
 const defaultCategories=[
@@ -569,7 +569,7 @@ function renderStats(){let periods=[['today','今日'],['week','今週'],['month
 function renderHistory(){let a=[...data.logs].sort((x,y)=>y.ts-x.ts);document.getElementById('historyList').innerHTML=a.length?a.map(l=>`<div class="hist"><div class="histTop"><div><div class="crumb">${esc(l.categoryName||categoryBy(l.categoryId)?.name||'未分類')}</div><div class="histTitle">${esc(l.projectName||projectBy(l.projectId)?.project.name||(l.micro?'小さな一歩':'削除済み'))}</div></div><div class="histMeta">${new Date(l.ts).toLocaleString('ja-JP')} ・ ${l.micro?'準備':fmtMin(l.minutes)}</div></div>${l.note?`<div class="histNote">${esc(l.note)}</div>`:''}<div class="logActions">${l.micro?`<button class="btn small danger" onclick="deleteMicroLog('${l.id}')">削除</button>`:`<button class="btn small" onclick="editWorkLog('${l.id}')">編集</button>`}</div></div>`).join(''):'<div class="empty">作業履歴はまだない。</div>';renderDailySummary(document.getElementById('summaryDate')?.value||dateKey())}
 
 function isStandaloneApp(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true}
-function updatePwaStatus(){let status=document.getElementById('pwaStatus'),hint=document.getElementById('pwaHintText');if(!status||!hint)return;if(isStandaloneApp()){status.textContent='ホーム画面アプリとして起動中';hint.textContent='同じGoogleアカウントでログインし、安全な初回選択を済ませるとPCと同期できる。オフライン中の変更も先にこの端末へ保存される。'}else if(location.protocol==='file:'){status.textContent='PCローカル版として起動中';hint.textContent='file:// ではGoogleログインとPWA機能は使えない。同期確認はGitHub PagesなどHTTPS上のv1.2を開いて行う。'}else{status.textContent='Web版として起動中';hint.textContent='iPhoneの共有メニューから「ホーム画面に追加」できる。Googleログインは必ず同期ボタンを自分で押して開始する。'}}
+function updatePwaStatus(){let status=document.getElementById('pwaStatus'),hint=document.getElementById('pwaHintText');if(!status||!hint)return;if(isStandaloneApp()){status.textContent='ホーム画面アプリとして起動中';hint.textContent='同じGoogleアカウントでログインし、安全な初回選択を済ませるとPCと同期できる。オフライン中の変更も先にこの端末へ保存される。'}else if(location.protocol==='file:'){status.textContent='PCローカル版として起動中';hint.textContent='file:// ではGoogleログインとPWA機能は使えない。同期確認はGitHub PagesなどHTTPS上のv1.2.1を開いて行う。'}else{status.textContent='Web版として起動中';hint.textContent='iPhoneの共有メニューから「ホーム画面に追加」できる。Googleログインは必ず同期ボタンを自分で押して開始する。'}}
 function registerServiceWorker(){if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(e=>console.warn('Service Worker registration failed',e)))}}
 function init(){
  document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>setView(b.dataset.view));

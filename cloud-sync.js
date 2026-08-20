@@ -4,6 +4,7 @@
 const DEVICE_KEY='julius_workroom_device_id';
 const DEVICE_NAME_KEY='julius_workroom_device_name';
 const SAFETY_KEY='julius_workroom_cloud_safety_backup';
+const SYNC_META_PREFIX='julius_workroom_cloud_sync_meta_v1_';
 const SAVE_DELAY=1200;
 const state={
   configured:false,auth:null,db:null,user:null,ref:null,unsubscribe:null,
@@ -19,10 +20,34 @@ function getOrCreateDeviceId(){
   return id;
 }
 function cleanPayload(value){return JSON.parse(JSON.stringify(value))}
+function canonicalize(value){
+  if(Array.isArray(value))return value.map(canonicalize);
+  if(value&&typeof value==='object')return Object.keys(value).sort().reduce((out,key)=>{out[key]=canonicalize(value[key]);return out},{});
+  return value;
+}
 function hashPayload(value){
-  const text=JSON.stringify(value);let h=2166136261;
+  const text=JSON.stringify(canonicalize(cleanPayload(value)));let h=2166136261;
   for(let i=0;i<text.length;i++){h^=text.charCodeAt(i);h=Math.imul(h,16777619)}
   return ('00000000'+(h>>>0).toString(16)).slice(-8);
+}
+function syncMetaKey(uid){return SYNC_META_PREFIX+uid}
+function readSyncMeta(uid){
+  try{
+    const meta=JSON.parse(localStorage.getItem(syncMetaKey(uid))||'null');
+    return meta&&meta.version===1&&typeof meta.hash==='string'?meta:null;
+  }catch(_){return null}
+}
+function rememberSynced(uid,revision,hash){
+  if(!uid||!hash)return;
+  try{localStorage.setItem(syncMetaKey(uid),JSON.stringify({version:1,revision:Number(revision)||0,hash,savedAt:Date.now()}))}
+  catch(error){console.warn('Sync metadata could not be stored',error)}
+}
+function normalizedHash(payload){const normalized=normalizeV10(cleanPayload(payload));normalized.syncTests=normalized.syncTests||[];return hashPayload(normalized)}
+function startupDecision(localHash,remoteHash,remoteRevision,meta){
+  if(!remoteHash)return 'choose';
+  if(localHash===remoteHash)return 'synced';
+  if(meta&&localHash===meta.hash&&Number(remoteRevision)>Number(meta.revision||0))return 'adopt-cloud';
+  return 'choose';
 }
 function isConfigured(config){
   return !!(config&&config.apiKey&&config.authDomain&&config.projectId&&config.appId&&
@@ -111,9 +136,12 @@ async function beginForUser(user){
   setStatus('saving','クラウドを確認中');
   let remote;try{remote=await getServerState()}catch(_){return}
   state.remote=remote;state.baseRevision=Number(remote?.revision)||0;
-  const localHash=hashPayload(cleanPayload(data)),remoteHash=remote?.hash||((remote?.payload)?hashPayload(remote.payload):null);
-  if(remote&&remote.payload&&localHash===remoteHash){
-    state.lastSyncedHash=remoteHash;state.active=true;state.dirty=false;startListener();setStatus('synced','同期済み');return;
+  const localHash=hashPayload(data),remoteHash=remote?.payload?normalizedHash(remote.payload):null,meta=readSyncMeta(user.uid),remoteRevision=Number(remote?.revision)||0,decision=startupDecision(localHash,remoteHash,remoteRevision,meta);
+  if(remote&&remote.payload&&decision==='synced'){
+    state.lastSyncedHash=remoteHash;state.active=true;state.dirty=false;rememberSynced(user.uid,remoteRevision,remoteHash);startListener();setStatus('synced','同期済み');return;
+  }
+  if(remote&&remote.payload&&decision==='adopt-cloud'){
+    applyRemote(remote,false);return;
   }
   showMigration(remote&&remote.payload?remote:null);
 }
@@ -131,7 +159,8 @@ function applyRemote(remote,downloadLocal){
   if(!remote?.payload)return;
   if(downloadLocal)backupBeforeReplace(data,'before_cloud_adopt');
   data=normalizeV10(cleanPayload(remote.payload));data.syncTests=data.syncTests||[];save({cloudApply:true});renderAll();
-  state.remote=remote;state.baseRevision=Number(remote.revision)||0;state.lastSyncedHash=remote.hash||hashPayload(cleanPayload(data));state.dirty=false;state.conflict=null;state.active=true;
+  state.remote=remote;state.baseRevision=Number(remote.revision)||0;state.lastSyncedHash=hashPayload(data);state.dirty=false;state.conflict=null;state.active=true;
+  rememberSynced(state.user?.uid,state.baseRevision,state.lastSyncedHash);
   closeDialog('cloudMigrationModal');closeDialog('cloudConflictModal');startListener();setStatus('synced','同期済み');
 }
 async function writeLocal(expectedRevision,backupRemote){
@@ -147,7 +176,7 @@ async function writeLocal(expectedRevision,backupRemote){
       if(current!==expectedRevision){let error=new Error('revision-conflict');error.code='workroom/revision-conflict';error.remote=snap.exists?snap.data():null;throw error}
       tx.set(state.ref,{payload,hash,revision:nextRevision,updatedAt:firebase.firestore.FieldValue.serverTimestamp(),updatedAtMs:now,writerId:state.deviceId,schemaVersion:10,appVersion:APP_VERSION});
     });
-    state.baseRevision=nextRevision;state.lastSyncedHash=hash;state.remote={payload,hash,revision:nextRevision,updatedAtMs:now,writerId:state.deviceId};state.dirty=false;state.active=true;state.conflict=null;closeDialog('cloudMigrationModal');closeDialog('cloudConflictModal');startListener();setStatus('synced','同期済み');
+    state.baseRevision=nextRevision;state.lastSyncedHash=hash;state.remote={payload,hash,revision:nextRevision,updatedAtMs:now,writerId:state.deviceId};state.dirty=false;state.active=true;state.conflict=null;rememberSynced(state.user.uid,nextRevision,hash);closeDialog('cloudMigrationModal');closeDialog('cloudConflictModal');startListener();setStatus('synced','同期済み');
   }catch(error){
     if(error.code==='workroom/revision-conflict'){
       const remote=error.remote||await getServerState().catch(()=>null);

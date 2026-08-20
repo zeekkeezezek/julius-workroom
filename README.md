@@ -1,4 +1,4 @@
-# JULIUS WORKROOM v1.2 — Cloud Sync Edition
+# JULIUS WORKROOM v1.2.1 — Cloud Sync Edition
 
 JULIUS WORKROOM v1.1.1のWORK / EXERCISE / PROJECTS / INBOX / LOG / CALENDAR / STATS / 設定 / SE / PWA / スマホUIを維持し、GoogleログインとCloud Firestore同期を追加した版です。
 
@@ -24,7 +24,7 @@ Firebase側は次の状態を前提にしています。
 - Google Authenticationが有効
 - Authenticationの承認済みドメインに `zeekkeezezek.github.io` が登録済み
 - Cloud Firestore（Standard）が作成済み
-- `/users/{userId}/{document=**}` は、ログイン中の `request.auth.uid == userId` の場合だけread/write可能
+- `/users/{userId}/{document=**}` は、固定した所有者UIDでログインし、かつ `request.auth.uid == userId` の場合だけread/write可能
 
 実際の保存先は `/users/{uid}/workroom/state` です。
 
@@ -33,6 +33,9 @@ Firebase側は次の状態を前提にしています。
 - すべての変更は、クラウドより先に従来の `localStorage` へ保存します。
 - JSON書き出し／読み込みは従来どおり利用できます。
 - 初回ログイン時はローカルとクラウドを比較し、内容が異なる場合は必ず選択画面を表示します。
+- 一度同期が成立した端末では、UIDごとの前回同期世代と安定ハッシュだけを `localStorage` へ記録します。作業記録そのものを削除・初期化する処理ではありません。
+- この端末に未同期変更がなく、別端末によってクラウドだけが新しくなった場合は、起動時に確認画面を繰り返さず安全に自動反映します。
+- ローカルとクラウドの両方が前回同期時点から変わっている場合は、自動上書きせず選択画面を表示します。
 - クラウドが空でも、自動アップロードはしません。
 - クラウド採用前は現在のローカルデータをJSONと端末内安全コピーへ退避します。
 - ローカル採用で既存クラウドを置き換える前は、クラウド側をJSONと端末内安全コピーへ退避します。
@@ -45,7 +48,7 @@ Firebase側は次の状態を前提にしています。
 
 本番データを大きく編集する前に、次の順で確認してください。
 
-1. PCで公開済みv1.2を開き、「同期状態 → Googleでログイン」を押します。
+1. PCで公開済みv1.2.1を開き、「同期状態 → Googleでログイン」を押します。
 2. 初回比較画面で内容を確認し、採用する側を選びます。念のため先にJSONも保存してください。
 3. 設定の「この端末の名前」に `PC` と入力し、「同期テストを追加」を押します。
 4. 状態が「同期済み」になるまで待ちます。
@@ -65,9 +68,9 @@ Firebase側は次の状態を前提にしています。
 3. GitHubのリポジトリで Settings → Pages を開き、従来と同じ公開ブランチ／フォルダになっていることを確認します。
 4. Pagesの更新完了後、PCブラウザで公開URLを再読み込みします。
 5. iPhone PWAは旧Service Workerが一時的に残る場合があります。アプリを完全に閉じて再起動し、それでも旧版ならSafariで公開URLを一度開いて再読み込みしてください。
-6. 画面上部または設定に `v1.2 CLOUD SYNC` と表示されることを確認してから同期テストを行います。
+6. 画面上部または設定に `v1.2.1 CLOUD SYNC` と表示されることを確認してから同期テストを行います。
 
-Service Workerのキャッシュ名は設定済み最終版専用の `julius-workroom-v1-2-0-configured` です。v1.1系および未設定v1.2のキャッシュは最終版の有効化時に削除されますが、`localStorage` の作業記録は削除しません。
+Service Workerのキャッシュ名は `julius-workroom-v1-2-1-configured` です。旧版キャッシュはv1.2.1の有効化時に削除されますが、`localStorage` の作業記録や同期メタデータは削除しません。
 
 ## PWA / オフライン
 
