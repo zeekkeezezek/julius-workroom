@@ -1,3 +1,20 @@
+JULIUS WORKROOM v1.2.0
+======================
+
+- Googleログイン／ログアウトUIを追加
+- Firebaseプロジェクト julius-workroom のWebアプリ設定を組み込み
+- 未設定版のキャッシュが残らないようService Workerキャッシュ名を設定済み最終版専用へ更新
+- Cloud Firestore `/users/{uid}/workroom/state` 同期を追加
+- localStorage先行保存と既存JSONバックアップを維持
+- 初回ログイン時のローカル／クラウド安全比較UIを追加
+- 採用しない側のJSONおよび端末内安全コピーを追加
+- revision / hash / updatedAt / writerId を使う競合検知を追加
+- Firestore Web永続キャッシュ（複数タブ対応）を追加
+- オフライン同期待ち、同期済み、競合、エラーの状態表示を追加
+- PC ↔ iPhone確認用の端末名付き同期テスト表示を追加
+- Service Workerをv1.2へ更新し、同期用ローカルファイルをキャッシュ対象へ追加
+- GitHub Pages更新手順と同期確認手順をREADME.mdへ追加
+
 JULIUS WORKROOM v1.0.1
 - v1.0で誤って削除された tempLabel() を復元。
 - PROJECTS / TIMER / STATS / CALENDAR / EXERCISE / LOG 等が空になる描画停止不具合を修正。

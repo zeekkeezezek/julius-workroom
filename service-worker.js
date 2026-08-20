@@ -1,6 +1,6 @@
-const CACHE_NAME='julius-workroom-v1-1-1-static';
+const CACHE_NAME='julius-workroom-v1-2-0-configured';
 const APP_SHELL=[
-  './','./index.html','./manifest.json',
+  './','./index.html','./manifest.json','./firebase-config.js','./cloud-sync.js',
   './assets/julius/normal.png','./assets/julius/soft.png','./assets/julius/stern.png','./assets/julius/think.png',
   './assets/icons/icon-180.png','./assets/icons/icon-192.png','./assets/icons/icon-512.png'
 ];

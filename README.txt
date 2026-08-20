@@ -1,41 +1,10 @@
-JULIUS WORKROOM v1.1.1 — Mobile / PWA Edition
-================================================
+JULIUS WORKROOM v1.2 — Cloud Sync Edition
+============================================
 
-■ この版について
-v1.0.2の保存形式と機能を維持したまま、スマートフォン表示とPWA用ファイルを追加した版です。
-PCでは従来どおりの2カラムUI、画面幅760px以下ではスマホ専用UIへ自動切替します。
+詳しいFirebase設定、安全な初回移行、PCとiPhoneの同期テスト、GitHub Pages更新手順は README.md を参照してください。
 
-■ スマホUI
-下部タブ：
-  HOME / WORK / BODY / CAL / MORE
-
-MORE内：
-  TIMER / STATS / LOG / 設定 / JSON書き出し / JSON読み込み
-
-HOMEではジュリアス、今日の作業候補、5分だけ、小さな一歩など「今すぐ動く」機能を優先して表示します。
-
-■ PWAとして使う
-PWAのインストールやService Workerは、file:// で直接開いたローカルHTMLでは有効になりません。
-GitHub PagesなどHTTPSで公開してください。
-
-iPhone:
-  1. GitHub PagesのWORKROOMをSafari等で開く
-  2. 共有メニューを開く
-  3. 「ホーム画面に追加」
-  4. ホーム画面のWORKROOMアイコンから起動
-
-manifest.json の display=standalone により、ホーム画面からは独立したWebアプリ風に開きます。
-
-■ オフライン
-HTTPS上ではService Workerを登録し、HTML・ジュリアス差分・アイコン等をキャッシュします。
-一度読み込んだ後は、最低限の画面をオフラインでも開ける構成です。
-
-■ データ保存について（重要）
-現時点では記録は各端末のlocalStorageです。
-PCとiPhoneは自動同期しません。
-スマホで本格運用する前後は、JSON書き出しを定期的に行ってください。
-クラウド同期は今後の別段階で追加予定です。
-
-■ v1.0.2との互換性
-データスキーマは変更していません。APP_VERSION表記のみv1.1.1です。
-既存JSONは従来どおり読み込み可能です。
+重要:
+- firebase-config.js にはFirebaseプロジェクト julius-workroom のWebアプリ設定を組み込み済みです。
+- 初回ログインではローカル／クラウドを自動上書きせず、必ず比較画面を表示します。
+- 同期中もlocalStorageとJSONバックアップは維持されます。
+- 公開前にv1.1.1一式と現在のJSONバックアップを保存してください。
