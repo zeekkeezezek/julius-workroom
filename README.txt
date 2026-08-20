@@ -1,4 +1,4 @@
-JULIUS WORKROOM v1.1 — Mobile / PWA Edition
+JULIUS WORKROOM v1.1.1 — Mobile / PWA Edition
 ================================================
 
 ■ この版について
@@ -37,5 +37,5 @@ PCとiPhoneは自動同期しません。
 クラウド同期は今後の別段階で追加予定です。
 
 ■ v1.0.2との互換性
-データスキーマは変更していません。APP_VERSION表記のみv1.1.0です。
+データスキーマは変更していません。APP_VERSION表記のみv1.1.1です。
 既存JSONは従来どおり読み込み可能です。

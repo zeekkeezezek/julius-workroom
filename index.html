@@ -11,7 +11,7 @@
 <link rel="manifest" href="manifest.json" />
 <link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
-<title>今日、何をする。 — JULIUS WORKROOM v1.1</title>
+<title>今日、何をする。 — JULIUS WORKROOM v1.1.1</title>
 <style>
 :root{--bg:#0a0d12;--panel:#151c27;--panel2:#1b2431;--line:#2a3545;--text:#eef2f7;--muted:#99a6b6;--gold:#d8bd7b;--green:#91c8a1;--red:#cf8d93;--blue:#87a8d8;--shadow:0 20px 60px rgba(0,0,0,.35)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Yu Gothic UI","Yu Gothic","Meiryo",sans-serif;background:var(--bg);color:var(--text)}
@@ -171,7 +171,7 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 </head>
 <body>
 <div class="app">
-<header class="top"><div class="brand"><small>PERSONAL LIFE COMMANDER v1.1</small><strong>今日、何をする。</strong></div><div class="topActions"><button class="btn small" id="backupBtn">JSONを書き出す</button><button class="btn small" id="importBtn">JSONを読み込む</button><input type="file" id="importFile" accept="application/json" hidden><button class="btn small" id="settingsBtn">設定</button></div></header>
+<header class="top"><div class="brand"><small>PERSONAL LIFE COMMANDER v1.1.1</small><strong>今日、何をする。</strong></div><div class="topActions"><button class="btn small" id="backupBtn">JSONを書き出す</button><button class="btn small" id="importBtn">JSONを読み込む</button><input type="file" id="importFile" accept="application/json" hidden><button class="btn small" id="settingsBtn">設定</button></div></header>
 <div class="layout">
 <aside class="side">
 <div class="date" id="todayLabel"></div>
@@ -208,7 +208,7 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
   <button class="btn exerciseBtn" data-exercise="プランク">💪 <strong>プランク</strong><span>寝る前の短時間でも</span></button>
   <button class="btn exerciseBtn" data-exercise="ストレッチ">🧘 <strong>ストレッチ</strong><span>身体を伸ばした記録</span></button>
   <button class="btn exerciseBtn" data-exercise="その他">＋ <strong>その他</strong><span>自由入力</span></button>
- </div><div class="gap"></div><div class="exerciseQuick"><div class="field"><label>運動名</label><input id="exerciseName" placeholder="ボタンから選択 / その他は自由入力"></div><div class="field"><label>時間（任意）</label><select id="exerciseMinutes"><option value="0">時間は記録しない</option><option value="1">1分</option><option value="5">5分</option><option value="10">10分</option><option value="15">15分</option><option value="20">20分</option><option value="30">30分</option><option value="45">45分</option><option value="60">60分</option></select></div></div><div class="gap"></div><div class="field"><label>ひとこと（任意）</label><input id="exerciseNote" placeholder="例：今日はこれで許してください"></div><div class="gap"></div><button class="btn redBtn" id="exerciseSave">この運動を今日の記録に追加する</button><div class="exerciseAddHint">一日に何件でも追加できる。リングフィットを記録した後、そのままプランクやフィットボクシングも続けて追加して構わない。</div><div class="exerciseTodayBox"><div class="sectionTitle exerciseAccent">TODAY'S EXERCISE</div><div id="exerciseTodayList" class="exerciseTodayList"></div></div></div>
+ </div><div class="gap"></div><div class="exerciseQuick"><div class="field"><label>運動名</label><input id="exerciseName" placeholder="ボタンから選択 / その他は自由入力"></div><div class="field"><label>時間（任意）</label><select id="exerciseMinutes"><option value="0">時間は記録しない</option><option value="1">1分</option><option value="3">3分</option><option value="5">5分</option><option value="7">7分</option><option value="10">10分</option><option value="15">15分</option><option value="20">20分</option><option value="30">30分</option></select></div></div><div class="gap"></div><div class="field"><label>ひとこと（任意）</label><input id="exerciseNote" placeholder="例：今日はこれで許してください"></div><div class="gap"></div><button class="btn redBtn" id="exerciseSave">この運動を今日の記録に追加する</button><div class="exerciseAddHint">一日に何件でも追加できる。リングフィットを記録した後、そのままプランクやフィットボクシングも続けて追加して構わない。</div><div class="exerciseTodayBox"><div class="sectionTitle exerciseAccent">TODAY'S EXERCISE</div><div id="exerciseTodayList" class="exerciseTodayList"></div></div></div>
  <div class="card"><div class="sectionTitle exerciseAccent">THIS MONTH</div><div class="exerciseStats" id="exerciseStats"></div><div class="gap"></div><div class="sectionTitle">RECENT</div><div class="exerciseLog" id="exerciseRecent"></div></div>
 </div>
 <div class="gap"></div>
@@ -252,7 +252,7 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 
 <div class="toast" id="toast"></div>
 <script>
-const APP_VERSION='1.1.0';
+const APP_VERSION='1.1.1';
 const KEY='julius_workroom_v1',OLD_KEY_V09='julius_workroom_v09',OLD_KEY_V8='julius_workroom_v08',OLD_KEY_V7='julius_workroom_v07',OLD_KEY_V6='julius_workroom_v06',OLD_KEY_V5='julius_workroom_v05',OLD_KEY_V4='julius_workroom_v04',OLD_KEY_V3='julius_workroom_v03',OLD_KEY_V2='julius_workroom_v02',OLD_KEY_V1='julius_workroom_v01';
 const juliusPortraits={normal:'assets/julius/normal.png',soft:'assets/julius/soft.png',think:'assets/julius/think.png',stern:'assets/julius/stern.png'};
 const defaultCategories=[
@@ -560,7 +560,7 @@ function renderStats(){let periods=[['today','今日'],['week','今週'],['month
 function renderHistory(){let a=[...data.logs].sort((x,y)=>y.ts-x.ts);document.getElementById('historyList').innerHTML=a.length?a.map(l=>`<div class="hist"><div class="histTop"><div><div class="crumb">${esc(l.categoryName||categoryBy(l.categoryId)?.name||'未分類')}</div><div class="histTitle">${esc(l.projectName||projectBy(l.projectId)?.project.name||(l.micro?'小さな一歩':'削除済み'))}</div></div><div class="histMeta">${new Date(l.ts).toLocaleString('ja-JP')} ・ ${l.micro?'準備':fmtMin(l.minutes)}</div></div>${l.note?`<div class="histNote">${esc(l.note)}</div>`:''}<div class="logActions">${l.micro?`<button class="btn small danger" onclick="deleteMicroLog('${l.id}')">削除</button>`:`<button class="btn small" onclick="editWorkLog('${l.id}')">編集</button>`}</div></div>`).join(''):'<div class="empty">作業履歴はまだない。</div>';renderDailySummary(document.getElementById('summaryDate')?.value||dateKey())}
 
 function isStandaloneApp(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true}
-function updatePwaStatus(){let status=document.getElementById('pwaStatus'),hint=document.getElementById('pwaHintText');if(!status||!hint)return;if(isStandaloneApp()){status.textContent='ホーム画面アプリとして起動中';hint.textContent='現在はstandalone表示で起動している。記録はこの端末のブラウザ領域へ保存され、PCとはまだ自動同期しない。'}else if(location.protocol==='file:'){status.textContent='PCローカル版として起動中';hint.textContent='このままPCでは使える。PWAとしてiPhoneへ追加するには、v1.1一式をGitHub PagesなどHTTPS上へ置く。'}else{status.textContent='Web版として起動中';hint.textContent='iPhoneの共有メニューから「ホーム画面に追加」すると、Safariとは別のWebアプリとして起動できる。'}}
+function updatePwaStatus(){let status=document.getElementById('pwaStatus'),hint=document.getElementById('pwaHintText');if(!status||!hint)return;if(isStandaloneApp()){status.textContent='ホーム画面アプリとして起動中';hint.textContent='現在はstandalone表示で起動している。記録はこの端末のブラウザ領域へ保存され、PCとはまだ自動同期しない。'}else if(location.protocol==='file:'){status.textContent='PCローカル版として起動中';hint.textContent='このままPCでは使える。PWAとしてiPhoneへ追加するには、v1.1.1一式をGitHub PagesなどHTTPS上へ置く。'}else{status.textContent='Web版として起動中';hint.textContent='iPhoneの共有メニューから「ホーム画面に追加」すると、Safariとは別のWebアプリとして起動できる。'}}
 function registerServiceWorker(){if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(e=>console.warn('Service Worker registration failed',e)))}}
 function init(){
  document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>setView(b.dataset.view));

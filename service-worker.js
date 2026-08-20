@@ -1,4 +1,4 @@
-const CACHE_NAME='julius-workroom-v1-1-static';
+const CACHE_NAME='julius-workroom-v1-1-1-static';
 const APP_SHELL=[
   './','./index.html','./manifest.json',
   './assets/julius/normal.png','./assets/julius/soft.png','./assets/julius/stern.png','./assets/julius/think.png',

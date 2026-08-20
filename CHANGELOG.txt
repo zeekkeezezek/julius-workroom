@@ -29,3 +29,9 @@ v1.1
 - Service WorkerによるApp Shellキャッシュ
 - standalone PWA対応
 - v1.0.2の保存形式を維持
+
+v1.1.1
+------
+- EXERCISEの「時間（任意）」を 1 / 3 / 5 / 7 / 10 / 15 / 20 / 30分へ変更
+- WORK / TIMER側の時間候補は変更なし
+- 保存形式・データキー・PWA構成はv1.1から変更なし
