@@ -11,7 +11,7 @@
 <link rel="manifest" href="manifest.json" />
 <link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
-<title>今日、何をする。 — JULIUS WORKROOM v1.3.0</title>
+<title>今日、何をする。 — JULIUS WORKROOM v1.3.1</title>
 <style>
 :root{--bg:#0a0d12;--panel:#151c27;--panel2:#1b2431;--line:#2a3545;--text:#eef2f7;--muted:#99a6b6;--gold:#d8bd7b;--green:#91c8a1;--red:#cf8d93;--blue:#87a8d8;--shadow:0 20px 60px rgba(0,0,0,.35)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Yu Gothic UI","Yu Gothic","Meiryo",sans-serif;background:var(--bg);color:var(--text)}
@@ -106,7 +106,7 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 .calendarDay.exerciseLv1:hover{background:#fbedef}.calendarDay.exerciseLv2:hover{background:#f8dce0}.calendarDay.exerciseLv3:hover{background:#f1c7ce}.calendarDay.exerciseLv4:hover{background:#e9adb8}
 
 
-/* v1.3.0 UI/UX UPDATE — Cloud Sync layer remains compatible with v1.2.1 */
+/* v1.3.1 LIGHT UI SOUND + DIALOGUE REFRESH — v1.3.0 UI and v1.2.1 Cloud Sync remain compatible */
 .syncButton{display:flex;align-items:center;gap:6px;white-space:nowrap}.syncDot{width:8px;height:8px;border-radius:50%;background:#8a929e;box-shadow:0 0 0 3px rgba(138,146,158,.12)}
 .syncButton[data-state="synced"] .syncDot{background:#2c9b62;box-shadow:0 0 0 3px rgba(44,155,98,.12)}.syncButton[data-state="saving"] .syncDot{background:#d79c22}.syncButton[data-state="offline"] .syncDot{background:#68707c}.syncButton[data-state="conflict"] .syncDot,.syncButton[data-state="error"] .syncDot{background:#cf3347}
 .cloudPanel{border-left:4px solid #2468d8}.cloudIdentity{display:flex;align-items:center;gap:10px;margin:9px 0}.cloudAvatar{width:34px;height:34px;border-radius:50%;object-fit:cover;background:#edf1f6}.cloudIdentityText{min-width:0}.cloudIdentityText strong,.cloudIdentityText span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cloudIdentityText span{font-size:10px;color:#68707c;margin-top:2px}
@@ -198,7 +198,7 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 </head>
 <body>
 <div class="app">
-<header class="top"><div class="brand"><small>PERSONAL LIFE COMMANDER v1.3.0 CLOUD SYNC</small><strong>今日、何をする。</strong></div><div class="topActions"><button class="btn small syncButton" id="cloudStatusBtn" data-state="local"><span class="syncDot"></span><span id="cloudStatusLabel">ローカル保存</span></button><button class="btn small" id="backupBtn">JSONを書き出す</button><button class="btn small" id="importBtn">JSONを読み込む</button><input type="file" id="importFile" accept="application/json" hidden><button class="btn small" id="settingsBtn">設定</button></div></header>
+<header class="top"><div class="brand"><small>PERSONAL LIFE COMMANDER v1.3.1 CLOUD SYNC</small><strong>今日、何をする。</strong></div><div class="topActions"><button class="btn small syncButton" id="cloudStatusBtn" data-state="local"><span class="syncDot"></span><span id="cloudStatusLabel">ローカル保存</span></button><button class="btn small" id="backupBtn">JSONを書き出す</button><button class="btn small" id="importBtn">JSONを読み込む</button><input type="file" id="importFile" accept="application/json" hidden><button class="btn small" id="settingsBtn">設定</button></div></header>
 <div class="layout">
 <aside class="side">
 <div class="date" id="todayLabel"></div>
@@ -245,7 +245,7 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 <div class="modal" id="projectModal"><div class="modalCard"><h3 id="projectModalTitle">プロジェクトを編集</h3><input id="projectId" type="hidden"><div class="field"><label>大カテゴリ</label><select id="projectCategory"></select></div><div class="gap"></div><div class="field"><label>プロジェクト名</label><input id="projectName" placeholder="例：Aキャラ / Bキャラの髪型"></div><div class="gap"></div><div class="field"><label>温度</label><select id="projectTemp"><option value="hot">🔥 熱い</option><option value="active">🌱 再開したい</option><option value="warm">🙂 ぼちぼち</option><option value="sleep">😴 休眠</option></select></div><div class="gap"></div><div class="field"><label>今やっていること</label><textarea id="projectCurrent" placeholder="例：顔のベースメッシュ調整中"></textarea></div><div class="gap"></div><div class="field"><label>次にやること</label><textarea id="projectNext" placeholder="例：前髪3束だけ整える"></textarea></div><div class="gap"></div><div class="field"><label>作業負荷</label><select id="projectLoad"><option value="1">低い — 元気がなくても触れる</option><option value="2">普通</option><option value="3">高い — 集中力が必要</option></select></div><div class="gap"></div><label class="check"><input type="checkbox" id="projectArchived"> ✅ 完了・アーカイブする（通常候補とタイマーから外す）</label><div class="modalActions"><button class="btn danger" id="deleteProjectBtn">削除</button><button class="btn" data-close>キャンセル</button><button class="btn primary" id="saveProjectBtn">保存</button></div></div></div>
 <div class="modal" id="finishModal"><div class="modalCard"><h3>今回の作業を記録</h3><div id="finishSummary" class="notice"></div><div class="gap"></div><div class="field"><label>今回ここまで進んだ</label><textarea id="finishNote" placeholder="例：前髪の右側まで調整した"></textarea></div><div class="gap"></div><div class="field"><label>次にやること</label><textarea id="finishNext" placeholder="例：左側の束を整える"></textarea></div><div class="modalActions"><button class="btn" data-close>戻る</button><button class="btn primary" id="saveFinishBtn">記録する</button></div></div></div>
 <div class="modal" id="idleModal"><div class="modalCard"><h3>……作業、続いているか。</h3><div class="notice">アプリ上の操作がしばらく無かった。Blenderなど別画面で作業していたならそのままで構わない。</div><div class="modalActions"><button class="btn primary" id="idleWorkingBtn">作業していた</button><button class="btn gold" id="idleFinishBtn">もう止まっていた</button><button class="btn" id="idleSwitchBtn">別の作業に変える</button></div></div></div>
-<div class="modal" id="settingsModal"><div class="modalCard"><h3>設定</h3><div class="card cloudPanel" id="cloudPanel"><div class="sectionTitle">CLOUD SYNC</div><div id="cloudPanelBody"><div class="notice">クラウド同期を準備している。</div></div></div><div class="gap"></div><label class="check"><input type="checkbox" id="idleCheck"> 5分以上の無操作後、戻った時に確認する</label><div class="gap"></div><label class="check"><input type="checkbox" id="juliusCheck"> ジュリアスの一言を表示する</label><div class="gap"></div><label class="check"><input type="checkbox" id="soundCheck"> タイマー終了SEを鳴らす</label><div class="gap"></div><div class="field"><label>終了SEの音量</label><select id="alarmVolume"><option value="normal">標準</option><option value="loud">大（推奨）</option><option value="max">かなり大きい</option></select></div><div class="gap"></div><button class="btn small" id="testSoundBtn">終了SEを試す</button><div class="gap"></div><div class="notice">監視できるのは、このアプリ内の操作とブラウザタブへ戻ったタイミングだけだ。PC上の他アプリの中身は見ない。</div><div class="gap"></div><div class="notice"><b>DATA</b><br>クラウド同期中も記録は先にこのブラウザへ保存される。ブラウザデータ削除や端末移行に備え、JSONバックアップも引き続き利用できる。</div><div class="gap"></div><div class="card dangerZone"><div class="sectionTitle">RESET</div><button class="btn danger" id="resetAllBtn">全データを初期化</button></div><div class="modalActions"><button class="btn primary" data-close>閉じる</button></div></div></div>
+<div class="modal" id="settingsModal"><div class="modalCard"><h3>設定</h3><div class="card cloudPanel" id="cloudPanel"><div class="sectionTitle">CLOUD SYNC</div><div id="cloudPanelBody"><div class="notice">クラウド同期を準備している。</div></div></div><div class="gap"></div><label class="check"><input type="checkbox" id="idleCheck"> 5分以上の無操作後、戻った時に確認する</label><div class="gap"></div><label class="check"><input type="checkbox" id="juliusCheck"> ジュリアスの一言を表示する</label><div class="gap"></div><label class="check"><input type="checkbox" id="soundCheck"> タイマー終了SEを鳴らす</label><div class="gap"></div><div class="field"><label>終了SEの音量</label><select id="alarmVolume"><option value="normal">標準</option><option value="loud">大（推奨）</option><option value="max">かなり大きい</option></select></div><div class="gap"></div><button class="btn small" id="testSoundBtn">終了SEを試す</button><div class="gap"></div><div class="card"><div class="sectionTitle">LIGHT UI SOUND</div><label class="check"><input type="checkbox" id="uiSoundCheck"> 軽いUI SEを鳴らす</label><div class="gap"></div><div class="field"><label>UI SE音量</label><select id="uiSoundVolume"><option value="quiet">QUIET（推奨）</option><option value="normal">NORMAL</option></select></div><div class="gap"></div><div class="notice">小さな一歩、WORK完了、EXERCISE新規記録だけで鳴る。設定はこの端末だけに保存し、クラウド同期とJSONには含めない。</div></div><div class="gap"></div><div class="notice">監視できるのは、このアプリ内の操作とブラウザタブへ戻ったタイミングだけだ。PC上の他アプリの中身は見ない。</div><div class="gap"></div><div class="notice"><b>DATA</b><br>クラウド同期中も記録は先にこのブラウザへ保存される。ブラウザデータ削除や端末移行に備え、JSONバックアップも引き続き利用できる。</div><div class="gap"></div><div class="card dangerZone"><div class="sectionTitle">RESET</div><button class="btn danger" id="resetAllBtn">全データを初期化</button></div><div class="modalActions"><button class="btn primary" data-close>閉じる</button></div></div></div>
 
 <div class="modal" id="workLogModal"><div class="modalCard"><h3>作業ログを編集</h3><input type="hidden" id="workLogId"><div id="workLogLabel" class="notice"></div><div class="gap"></div><div class="modalSplit"><div class="field"><label>日時</label><input type="datetime-local" id="workLogDate"></div><div class="field"><label>作業時間（分）</label><input type="number" min="1" step="1" id="workLogMinutes"></div></div><div class="gap"></div><div class="field"><label>メモ</label><textarea id="workLogNote"></textarea></div><div class="modalActions"><button class="btn danger" id="deleteWorkLogBtn">この記録を削除</button><button class="btn" data-close>キャンセル</button><button class="btn primary" id="saveWorkLogBtn">更新する</button></div></div></div>
 <div class="modal" id="exerciseLogModal"><div class="modalCard"><h3>運動ログを編集</h3><input type="hidden" id="exerciseLogId"><div class="modalSplit"><div class="field"><label>運動名</label><input id="exerciseLogName"></div><div class="field"><label>日時</label><input type="datetime-local" id="exerciseLogDate"></div></div><div class="gap"></div><div class="field"><label>時間（分・0なら未記録）</label><input type="number" min="0" step="1" id="exerciseLogMinutes"></div><div class="gap"></div><div class="field"><label>ひとこと</label><textarea id="exerciseLogNote"></textarea></div><div class="modalActions"><button class="btn danger" id="deleteExerciseLogBtn">この記録を削除</button><button class="btn" data-close>キャンセル</button><button class="btn primary" id="saveExerciseLogBtn">更新する</button></div></div></div>
@@ -275,8 +275,8 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 
 <div class="toast" id="toast"></div>
 <script>
-const APP_VERSION='1.3.0';
-const KEY='julius_workroom_v1',OLD_KEY_V09='julius_workroom_v09',OLD_KEY_V8='julius_workroom_v08',OLD_KEY_V7='julius_workroom_v07',OLD_KEY_V6='julius_workroom_v06',OLD_KEY_V5='julius_workroom_v05',OLD_KEY_V4='julius_workroom_v04',OLD_KEY_V3='julius_workroom_v03',OLD_KEY_V2='julius_workroom_v02',OLD_KEY_V1='julius_workroom_v01';
+const APP_VERSION='1.3.1';
+const KEY='julius_workroom_v1',DEVICE_UI_KEY='julius_workroom_device_ui_v1',OLD_KEY_V09='julius_workroom_v09',OLD_KEY_V8='julius_workroom_v08',OLD_KEY_V7='julius_workroom_v07',OLD_KEY_V6='julius_workroom_v06',OLD_KEY_V5='julius_workroom_v05',OLD_KEY_V4='julius_workroom_v04',OLD_KEY_V3='julius_workroom_v03',OLD_KEY_V2='julius_workroom_v02',OLD_KEY_V1='julius_workroom_v01';
 const juliusPortraits={normal:'assets/julius/normal.png',soft:'assets/julius/soft.png',think:'assets/julius/think.png',stern:'assets/julius/stern.png'};
 const defaultCategories=[
  {id:'c1',name:'ジクジュリ小説作り',projects:[{id:'p1',name:'現在の小説・パロディ',temp:'hot',load:1,current:'',next:'',lastWorkedAt:null,completedAt:null}]},
@@ -313,7 +313,9 @@ function load(){
  try{let old=JSON.parse(localStorage.getItem(OLD_KEY_V1));if(old?.version===1){let m=migrateV1(old);localStorage.setItem(KEY,JSON.stringify(m));return m}}catch(e){}
  return fresh()
 }
-let data=load(),tick=null,lastActivity=Date.now(),idlePrompted=false,pendingFinish=null,audioCtx=null,timerEndPlayed=false,alarmScheduled=false,scheduledAlarmNodes=[],scheduledAlarmAt=null,calendarCursor=new Date(),calendarSelected=dateKey(new Date()),exerciseCalendarCursor=new Date(),exerciseCalendarSelected=dateKey(new Date()),calendarMode='work',exerciseRecentExpanded=false,selectedExercise='';
+function loadDeviceUiSettings(){try{let x=JSON.parse(localStorage.getItem(DEVICE_UI_KEY)||'null');return {uiSound:x?.uiSound??true,uiSoundVolume:x?.uiSoundVolume==='normal'?'normal':'quiet'}}catch(e){return {uiSound:true,uiSoundVolume:'quiet'}}}
+function storeDeviceUiSettings(){try{localStorage.setItem(DEVICE_UI_KEY,JSON.stringify(deviceUiSettings))}catch(e){console.warn('Device UI settings could not be stored',e)}}
+let data=load(),deviceUiSettings=loadDeviceUiSettings(),tick=null,lastActivity=Date.now(),idlePrompted=false,pendingFinish=null,audioCtx=null,timerEndPlayed=false,alarmScheduled=false,scheduledAlarmNodes=[],scheduledAlarmAt=null,calendarCursor=new Date(),calendarSelected=dateKey(new Date()),exerciseCalendarCursor=new Date(),exerciseCalendarSelected=dateKey(new Date()),calendarMode='work',exerciseRecentExpanded=false,selectedExercise='';
 function save(options={}){if(!options.cloudApply)data.updatedAt=Date.now();localStorage.setItem(KEY,JSON.stringify(data));if(!options.cloudApply&&typeof window.cloudSyncLocalChanged==='function')window.cloudSyncLocalChanged()}function uid(prefix='x'){return prefix+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function fmtMin(m){m=Math.round(m||0);if(m<60)return m+'分';return Math.floor(m/60)+'時間'+(m%60?(' '+m%60+'分'):'')}function dateKey(d=new Date()){return[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}function startOfWeek(){let d=new Date(),day=d.getDay()||7;d.setHours(0,0,0,0);d.setDate(d.getDate()-day+1);return d.getTime()}function startOfMonth(){let d=new Date();return new Date(d.getFullYear(),d.getMonth(),1).getTime()}
 function categoryBy(id){return data.categories.find(c=>c.id===id)}function projectBy(id){for(const c of data.categories){let p=c.projects.find(p=>p.id===id);if(p)return {category:c,project:p}}return null}function allProjects(){return data.categories.flatMap(c=>c.projects.map(p=>({category:c,project:p})))}
 function fromFor(period){if(period==='today'){let d=new Date();d.setHours(0,0,0,0);return d.getTime()}if(period==='week')return startOfWeek();if(period==='month')return startOfMonth();return 0}function logsFor(period){let from=fromFor(period);return data.logs.filter(l=>l.ts>=from)}function minutesFor(period,categoryId=null,projectId=null){return logsFor(period).filter(l=>(!categoryId||l.categoryId===categoryId)&&(!projectId||l.projectId===projectId)).reduce((a,l)=>a+l.minutes,0)}
@@ -450,9 +452,169 @@ Object.assign(lines,{
   {t:'今週もいくつか手を動かした日がある。数字は評価ではなく、君が動いた跡だ。',m:'normal'},
   {t:'今週の記録が見えているな。多い少ないより、何に時間を使ったか眺めればいい。',m:'think'}]
 });
+const dialogueRefreshV131={
+ return:[
+  {t:'ああ、君か。……何か用だろうか。いや、ここへ来たなら作業の話か。',m:'normal'},
+  {t:'来たな。私はここにいる。君は先に、今日触りたいものを見てくれ。',m:'soft'},
+  {t:'さて……一覧を見る限り、やることだけは随分あるな。どれから手を付けるつもりだ。',m:'think'},
+  {t:'君の作業場なのだから、好きに使えばいい。私まで毎回構える必要はない。',m:'normal'},
+  {t:'……またプロジェクトが増えていないだろうな。いや、先に確認しておこうと思っただけだ。',m:'stern'},
+  {t:'何か始める顔にも見えるし、ただ眺めに来た顔にも見える。……どちらだ。',m:'think'},
+  {t:'君が何を選ぶかは任せる。選べないなら、その時は私の仕事だ。',m:'normal'},
+  {t:'ああ、戻ったか。……………。以上だが、他に何か。……いや、まだ何も始まっていなかったな。',m:'soft'}],
+ start:[
+  {t:'選んだな。承知した。ではその件は君に任せる。',m:'normal'},
+  {t:'対象を確認した。……行ってこい。戻った時に続きを聞こう。',m:'stern'},
+  {t:'始めるのか。なら私は時間を預かる。君はそちらへ集中してくれ。',m:'soft'},
+  {t:'その作業か。ふむ……悪くない選択だ。',m:'think'},
+  {t:'開始を確認した。ここから先は私が口を挟むところではないな。',m:'normal'},
+  {t:'では任務開始だ。……と言うほど大仰なものでもないか。好きに進めろ。',m:'soft'},
+  {t:'君。始めた直後に別のプロジェクトを開くのは禁止だ。……一応言っておく。',m:'stern'},
+  {t:'行ってこい。途中で方針が変わっても構わない。報告は最後に聞く。',m:'normal'}],
+ startAgain:[
+  {t:'また出るのか。……今日は君をここでよく見るな。',m:'soft'},
+  {t:'もう一件か。了解した。なら前の作業とは頭を切り替えろ。',m:'stern'},
+  {t:'随分機嫌よく作業へ戻っていくな。何か面白くなってきたらしい。',m:'think'},
+  {t:'君が自分から戻ってきたなら、私は止めない。……ただし時間は見る。',m:'soft'},
+  {t:'二度目だな。今日は私の仕事も増える。まあ、構わない。',m:'normal'}],
+ complete:[
+  {t:'終わったのか。……見せてくれ。いや、記録の話だ。',m:'soft'},
+  {t:'ふむ。そこまで進んだか。次に戻る場所も分かる。悪くない。',m:'think'},
+  {t:'報告を確認した。君が考えていたところまでは届いたらしいな。',m:'normal'},
+  {t:'一件片付いた。……こうして減ると、一覧まで少し気持ちがいい。',m:'soft'},
+  {t:'そこを直したのか。前に気にしていた箇所だっただろう。覚えている。',m:'normal'},
+  {t:'終えたなら、一度画面から離れて自分の成果を見てみろ。作業中とは見え方が違う。',m:'think'},
+  {t:'……満足そうだな。なら今回は成功ということにしておこう。',m:'soft'},
+  {t:'記録は私が預かる。君は作ったものの方を見ていろ。',m:'soft'}],
+ completeLong:[
+  {t:'随分長く潜っていたな。……時間の感覚を失っていなかったか。',m:'stern'},
+  {t:'ここまで続くとは思わなかった。相当乗っていたらしい。',m:'think'},
+  {t:'長丁場だったな。今すぐ次を考える必要はない。まず完成したところを眺めろ。',m:'soft'},
+  {t:'君が集中している間、こちらの時計だけがよく進んだ。……お疲れ。',m:'soft'},
+  {t:'一時間以上か。なるほど。それなら私が何度呼んでも聞こえなかっただろうな。',m:'think'}],
+ micro:[
+  {t:'起動したのか。……では、少なくとも作業場所までは辿り着いたな。',m:'normal'},
+  {t:'道具を出しただけか。承知した。机の景色が昨日とは違う。それでいい。',m:'soft'},
+  {t:'準備まで済ませたのか。なら次回の君が少し楽になる。',m:'normal'},
+  {t:'……机を片付けた？　それは作業以上に難しい時があるな。記録しておく。',m:'think'},
+  {t:'Blenderを起動したな。……起動時間を眺めて閉じただけでも、私は見なかったことにはしない。',m:'stern'},
+  {t:'裁縫道具を出したのか。針を踏まない場所に置け。それだけは守れ。',m:'stern'},
+  {t:'MMDを開いたなら、とりあえずモデルの顔でも見て帰るか。',m:'soft'},
+  {t:'準備完了。続きをやるかどうかは、今の君に任せる。',m:'normal'},
+  {t:'そこまで出来たなら、今日は入口だけ開けたことにしよう。',m:'soft'}],
+ recommend:[
+  {t:'選んだ。理由は……まあ、私なりにある。気に入らなければ却下してくれ。',m:'think'},
+  {t:'今日はこれだ。君が候補を眺め続ける時間を、私が少し減らした。',m:'normal'},
+  {t:'私なら先にこちらを片付ける。君はどうする。',m:'think'},
+  {t:'これを出しておく。……顔を見る限り、あまり乗り気ではなさそうだな。',m:'soft'},
+  {t:'候補はこれだ。採用するかは君の権限だ。',m:'normal'},
+  {t:'ふむ、このプロジェクトが随分こちらを見ている。今日は相手をしてやったらどうだ。',m:'soft'},
+  {t:'これを推す。……異議があるなら聞こう。',m:'stern'}],
+ fiveMin:[
+  {t:'五分か。了解した。……短い任務だな。',m:'normal'},
+  {t:'私が五分だけ借りる。終わったら君へ返そう。',m:'soft'},
+  {t:'では五分。成果は報告不要でも構わない。時間が来たら一度戻れ。',m:'normal'},
+  {t:'五分なら、迷っている時間の方が長くなりそうだな。開始する。',m:'think'},
+  {t:'短いからこそ、一つだけ決めろ。あれもこれも触るな。',m:'stern'}],
+ timerEnd:[
+  {t:'君、時間だ。…………聞こえているか。',m:'stern'},
+  {t:'終了時刻になった。思ったより静かだったな。集中していたらしい。',m:'soft'},
+  {t:'戻れ。時計の方が先に君を見つけた。',m:'normal'},
+  {t:'時間だ。続けるなら続けてもいいが、私には一度顔を見せろ。',m:'soft'},
+  {t:'区切りの時刻だ。……さて、どこまで行った。',m:'normal'},
+  {t:'終了。報告を聞こう。大したことがなくても構わない。',m:'think'}],
+ exerciseReturn:[
+  {t:'今日は身体の方か。了解した。では報告を聞こう。',m:'normal'},
+  {t:'運動記録だな。……君が自分からここを開いたなら感心する。',m:'soft'},
+  {t:'作業机から離れたのか。それはそれで良い判断だ。',m:'normal'},
+  {t:'今日は何をした。走ったか、殴ったか、リングを押し潰したか。',m:'think'},
+  {t:'身体を動かしたなら、その内容を残そう。後から見ると案外面白い。',m:'soft'},
+  {t:'ここは私が細かく口を出す場所ではない。君がやったものを教えてくれ。',m:'normal'}],
+ exerciseRecord:[
+  {t:'記録した。……少し顔色が良くなったように見える。',m:'soft'},
+  {t:'終わったのか。では汗が引く前に水を飲め。',m:'stern'},
+  {t:'運動まで済ませたなら、今日は随分まともな生活をしているな。',m:'think'},
+  {t:'ふむ。その種目か。君、最近それをよく選んでいないか。',m:'think'},
+  {t:'報告は受け取った。身体の方にも一件、記録が増えた。',m:'normal'},
+  {t:'今日の君はそこを動かしたのだな。明日痛くても私に文句を言うな。',m:'soft'},
+  {t:'終わったなら座れ。……いや、ストレッチならまだ座るな。',m:'think'}],
+ exerciseBoth:[
+  {t:'両方か。…………君、本当に今日はどうした。',m:'think'},
+  {t:'作業記録と運動記録が並んでいる。妙に整った一日だな。',m:'normal'},
+  {t:'今日は頭も身体も使ったらしい。そういう日もあるのだな。',m:'soft'},
+  {t:'二つとも済んでいる。……私が催促する前にやるとは珍しい。',m:'think'},
+  {t:'なるほど。今日は私の出番が少なかったわけだ。',m:'soft'}],
+ returnBoth:[
+  {t:'両方か。…………君、本当に今日はどうした。',m:'think'},
+  {t:'作業記録と運動記録が並んでいる。妙に整った一日だな。',m:'normal'},
+  {t:'今日は頭も身体も使ったらしい。そういう日もあるのだな。',m:'soft'},
+  {t:'二つとも済んでいる。……私が催促する前にやるとは珍しい。',m:'think'},
+  {t:'なるほど。今日は私の出番が少なかったわけだ。',m:'soft'}],
+ inboxAdd:[
+  {t:'預かった。……また思いついたのか。君の頭は随分忙しいな。',m:'think'},
+  {t:'そこへ置いておこう。今扱う案件ではない。',m:'normal'},
+  {t:'了解した。忘れて構わない。こちらには残っている。',m:'soft'},
+  {t:'また一件増えたな。……片付ける日については、今は聞かないでおこう。',m:'think'},
+  {t:'分類不能か。なら一度ここで預かる。',m:'normal'}],
+ archive:[
+  {t:'……終わったのか。そうか。長くここにあったから、少し妙な感じがするな。',m:'soft'},
+  {t:'完了扱いにする。…………おめでとう。これは言っておくべきだろう。',m:'soft'},
+  {t:'これでもう「次にやること」を考えなくていいのだな。……よく終わらせた。',m:'soft'},
+  {t:'一つ、棚へ移そう。消すわけではない。君が作ったものだからな。',m:'normal'},
+  {t:'随分長くこの名前を見ていた。完成すると、少し寂しいものだな。',m:'soft'},
+  {t:'君に紹介しよう――と言いたいところだが、作った本人に紹介しても仕方ないか。',m:'think'},
+  {t:'これはもう作業ではなく成果物だ。扱いを変えておこう。',m:'normal'}],
+ logEdit:[
+  {t:'訂正を反映した。これで記録と実際が合ったな。',m:'normal'},
+  {t:'了解した。記憶より記録を直す方が簡単で助かる。',m:'think'},
+  {t:'修正完了。……こういう細かいところまで気になるのは君らしい。',m:'soft'},
+  {t:'日時を直したか。承知した。帳簿はこちらで合わせておく。',m:'normal'}],
+ returnLate:[
+  {t:'……まだいたのか。こんな時間に君と話すことになるとは思わなかった。',m:'soft'},
+  {t:'夜中の作業場は妙に静かだな。……嫌いではないが。',m:'soft'},
+  {t:'君。私は眠らないから構わないが、君はそうではないだろう。',m:'stern'},
+  {t:'こんな時間に新しいプロジェクトを始めようとしていないだろうな。',m:'stern'},
+  {t:'…………。ああ、君か。時計を見てから何か言おうと思ったが……まあいい。何をする。',m:'normal'}],
+ returnMorning:[
+  {t:'早いな。まだ今日の記録が何もない。……当然か。',m:'think'},
+  {t:'朝から君を見るとは思わなかった。今日は少し珍しい日になりそうだ。',m:'soft'},
+  {t:'おはよう――……いや、何でもない。作業か。',m:'soft'},
+  {t:'まだ一日は長い。急いで使い切る必要はない。',m:'normal'}],
+ returnEvening:[
+  {t:'戻ったか。一日分の用事は済んだのか。',m:'normal'},
+  {t:'夜だな。今から何か作る時間は、案外好きだ。',m:'soft'},
+  {t:'今日の最後に少しだけ触るつもりか。それとも本番はこれからか。',m:'think'},
+  {t:'君の作業時間は夜に偏っている気がするが……気のせいだろうか。',m:'think'}],
+ returnGap:[
+  {t:'……久しいな。息災にしていたか。',m:'soft'},
+  {t:'しばらく静かだったから、作業場まで眠っているようだった。',m:'soft'},
+  {t:'戻ったのだな。……それなら話は早い。どこから再開する。',m:'normal'},
+  {t:'以前どこまで進めていたか、こちらには残っている。必要なら確認しよう。',m:'normal'},
+  {t:'久しぶりだからといって特別扱いはしない。いつも通りでいい。',m:'stern'}],
+ summaryGood:[
+  {t:'こうして並べると、今日は色々していたのだな。本人は気付いていたか。',m:'think'},
+  {t:'作業も身体も記録がある。……見栄えの良い一日だ。',m:'soft'},
+  {t:'一日の終わりにこうして結果だけ見るのも悪くない。',m:'normal'}],
+ summaryWork:[
+  {t:'今日はこれを作っていた日だったのだな。後から見れば、案外はっきり残るものだ。',m:'think'},
+  {t:'作業の記録だけで充分に君らしい一日だ。',m:'soft'},
+  {t:'今日はここへ時間を使った。それだけ分かれば記録としては役目を果たしている。',m:'normal'}],
+ summaryExercise:[
+  {t:'今日は作業机ではなく身体の方だったか。そういう日も必要だ。',m:'normal'},
+  {t:'運動の記録が残っている。明日の筋肉痛までは記録しなくていい。',m:'think'},
+  {t:'身体を使った日として残しておこう。',m:'soft'}],
+ summaryEmpty:[
+  {t:'……空白だな。こういう日も後から見ると、それはそれで一日の形だ。',m:'think'},
+  {t:'何も書かれていない。つまり今日は記録するほどの用事が無かったということだろう。',m:'normal'},
+  {t:'白紙か。…………。以上だが、他に何か。',m:'soft'}]
+};
+for(const [kind,added] of Object.entries(dialogueRefreshV131))lines[kind]=[...(lines[kind]||[]),...added];
 function lastWorkTimestampBeforeToday(){let start=fromFor('today');let a=data.logs.filter(l=>!l.micro&&l.ts<start).map(l=>l.ts);return a.length?Math.max(...a):null}
 function resolvedJuliusKind(kind){if(kind==='return'){let h=new Date().getHours(),work=workLogs('today').length,ex=exerciseTodayCount(),mins=minutesFor('today'),now=new Date(),monthDays=monthActivityCount(now.getFullYear(),now.getMonth());if(h>=0&&h<5)return'returnLate';if(work&&ex)return'returnBoth';if(mins>=60)return'returnLong';if(work>=2)return'returnAgain';if(!work&&ex)return'returnExerciseOnly';let last=lastWorkTimestampBeforeToday();if(last&&(Date.now()-last)>=7*86400000)return'returnGap';if(monthDays>=10)return'returnMonthActive';if(h>=5&&h<11)return'returnMorning';if(h>=20)return'returnEvening'}if(kind==='start'&&workLogs('today').length>=1)return'startAgain';if(kind==='complete'&&minutesFor('today')>=60)return'completeLong';if(kind==='exerciseRecord'&&workLogs('today').length>0)return'exerciseBoth';return kind}
-function julius(kind='return'){if(!data.settings.juliusCheck)return;kind=resolvedJuliusKind(kind);let a=lines[kind]||lines.return;let pick=a[Math.floor(Math.random()*a.length)];let msg=typeof pick==='string'?pick:pick.t;let mood=typeof pick==='string'?'normal':(pick.m||'normal');document.getElementById('juliusText').textContent=msg;setJuliusPortrait(mood)}
+const juliusRecentByKind=new Map();
+function juliusLineKey(line){return typeof line==='string'?line:line.t}
+function pickJuliusLine(kind,pool){let a=pool?.length?pool:lines.return,limit=a.length<=4?1:Math.min(3,a.length-1),recent=(juliusRecentByKind.get(kind)||[]).slice(-limit),candidates=a.filter(line=>!recent.includes(juliusLineKey(line)));while(!candidates.length&&recent.length){recent.shift();candidates=a.filter(line=>!recent.includes(juliusLineKey(line)))}if(!candidates.length)candidates=a;let pick=candidates[Math.floor(Math.random()*candidates.length)],key=juliusLineKey(pick);juliusRecentByKind.set(kind,[...recent,key].slice(-limit));return pick}
+function julius(kind='return'){if(!data.settings.juliusCheck)return;kind=resolvedJuliusKind(kind);let a=lines[kind]||lines.return,pick=pickJuliusLine(kind,a),msg=juliusLineKey(pick),mood=typeof pick==='string'?'normal':(pick.m||'normal');document.getElementById('juliusText').textContent=msg;setJuliusPortrait(mood)}
 function toast(t){let x=document.getElementById('toast');x.textContent=t;x.classList.add('show');clearTimeout(x._t);x._t=setTimeout(()=>x.classList.remove('show'),1600)}
 function microCount(period='today'){return logsFor(period).filter(l=>l.micro).length}
 function workLogs(period='today'){return logsFor(period).filter(l=>!l.micro)}
@@ -477,7 +639,7 @@ function exerciseMonthLogs(y,m){return data.exerciseLogs.filter(l=>{let d=new Da
 function exerciseMonthDays(y,m){return new Set(exerciseMonthLogs(y,m).map(l=>dateKey(new Date(l.ts)))).size}
 function exerciseMonthMinutes(y,m){return exerciseMonthLogs(y,m).reduce((a,l)=>a+(Number(l.minutes)||0),0)}
 function exerciseTodayCount(){return exerciseDayLogs(dateKey(new Date())).length}
-function recordExercise(){let name=document.getElementById('exerciseName').value.trim()||selectedExercise;if(!name)return toast('運動を一つ選ぶか、名前を入力してくれ');let minutes=Number(document.getElementById('exerciseMinutes').value)||0,note=document.getElementById('exerciseNote').value.trim();data.exerciseLogs.push({id:'e'+Date.now()+Math.random().toString(36).slice(2,5),ts:Date.now(),name,minutes,note});save();document.getElementById('exerciseNote').value='';document.getElementById('exerciseMinutes').value='0';selectedExercise='';document.getElementById('exerciseName').value='';document.querySelectorAll('[data-exercise]').forEach(b=>b.classList.remove('selected'));renderAll();let cnt=exerciseTodayCount();julius(cnt>=2?'exerciseMulti':'exerciseRecord');toast('運動を追加した。続けて別の運動も記録できる')}
+function recordExercise(){let name=document.getElementById('exerciseName').value.trim()||selectedExercise;if(!name)return toast('運動を一つ選ぶか、名前を入力してくれ');let minutes=Number(document.getElementById('exerciseMinutes').value)||0,note=document.getElementById('exerciseNote').value.trim();data.exerciseLogs.push({id:'e'+Date.now()+Math.random().toString(36).slice(2,5),ts:Date.now(),name,minutes,note});save();document.getElementById('exerciseNote').value='';document.getElementById('exerciseMinutes').value='0';selectedExercise='';document.getElementById('exerciseName').value='';document.querySelectorAll('[data-exercise]').forEach(b=>b.classList.remove('selected'));renderAll();playUiSound('exercise');let cnt=exerciseTodayCount();julius(cnt>=2?'exerciseMulti':'exerciseRecord');toast('運動を追加した。続けて別の運動も記録できる')}
 function renderExerciseTodayList(){let el=document.getElementById('exerciseTodayList');if(!el)return;let logs=exerciseDayLogs(dateKey(new Date())).sort((a,b)=>a.ts-b.ts);el.innerHTML=logs.length?logs.map(l=>`<div class="exerciseTodayItem"><div><strong>${esc(l.name)}</strong>${l.minutes?` <span>・ ${fmtMin(l.minutes)}</span>`:''}${l.note?`<div class="exerciseNote">${esc(l.note)}</div>`:''}</div><button class="btn small" onclick="editExerciseLog('${l.id}')">編集</button></div>`).join(''):'<div class="empty">今日はまだ運動記録なし。何か一つ追加するとここに残る。</div>'}
 function renderHomeExercise(){let now=new Date(),y=now.getFullYear(),m=now.getMonth(),days=new Date(y,m+1,0).getDate(),today=dateKey(now),count=exerciseTodayCount();document.getElementById('homeBodyStatus').textContent=count?`✓ 今日は運動した${count>=2?'（'+count+'件）':''}`:'今日はまだ運動記録なし';document.getElementById('homeBodyMeta').textContent=`今月 ${exerciseMonthDays(y,m)}日運動 ・ 記録時間 ${fmtMin(exerciseMonthMinutes(y,m))}`;let bits=[];for(let d=1;d<=days;d++){let key=dateKey(new Date(y,m,d)),n=exerciseDayLogs(key).length,lv=exerciseDayIntensity(key),future=key>today;bits.push(`<div class="trackDay ${future?'future':''} ${key===today?'today':''} ${lv?'exerciseLv'+lv:''}" title="${d}日${n?' / 運動 '+n+'件':''}">${d}</div>`)}document.getElementById('homeExerciseTracker').innerHTML=bits.join('')}
 function renderExerciseCalendar(){let y=exerciseCalendarCursor.getFullYear(),m=exerciseCalendarCursor.getMonth(),days=new Date(y,m+1,0).getDate(),first=new Date(y,m,1).getDay(),grid=[];document.getElementById('exerciseCalendarTitle').textContent=`${y}年 ${m+1}月`;document.getElementById('exerciseCalendarStats').textContent=`この月は ${exerciseMonthDays(y,m)}日運動 ・ ${fmtMin(exerciseMonthMinutes(y,m))}記録。背景の赤が濃いほど運動時間が長い。`;for(let i=0;i<first;i++)grid.push('<div class="calendarDay blank"></div>');for(let d=1;d<=days;d++){let key=dateKey(new Date(y,m,d)),lv=exerciseDayIntensity(key),today=key===dateKey(new Date()),sel=key===exerciseCalendarSelected;grid.push(`<div class="calendarDay ${lv?'exerciseLv'+lv:''} ${today?'today':''} ${sel?'selected':''}" data-excaldate="${key}"><div class="dayNum">${d}</div></div>`)}document.getElementById('exerciseCalendarGrid').innerHTML=grid.join('');document.querySelectorAll('[data-excaldate]').forEach(el=>el.onclick=()=>{exerciseCalendarSelected=el.dataset.excaldate;renderExerciseCalendar()});renderExerciseCalendarDetail(exerciseCalendarSelected)}
@@ -489,7 +651,9 @@ function syncSegs(){document.querySelectorAll('[data-energy]').forEach(b=>b.clas
 function categoryPrompt(name){let pool=categoryPromptPool[name]||['まず作業環境を開いて、五分だけ触る'];return pool[Math.floor(Math.random()*pool.length)]}
 function buildTaskText(category,project,mode='mixed'){let hasMemo=!!(project.next||project.current);if(mode==='prompt')return {task:categoryPrompt(category.name),source:'ざっくりお題'};if(hasMemo && Math.random()<0.68)return {task:project.next||project.current,source:project.next?'プロジェクトの「次にやること」':'プロジェクトの現在メモ'};return {task:categoryPrompt(category.name),source:'ざっくりお題'}}
 window.chooseRecommendation=chooseRecommendation;
-function playPraise(){if(!data.settings.sound)return;try{ensureAudio();tone(740,0,.09,.035,'sine');tone(988,.1,.12,.04,'triangle')}catch(e){}}
+function uiSoundLevel(){return deviceUiSettings.uiSoundVolume==='normal'?1:.42}
+function playUiSound(kind){if(!deviceUiSettings.uiSound)return;try{let m=uiSoundLevel();if(kind==='micro'){tone(185,0,.055,.035*m,'sine');tone(128,.012,.075,.018*m,'triangle')}else if(kind==='workComplete'){tone(784,0,.11,.026*m,'sine');tone(1175,.035,.13,.018*m,'triangle')}else if(kind==='exercise'){tone(660,0,.095,.028*m,'triangle');tone(990,.055,.12,.016*m,'sine')}}catch(e){}}
+function playPraise(){playUiSound('micro')}
 window.editCategory=function(id){let c=id?categoryBy(id):null;document.getElementById('categoryModalTitle').textContent=c?'大カテゴリを編集':'大カテゴリを追加';document.getElementById('categoryId').value=c?.id||'';document.getElementById('categoryName').value=c?.name||'';document.getElementById('deleteCategoryBtn').style.display=c?'inline-block':'none';openModal('categoryModal')}
 window.editProject=function(id,categoryId=null){let found=id?projectBy(id):null,p=found?.project,c=found?.category||categoryBy(categoryId)||data.categories[0];if(!c)return toast('先に大カテゴリを作ってくれ');document.getElementById('projectModalTitle').textContent=p?'プロジェクトを編集':'プロジェクトを追加';document.getElementById('projectId').value=p?.id||'';document.getElementById('projectCategory').innerHTML=data.categories.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('');document.getElementById('projectCategory').value=c.id;document.getElementById('projectName').value=p?.name||'';document.getElementById('projectTemp').value=p?.temp||'active';document.getElementById('projectCurrent').value=p?.current||'';document.getElementById('projectNext').value=p?.next||'';document.getElementById('projectLoad').value=p?.load||2;document.getElementById('deleteProjectBtn').style.display=p?'inline-block':'none';openModal('projectModal')}
 function saveCategory(){let id=document.getElementById('categoryId').value,name=document.getElementById('categoryName').value.trim();if(!name)return toast('カテゴリ名を入れてくれ');let c=id?categoryBy(id):null;if(!c){c={id:uid('c'),name,projects:[]};data.categories.push(c)}else c.name=name;save();closeModal('categoryModal');renderAll();toast('保存した')}
@@ -507,7 +671,7 @@ function renderTimer(){let el=document.getElementById('timerDisplay'),rem=timerR
 function startTimer(){let projectId=document.getElementById('timerProject').value,dur=Number(document.getElementById('timerDuration').value),found=projectBy(projectId);if(!found)return toast('プロジェクトを選んでくれ');ensureAudio();let rem=data.timer&&data.timer.projectId===projectId?timerRemaining():dur*60;if(!data.timer||data.timer.projectId!==projectId){data.timer={projectId,categoryId:found.category.id,duration:dur*60,remaining:dur*60,running:false,startedAt:Date.now()}}data.timer.running=true;data.timer.endAt=Date.now()+rem*1000;data.timer.remaining=rem;idlePrompted=false;timerEndPlayed=false;lastActivity=Date.now();markActivity('started');alarmScheduled=scheduleTimerAlarm(rem);if(!tick)tick=setInterval(renderTimer,500);renderTimer();julius('start');toast('作業開始')}
 function pauseTimer(){if(!data.timer?.running)return;data.timer.remaining=timerRemaining();data.timer.running=false;delete data.timer.endAt;cancelScheduledAlarm();save();renderTimer();if(tick){clearInterval(tick);tick=null}toast('一時停止した')}function elapsedMinutes(){if(!data.timer)return 0;return Math.max(1,Math.round((data.timer.duration-timerRemaining())/60))}
 function openFinish(auto=false){if(!data.timer)return;pendingFinish={minutes:auto?Math.max(1,Math.round(data.timer.duration/60)):elapsedMinutes(),projectId:data.timer.projectId};let f=projectBy(pendingFinish.projectId);document.getElementById('finishSummary').textContent=`${f?.category.name||''} / ${f?.project.name||''} / ${fmtMin(pendingFinish.minutes)} を記録する。`;document.getElementById('finishNote').value='';document.getElementById('finishNext').value=f?.project.next||'';openModal('finishModal')}
-function completeTimer(){if(!data.timer)return toast('タイマーを開始してくれ');pauseTimer();openFinish(false)}function saveFinish(){if(!pendingFinish)return;let f=projectBy(pendingFinish.projectId);if(!f)return toast('プロジェクトが見つからない');let note=document.getElementById('finishNote').value.trim(),next=document.getElementById('finishNext').value.trim();data.logs.push({id:'l'+Date.now(),ts:Date.now(),categoryId:f.category.id,projectId:f.project.id,categoryName:f.category.name,projectName:f.project.name,minutes:pendingFinish.minutes,note});f.project.current=note||f.project.current;f.project.next=next;f.project.lastWorkedAt=Date.now();markActivity('completed');data.timer=null;pendingFinish=null;save();closeModal('finishModal');renderAll();julius('complete');toast('記録した')}function cancelTimer(){if(!data.timer)return;cancelScheduledAlarm();data.timer=null;save();if(tick){clearInterval(tick);tick=null}resetTimerDisplay(Number(document.getElementById('timerDuration').value));toast('取り消した。失点はない。')}
+function completeTimer(){if(!data.timer)return toast('タイマーを開始してくれ');pauseTimer();openFinish(false)}function saveFinish(){if(!pendingFinish)return;let f=projectBy(pendingFinish.projectId);if(!f)return toast('プロジェクトが見つからない');let note=document.getElementById('finishNote').value.trim(),next=document.getElementById('finishNext').value.trim();data.logs.push({id:'l'+Date.now(),ts:Date.now(),categoryId:f.category.id,projectId:f.project.id,categoryName:f.category.name,projectName:f.project.name,minutes:pendingFinish.minutes,note});f.project.current=note||f.project.current;f.project.next=next;f.project.lastWorkedAt=Date.now();markActivity('completed');data.timer=null;pendingFinish=null;save();closeModal('finishModal');renderAll();playUiSound('workComplete');julius('complete');toast('記録した')}function cancelTimer(){if(!data.timer)return;cancelScheduledAlarm();data.timer=null;save();if(tick){clearInterval(tick);tick=null}resetTimerDisplay(Number(document.getElementById('timerDuration').value));toast('取り消した。失点はない。')}
 function openModal(id){document.getElementById(id).classList.add('show')}function closeModal(id){document.getElementById(id).classList.remove('show')}function backup(){
  const payload={...data,version:10,app:'JULIUS WORKROOM',appVersion:APP_VERSION,exportedAt:new Date().toISOString()};
  let blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),a=document.createElement('a');
@@ -522,7 +686,7 @@ function importJson(file){let r=new FileReader();r.onload=()=>{try{
  else throw new Error('unsupported version');
  data=normalizeV10(x);save();renderAll();toast('バックアップを読み込んだ。旧版データも引き継ぎ済み')
 }catch(e){alert('このJSONは読み込めなかった。対応するWORKROOMバックアップか確認してくれ。')}};r.readAsText(file)}
-function exportSettings(){document.getElementById('idleCheck').checked=data.settings.idleCheck;document.getElementById('juliusCheck').checked=data.settings.juliusCheck;document.getElementById('soundCheck').checked=data.settings.sound;document.getElementById('alarmVolume').value=data.settings.alarmVolume||'loud';openModal('settingsModal')}function saveSettings(){data.settings.idleCheck=document.getElementById('idleCheck').checked;data.settings.juliusCheck=document.getElementById('juliusCheck').checked;data.settings.sound=document.getElementById('soundCheck').checked;data.settings.alarmVolume=document.getElementById('alarmVolume').value||'loud';if(data.timer?.running){if(data.settings.sound)alarmScheduled=scheduleTimerAlarm(timerRemaining());else cancelScheduledAlarm()}save()}
+function exportSettings(){document.getElementById('idleCheck').checked=data.settings.idleCheck;document.getElementById('juliusCheck').checked=data.settings.juliusCheck;document.getElementById('soundCheck').checked=data.settings.sound;document.getElementById('alarmVolume').value=data.settings.alarmVolume||'loud';document.getElementById('uiSoundCheck').checked=deviceUiSettings.uiSound;document.getElementById('uiSoundVolume').value=deviceUiSettings.uiSoundVolume;openModal('settingsModal')}function saveSettings(){data.settings.idleCheck=document.getElementById('idleCheck').checked;data.settings.juliusCheck=document.getElementById('juliusCheck').checked;data.settings.sound=document.getElementById('soundCheck').checked;data.settings.alarmVolume=document.getElementById('alarmVolume').value||'loud';if(data.timer?.running){if(data.settings.sound)alarmScheduled=scheduleTimerAlarm(timerRemaining());else cancelScheduledAlarm()}save()}function saveDeviceUiSettingsFromForm(){deviceUiSettings={uiSound:document.getElementById('uiSoundCheck').checked,uiSoundVolume:document.getElementById('uiSoundVolume').value==='normal'?'normal':'quiet'};storeDeviceUiSettings()}
 
 /* EXTENDED DATA MANAGEMENT */
 function activeProjects(){return allProjects().filter(x=>!x.project.completedAt)}
@@ -581,7 +745,7 @@ function startFiveMinutes(){if(data.timer?.running)return toast('今のタイマ
 function dayRange(key){let s=new Date(key+'T00:00:00');return [s.getTime(),s.getTime()+86400000]}
 function dayWorkLogs(key){let [a,b]=dayRange(key);return data.logs.filter(l=>l.ts>=a&&l.ts<b)}
 function dayExerciseLogs(key){let [a,b]=dayRange(key);return data.exerciseLogs.filter(l=>l.ts>=a&&l.ts<b)}
-function summaryJuliusText(work,ex,micro,started=false){let kind=(work.length||micro.length||started)&&ex.length?'summaryGood':work.length||micro.length||started?'summaryWork':ex.length?'summaryExercise':'summaryEmpty';let arr=lines[kind];return arr[Math.floor(Math.random()*arr.length)].t}
+function summaryJuliusText(work,ex,micro,started=false){let kind=(work.length||micro.length||started)&&ex.length?'summaryGood':work.length||micro.length||started?'summaryWork':ex.length?'summaryExercise':'summaryEmpty';return juliusLineKey(pickJuliusLine(kind,lines[kind]))}
 function renderDailySummary(key=null){let input=document.getElementById('summaryDate');key=key||input.value||dateKey();input.value=key;let logs=dayWorkLogs(key),work=logs.filter(l=>!l.micro),micro=logs.filter(l=>l.micro),ex=dayExerciseLogs(key),mins=work.reduce((a,l)=>a+(Number(l.minutes)||0),0),exmins=ex.reduce((a,l)=>a+(Number(l.minutes)||0),0),d=new Date(key+'T12:00:00');let title=d.toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'short'});let workNames=[...new Set(work.map(l=>l.categoryName||'作業'))],exNames=ex.map(l=>l.name),started=activityStatus(key)==='started';document.getElementById('dailySummary').innerHTML=`<div class="summaryTitle">${title}</div><div class="summaryLine"><b>WORK</b>　${work.length?`${fmtMin(mins)} / ${work.length}セッション${workNames.length?' / '+esc(workNames.join('・')):''}`:started?'着手あり / 完了ログなし':'記録なし'}</div><div class="summaryLine"><b>小さな一歩</b>　${micro.length?micro.length+'件':'なし'}</div><div class="summaryLine"><b>EXERCISE</b>　${ex.length?`${ex.length}件${exmins?' / '+fmtMin(exmins):''} / ${esc(exNames.join('・'))}`:'記録なし'}</div><div class="summaryJulius"><b>JULIUS</b><br>${esc(summaryJuliusText(work,ex,micro,started))}</div>`}
 function weekStartFor(ts=Date.now()){let d=new Date(ts);let day=d.getDay()||7;d.setHours(0,0,0,0);d.setDate(d.getDate()-day+1);return d.getTime()}
 function logsBetween(arr,a,b){return arr.filter(l=>l.ts>=a&&l.ts<b)}
@@ -593,7 +757,7 @@ function renderStats(){let periods=[['today','今日'],['week','今週'],['month
 function renderHistory(){let a=[...data.logs].sort((x,y)=>y.ts-x.ts);document.getElementById('historyList').innerHTML=a.length?a.map(l=>`<div class="hist"><div class="histTop"><div><div class="crumb">${esc(l.categoryName||categoryBy(l.categoryId)?.name||'未分類')}</div><div class="histTitle">${esc(l.projectName||projectBy(l.projectId)?.project.name||(l.micro?'小さな一歩':'削除済み'))}</div></div><div class="histMeta">${new Date(l.ts).toLocaleString('ja-JP')} ・ ${l.micro?'準備':fmtMin(l.minutes)}</div></div>${l.note?`<div class="histNote">${esc(l.note)}</div>`:''}<div class="logActions">${l.micro?`<button class="btn small danger" onclick="deleteMicroLog('${l.id}')">削除</button>`:`<button class="btn small" onclick="editWorkLog('${l.id}')">編集</button>`}</div></div>`).join(''):'<div class="empty">作業履歴はまだない。</div>';renderDailySummary(document.getElementById('summaryDate')?.value||dateKey())}
 
 function isStandaloneApp(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true}
-function updatePwaStatus(){let status=document.getElementById('pwaStatus'),hint=document.getElementById('pwaHintText');if(!status||!hint)return;if(isStandaloneApp()){status.textContent='ホーム画面アプリとして起動中';hint.textContent='同じGoogleアカウントでログインし、安全な初回選択を済ませるとPCと同期できる。オフライン中の変更も先にこの端末へ保存される。'}else if(location.protocol==='file:'){status.textContent='PCローカル版として起動中';hint.textContent='file:// ではGoogleログインとPWA機能は使えない。同期確認はGitHub PagesなどHTTPS上のv1.3.0を開いて行う。'}else{status.textContent='Web版として起動中';hint.textContent='iPhoneの共有メニューから「ホーム画面に追加」できる。Googleログインは必ず同期ボタンを自分で押して開始する。'}}
+function updatePwaStatus(){let status=document.getElementById('pwaStatus'),hint=document.getElementById('pwaHintText');if(!status||!hint)return;if(isStandaloneApp()){status.textContent='ホーム画面アプリとして起動中';hint.textContent='同じGoogleアカウントでログインし、安全な初回選択を済ませるとPCと同期できる。オフライン中の変更も先にこの端末へ保存される。'}else if(location.protocol==='file:'){status.textContent='PCローカル版として起動中';hint.textContent='file:// ではGoogleログインとPWA機能は使えない。同期確認はGitHub PagesなどHTTPS上のv1.3.1を開いて行う。'}else{status.textContent='Web版として起動中';hint.textContent='iPhoneの共有メニューから「ホーム画面に追加」できる。Googleログインは必ず同期ボタンを自分で押して開始する。'}}
 function registerServiceWorker(){if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(e=>console.warn('Service Worker registration failed',e)))}}
 function init(){
  document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>setView(b.dataset.view));
@@ -620,7 +784,7 @@ function init(){
  document.getElementById('addCategoryBtn').onclick=()=>editCategory(null);document.getElementById('saveCategoryBtn').onclick=saveCategory;document.getElementById('deleteCategoryBtn').onclick=deleteCategory;document.getElementById('saveProjectBtn').onclick=saveProject;document.getElementById('deleteProjectBtn').onclick=deleteProject;
  document.getElementById('timerStart').onclick=startTimer;document.getElementById('timerPause').onclick=pauseTimer;document.getElementById('timerComplete').onclick=completeTimer;document.getElementById('timerCancel').onclick=cancelTimer;document.getElementById('timerDuration').onchange=e=>setTimerMinutes(Number(e.target.value));document.querySelectorAll('[data-timer-shortcut]').forEach(b=>b.onclick=()=>setTimerMinutes(Number(b.dataset.timerShortcut)));document.getElementById('saveFinishBtn').onclick=saveFinish;
  document.getElementById('backupBtn').onclick=backup;document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();document.getElementById('importFile').onchange=e=>e.target.files[0]&&importJson(e.target.files[0]);
- document.getElementById('settingsBtn').onclick=exportSettings;document.getElementById('idleCheck').onchange=saveSettings;document.getElementById('juliusCheck').onchange=()=>{saveSettings();renderAll()};document.getElementById('soundCheck').onchange=saveSettings;document.getElementById('alarmVolume').onchange=saveSettings;document.getElementById('testSoundBtn').onclick=()=>{ensureAudio();playTimerEnd()};
+ document.getElementById('settingsBtn').onclick=exportSettings;document.getElementById('idleCheck').onchange=saveSettings;document.getElementById('juliusCheck').onchange=()=>{saveSettings();renderAll()};document.getElementById('soundCheck').onchange=saveSettings;document.getElementById('alarmVolume').onchange=saveSettings;document.getElementById('testSoundBtn').onclick=()=>{ensureAudio();playTimerEnd()};document.getElementById('uiSoundCheck').onchange=saveDeviceUiSettingsFromForm;document.getElementById('uiSoundVolume').onchange=saveDeviceUiSettingsFromForm;
  document.getElementById('resetAllBtn').onclick=()=>{if(confirm('作業・運動記録・カテゴリ・プロジェクト設定をすべて初期化する。よいか？')){data=fresh();save();closeModal('settingsModal');renderAll();julius('return')}};
  document.getElementById('clearHistoryBtn').onclick=()=>{if(confirm('作業履歴だけを空にする。カテゴリとプロジェクトは残る。よいか？')){data.logs=[];rebuildActivity();save();renderAll()}};
  document.getElementById('idleWorkingBtn').onclick=()=>{closeModal('idleModal');lastActivity=Date.now();toast('了解した。続けよう。')};document.getElementById('idleFinishBtn').onclick=()=>{closeModal('idleModal');pauseTimer();openFinish(false)};document.getElementById('idleSwitchBtn').onclick=()=>{closeModal('idleModal');pauseTimer();setView('home')};

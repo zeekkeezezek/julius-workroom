@@ -1,8 +1,17 @@
-# JULIUS WORKROOM v1.3.0 — UI/UX UPDATE
+# JULIUS WORKROOM v1.3.1 — LIGHT UI SOUND + JULIUS DIALOGUE REFRESH
 
-v1.2.1 Cloud Sync版の保存形式と同期処理を維持したまま、PC／スマホの画面構成を整理した更新版です。
+v1.3.0のUIとv1.2.1互換のCloud Syncを維持したまま、Juliusの台詞バリエーションと記録成立時の軽いUI SEを追加した小規模更新版です。
 
-## v1.3.0の画面構成
+## v1.3.1の変更
+
+- 指定されたJulius台詞を既存台詞へ追加。既存台詞は削除・置換していません
+- 同じカテゴリで直近3件（候補が少ない場合は直近1件）を避ける、セッション内だけの重複防止を追加
+- 小さな一歩、WORK完了保存、EXERCISE新規記録へ、それぞれ短い合成UI SEを追加
+- 設定へ「軽いUI SE ON/OFF」「UI SE音量 QUIET/NORMAL」を追加
+- UI SE設定は端末専用 `julius_workroom_device_ui_v1` に保存し、Cloud SyncとJSONには含めません
+- UI SE初期値はON／QUIETです
+
+## 画面構成
 
 - PC: `HOME / WORK / EXERCISE / CALENDAR / LOG`
 - スマホ: `HOME / WORK / EXERCISE / CAL / MORE`
@@ -24,6 +33,7 @@ v1.2.1 Cloud Sync版の保存形式と同期処理を維持したまま、PC／�
 - クラウドより先にlocalStorageへ保存
 - 初回ログイン、端末競合、ローカル／クラウド双方に変更がある場合は自動上書きせず選択画面を表示
 - 同期テスト用 `syncTests` はWORK／EXERCISE集計に入りません
+- UI SE設定と台詞の直近履歴はメインデータへ追加せず、schema version 10を維持
 
 念のため、更新前と初回同期テスト前に現在のJSONを書き出して保管してください。
 
@@ -46,17 +56,21 @@ Firebase側は次の状態を前提にしています。
 
 1. HOME、WORK、CALENDAR、EXERCISE、LOGをPC幅とスマホ幅で開く
 2. WORKで既存プロジェクトを選び、タイマー対象と時間を変更できることを確認
-3. CALENDARでWORK／EXERCISEを切り替え、日付詳細を確認
-4. EXERCISEでテスト記録を追加し、編集できることを確認
-5. JSONを書き出し、同じJSONを読み込めることを確認
-6. ブラウザを再読み込みしてlocalStorageの記録が残ることを確認
-7. 設定の同期テストを使い、PC → iPhone → PCを確認
+3. CALENDARで、PCはWORK／EXERCISEの2段表示、スマホは切り替え表示と日付詳細を確認
+4. 「小さな一歩」を1件追加し、短い低音UI SEが一度だけ鳴ることを確認
+5. WORKでタイマーを開始して「ここまでで完了」から保存し、短い高音UI SEが一度だけ鳴ることを確認
+6. EXERCISEで新規テスト記録を追加し、短い高音UI SEが一度だけ鳴ることを確認。既存記録の編集では鳴らないことも確認
+7. 設定で軽いUI SEをOFFにし、上記3操作が無音になることを確認。確認後はON／QUIETへ戻す
+8. 通常のタブ移動、選択、タイマー開始／一時停止、INBOX、編集、削除、同期ではUI SEが鳴らないことを確認
+9. JSONを書き出し、同じJSONを読み込めることを確認。JSON内に `uiSound` / `uiSoundVolume` が含まれないことを確認
+10. ブラウザを再読み込みしてlocalStorageの記録と、この端末のUI SE設定が残ることを確認
+11. MOREの「同期状態」にある同期テストを使い、PC → iPhone → PCを確認
 
 `file://` で直接開いた場合、GoogleログインとPWA機能は使えません。
 
 ## PC → iPhone → PC 同期テスト
 
-1. PCでv1.3.0を開き、表示と既存データを確認してJSONを保存
+1. PCでv1.3.1を開き、表示と既存データを確認してJSONを保存
 2. 「同期状態」から固定UIDのGoogleアカウントでログイン
 3. 初回比較が出た場合は内容を確認し、残す側を自分で選ぶ
 4. 端末名を `PC` にして「同期テストを追加」し、「同期済み」を待つ
@@ -69,15 +83,15 @@ Firebase側は次の状態を前提にしています。
 
 ## GitHub Pages更新手順
 
-1. 現在のJSONバックアップと、公開中v1.2.1一式のコピーを保管
+1. 現在のJSONバックアップと、公開中v1.3.0一式のコピーを保管
 2. このフォルダの中身を、GitHub Pages公開元のリポジトリ直下へ同じ構成で上書き
 3. GitHub Desktopで変更一覧を確認し、コミットしてPush
 4. GitHubの `Settings → Pages` で従来と同じブランチ／フォルダが公開元になっていることを確認
-5. Pagesの更新完了後、PCで公開URLを開き `v1.3.0 CLOUD SYNC` 表記を確認
+5. Pagesの更新完了後、PCで公開URLを開き `v1.3.1 CLOUD SYNC` 表記を確認
 6. iPhone PWAを完全終了して再起動。旧版ならSafariで公開URLを一度再読み込みしてからPWAを開く
 7. 上記のPC → iPhone → PC同期テストを実施
 
-Service Workerキャッシュ名は `julius-workroom-v1-3-0-ui-update` です。更新時に旧App Shellキャッシュだけを削除し、localStorageの作業記録や同期メタデータは削除しません。
+Service Workerキャッシュ名は `julius-workroom-v1-3-1-dialogue-sound` です。更新時に旧App Shellキャッシュだけを削除し、localStorageの作業記録、同期メタデータ、端末専用UI SE設定は削除しません。
 
 ## 問題が起きた場合
 

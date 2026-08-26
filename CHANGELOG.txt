@@ -1,3 +1,14 @@
+JULIUS WORKROOM v1.3.1
+======================
+
+- 既存Julius台詞を維持したまま、指定された新規台詞を状況別カテゴリへ追加
+- 同一カテゴリの直近3件（候補が少ないカテゴリは直近1件）をセッション内で除外
+- 小さな一歩、WORK完了保存、EXERCISE新規記録へ短い合成UI SEを追加
+- 軽いUI SEのON/OFFとQUIET/NORMAL音量を設定へ追加
+- UI SE設定を端末専用 `julius_workroom_device_ui_v1` へ保存し、Cloud SyncとJSONから分離
+- 既存タイマー終了SE、localStorageメインキー、schema version 10、JSON、Cloud Sync互換を維持
+- Service Workerキャッシュをv1.3.1へ更新
+
 JULIUS WORKROOM v1.3.0
 ======================
 
