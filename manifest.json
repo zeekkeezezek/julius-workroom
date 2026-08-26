@@ -31,7 +31,7 @@
   "shortcuts": [
     {
       "name": "運動を報告",
-      "short_name": "BODY",
+      "short_name": "EXERCISE",
       "url": "./?view=exercise",
       "icons": [
         {
@@ -44,7 +44,7 @@
     {
       "name": "作業プロジェクト",
       "short_name": "WORK",
-      "url": "./?view=projects",
+      "url": "./?view=work",
       "icons": [
         {
           "src": "assets/icons/icon-192.png",

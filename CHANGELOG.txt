@@ -1,3 +1,22 @@
+JULIUS WORKROOM v1.3.0
+======================
+
+- PC版CALENDARを上段WORK／下段EXERCISEの縦2段表示へ変更し、スマホ版の切り替え表示は維持
+- PCナビゲーションを HOME / WORK / EXERCISE / CALENDAR / LOG の順へ変更
+- UI確認後の調整として「小さな一歩」6項目をPC／スマホとも一行表示へ変更
+- PC版WORKを2列×2段へ再配置（ACTIVE PROJECTS｜WORK TREE / FOCUS TIMER｜TODAY'S BREAKDOWN）
+- WORK内の主要文字サイズとカード余白を拡大し、WEEKLY REVIEWを独立した全幅カードへ移動
+- PCナビゲーションを HOME / WORK / EXERCISE / CALENDAR / LOG の5項目へ整理
+- PROJECTS / TIMER / STATSをWORK画面へ統合
+- WORK画面にACTIVE PROJECTS、WORK TREE、FOCUS TIMER、WEEKLY REVIEW、TODAY'S BREAKDOWNを集約
+- WORK / EXERCISEの月間カレンダーをCALENDAR画面の切り替え表示へ統合
+- スマホWORKではFOCUS TIMERを先頭付近へ配置
+- スマホEXERCISEを3列の運動選択、月間3指標、直近5件中心の高密度表示へ変更
+- PC／スマホのナビゲーションへローカルSVGアイコンを追加
+- 既存localStorageキー、保存スキーマversion 10、JSONバックアップ、Cloud Sync v1.2.1互換を維持
+- 新しいUI操作音は追加せず、既存タイマー終了SEを維持
+- Service Workerキャッシュをv1.3.0へ更新し、ナビアイコンをApp Shellへ追加
+
 JULIUS WORKROOM v1.2.1
 ======================
 
