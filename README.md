@@ -1,15 +1,16 @@
-# JULIUS WORKROOM v1.3.1 — LIGHT UI SOUND + JULIUS DIALOGUE REFRESH
+# JULIUS WORKROOM v1.3.2 — WEEKLY EXERCISE TARGET
 
-v1.3.0のUIとv1.2.1互換のCloud Syncを維持したまま、Juliusの台詞バリエーションと記録成立時の軽いUI SEを追加した小規模更新版です。
+v1.3.1のUI、Julius台詞、軽いUI SEとv1.2.1互換のCloud Syncを維持したまま、月曜始まりの週間運動目標を追加した更新版です。
 
-## v1.3.1の変更
+## v1.3.2の変更
 
-- 指定されたJulius台詞を既存台詞へ追加。既存台詞は削除・置換していません
-- 同じカテゴリで直近3件（候補が少ない場合は直近1件）を避ける、セッション内だけの重複防止を追加
-- 小さな一歩、WORK完了保存、EXERCISE新規記録へ、それぞれ短い合成UI SEを追加
-- 設定へ「軽いUI SE ON/OFF」「UI SE音量 QUIET/NORMAL」を追加
-- UI SE設定は端末専用 `julius_workroom_device_ui_v1` に保存し、Cloud SyncとJSONには含めません
-- UI SE初期値はON／QUIETです
+- EXERCISE上部へ「今週の運動」カードを追加。月曜00:00から日曜23:59までの `exerciseLogs.minutes` を集計
+- 既定目標は120分。設定で30～600分へ変更でき、`data.settings.weeklyExerciseTarget` としてPC／iPhone、Cloud Sync、JSONで共有
+- 未達、進行中、目標間近、達成を落ち着いた色と進捗バーで表示し、残り分数と週の残り日数も表示
+- CALENDARのEXERCISE側へ小型のTHIS WEEKサマリーを追加
+- EXERCISEを開いた時の状況別Julius台詞を23件追加。記録によって初めて目標へ到達した時だけ達成台詞を優先
+- HOMEには週間未達警告を追加していません
+- 設定値を変更してすぐ設定画面を閉じた場合も、週間目標を確実に保存
 
 ## 画面構成
 
@@ -17,7 +18,7 @@ v1.3.0のUIとv1.2.1互換のCloud Syncを維持したまま、Juliusの台詞�
 - スマホ: `HOME / WORK / EXERCISE / CAL / MORE`
 - `WORK`: 旧PROJECTS、TIMER、STATSを一つの画面へ統合。PCではACTIVE PROJECTS／WORK TREE、FOCUS TIMER／TODAY'S BREAKDOWNを2列×2段で表示
 - `CALENDAR`: PCでは上段にWORK、下段にEXERCISEの月間記録を常時表示。スマホでは従来どおり切り替えて確認
-- `EXERCISE`: 運動入力、今月の3指標、最近の記録を省スペース化
+- `EXERCISE`: 週間運動目標、運動入力、今月の3指標、最近の記録を省スペースで表示
 - `HOME`、`LOG`、設定、SE、JSON、PWA、Cloud Syncの機能は継続
 - 「小さな一歩」6項目は、PC／スマホともボタン内で一行表示
 
@@ -33,6 +34,7 @@ v1.3.0のUIとv1.2.1互換のCloud Syncを維持したまま、Juliusの台詞�
 - クラウドより先にlocalStorageへ保存
 - 初回ログイン、端末競合、ローカル／クラウド双方に変更がある場合は自動上書きせず選択画面を表示
 - 同期テスト用 `syncTests` はWORK／EXERCISE集計に入りません
+- 週間目標は既存 `data.settings` の任意項目として追加し、値が無い旧データには120分を補完
 - UI SE設定と台詞の直近履歴はメインデータへ追加せず、schema version 10を維持
 
 念のため、更新前と初回同期テスト前に現在のJSONを書き出して保管してください。
@@ -56,21 +58,23 @@ Firebase側は次の状態を前提にしています。
 
 1. HOME、WORK、CALENDAR、EXERCISE、LOGをPC幅とスマホ幅で開く
 2. WORKで既存プロジェクトを選び、タイマー対象と時間を変更できることを確認
-3. CALENDARで、PCはWORK／EXERCISEの2段表示、スマホは切り替え表示と日付詳細を確認
-4. 「小さな一歩」を1件追加し、短い低音UI SEが一度だけ鳴ることを確認
-5. WORKでタイマーを開始して「ここまでで完了」から保存し、短い高音UI SEが一度だけ鳴ることを確認
-6. EXERCISEで新規テスト記録を追加し、短い高音UI SEが一度だけ鳴ることを確認。既存記録の編集では鳴らないことも確認
-7. 設定で軽いUI SEをOFFにし、上記3操作が無音になることを確認。確認後はON／QUIETへ戻す
-8. 通常のタブ移動、選択、タイマー開始／一時停止、INBOX、編集、削除、同期ではUI SEが鳴らないことを確認
-9. JSONを書き出し、同じJSONを読み込めることを確認。JSON内に `uiSound` / `uiSoundVolume` が含まれないことを確認
-10. ブラウザを再読み込みしてlocalStorageの記録と、この端末のUI SE設定が残ることを確認
-11. MOREの「同期状態」にある同期テストを使い、PC → iPhone → PCを確認
+3. EXERCISEで今週の累計、目標、進捗、残り分数を確認。0分、目標ちょうど、目標超過も確認
+4. 設定で週間目標を150分へ変え、EXERCISEとCALENDARの表示・残り分数が変わることを確認
+5. CALENDARで、PCはWORK／EXERCISEの2段表示、スマホは切り替え表示とEXERCISE側のTHIS WEEKを確認
+6. 「小さな一歩」を1件追加し、短い低音UI SEが一度だけ鳴ることを確認
+7. WORKでタイマーを開始して「ここまでで完了」から保存し、短い高音UI SEが一度だけ鳴ることを確認
+8. EXERCISEで新規テスト記録を追加し、短い高音UI SEが一度だけ鳴ることを確認。既存記録の編集では鳴らないことも確認
+9. 設定で軽いUI SEをOFFにし、上記3操作が無音になることを確認。確認後はON／QUIETへ戻す
+10. 通常のタブ移動、選択、タイマー開始／一時停止、INBOX、編集、削除、同期ではUI SEが鳴らないことを確認
+11. JSONを書き出し、同じJSONを読み込めることを確認。`weeklyExerciseTarget` が含まれ、`uiSound` / `uiSoundVolume` が含まれないことを確認
+12. ブラウザを再読み込みしてlocalStorageの記録、週間目標、この端末のUI SE設定が残ることを確認
+13. MOREの「同期状態」にある同期テストを使い、PC → iPhone → PCを確認
 
 `file://` で直接開いた場合、GoogleログインとPWA機能は使えません。
 
 ## PC → iPhone → PC 同期テスト
 
-1. PCでv1.3.1を開き、表示と既存データを確認してJSONを保存
+1. PCでv1.3.2を開き、表示と既存データを確認してJSONを保存
 2. 「同期状態」から固定UIDのGoogleアカウントでログイン
 3. 初回比較が出た場合は内容を確認し、残す側を自分で選ぶ
 4. 端末名を `PC` にして「同期テストを追加」し、「同期済み」を待つ
@@ -79,19 +83,21 @@ Firebase側は次の状態を前提にしています。
 7. iPhoneで `PC` のテスト記録を確認
 8. 端末名を `iPhone` にして同期テストを追加
 9. PCで `iPhone` の記録が反映されることを確認
-10. 最後に、テスト用の小さな一歩または運動記録を片方で追加し、もう片方へ反映されることを確認
+10. PCで週間目標を一時的に150分へ変更し、iPhoneのEXERCISEとCALENDARにも150分が反映されることを確認
+11. iPhoneから元の目標へ戻し、PCにも反映されることを確認
+12. 最後に、テスト用の小さな一歩または運動記録を片方で追加し、もう片方へ反映されることを確認
 
 ## GitHub Pages更新手順
 
-1. 現在のJSONバックアップと、公開中v1.3.0一式のコピーを保管
+1. 現在のJSONバックアップと、公開中v1.3.1一式のコピーを保管
 2. このフォルダの中身を、GitHub Pages公開元のリポジトリ直下へ同じ構成で上書き
 3. GitHub Desktopで変更一覧を確認し、コミットしてPush
 4. GitHubの `Settings → Pages` で従来と同じブランチ／フォルダが公開元になっていることを確認
-5. Pagesの更新完了後、PCで公開URLを開き `v1.3.1 CLOUD SYNC` 表記を確認
+5. Pagesの更新完了後、PCで公開URLを開き `v1.3.2 CLOUD SYNC` 表記を確認
 6. iPhone PWAを完全終了して再起動。旧版ならSafariで公開URLを一度再読み込みしてからPWAを開く
 7. 上記のPC → iPhone → PC同期テストを実施
 
-Service Workerキャッシュ名は `julius-workroom-v1-3-1-dialogue-sound` です。更新時に旧App Shellキャッシュだけを削除し、localStorageの作業記録、同期メタデータ、端末専用UI SE設定は削除しません。
+Service Workerキャッシュ名は `julius-workroom-v1-3-2-weekly-exercise` です。更新時に旧App Shellキャッシュだけを削除し、localStorageの作業記録、同期メタデータ、端末専用UI SE設定は削除しません。
 
 ## 問題が起きた場合
 

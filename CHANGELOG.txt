@@ -1,3 +1,17 @@
+JULIUS WORKROOM v1.3.2
+======================
+
+- EXERCISEへ月曜始まりの週間運動カードを追加
+- 今週の累計、設定目標、進捗バー、残り分数、達成状態、週の残り日数を表示
+- CALENDARのEXERCISE側へTHIS WEEKサマリーを追加
+- 週間運動目標を設定へ追加（既定120分、30～600分）
+- `data.settings.weeklyExerciseTarget` としてPC／iPhone、Cloud Sync、JSONで共有
+- 値が無い既存schema 10データには120分を補完し、localStorageキーとFirestore構造を維持
+- 週間運動専用Julius台詞を23件追加し、EXERCISEを開いた時と初回達成時に使用
+- HOMEへ週間未達警告を追加せず、v1.3.1の台詞重複防止と軽いUI SEを維持
+- 設定画面を閉じた時にも週間目標を確実に保存
+- Service Workerキャッシュをv1.3.2へ更新
+
 JULIUS WORKROOM v1.3.1
 ======================
 
