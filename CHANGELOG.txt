@@ -1,3 +1,16 @@
+JULIUS WORKROOM v1.3.3
+======================
+
+- EXERCISEの新規入力から「ひとこと（任意）」を削除し、旧メモの表示・編集は維持
+- EXERCISE RECENTカードと専用状態・描画・イベントを削除
+- 「その他」を「ペダル漕ぎ」へ変更し、自由入力欄を維持
+- 新規の完全一致「プランク」を1～999回、既定10回の回数記録へ変更
+- 回数記録へ `measure: "reps"` と `reps` を追加し、分数集計から除外
+- 回数記録を運動日、報告回数、TODAY'S EXERCISE、CALENDARへ反映
+- 旧時間型プランクを自動変換せず、従来の時間編集を維持
+- schema version 10、localStorageキー、JSON、Firebase、Cloud Sync、PWA、既存台詞・SEを維持
+- Service Workerキャッシュをv1.3.3へ更新
+
 JULIUS WORKROOM v1.3.2
 ======================
 

@@ -1,9 +1,11 @@
-JULIUS WORKROOM v1.3.2 — WEEKLY EXERCISE TARGET
+JULIUS WORKROOM v1.3.3 — EXERCISE INPUT CLEANUP
 
 使い方、データ互換性、PC⇔iPhone同期テスト、GitHub Pages更新手順はREADME.mdを確認してください。
 
-この版はv1.3.1のUIと台詞、schema version 10、JSONバックアップ、Firebase Cloud Sync、PWA、既存SEを維持しています。
+この版はv1.3.2の週間運動目標と台詞、schema version 10、JSONバックアップ、Firebase Cloud Sync、PWA、既存SEを維持しています。
 
 軽いUI SEのON/OFFと音量は端末専用キーへ保存され、Cloud SyncとJSONには含まれません。
 
 週間運動目標は既定120分、設定範囲30～600分です。PCとiPhoneで同期され、JSONにも含まれます。
+
+新規のプランクは回数で記録し、週間・月間の分数へ換算しません。旧時間型プランク、旧メモ、未知の追加フィールドはそのまま維持します。

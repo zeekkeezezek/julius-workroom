@@ -1,4 +1,4 @@
-const CACHE_NAME='julius-workroom-v1-3-2-weekly-exercise';
+const CACHE_NAME='julius-workroom-v1-3-3-exercise-input-cleanup';
 const APP_SHELL=[
   './','./index.html','./manifest.json','./firebase-config.js','./cloud-sync.js',
   './assets/julius/normal.png','./assets/julius/soft.png','./assets/julius/stern.png','./assets/julius/think.png',
