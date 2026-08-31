@@ -1,8 +1,17 @@
-# JULIUS WORKROOM v1.3.3 — EXERCISE INPUT CLEANUP
+# JULIUS WORKROOM v1.3.4 — CLOUD DATA SIZE METER
 
-v1.3.2の週間運動目標、Julius台詞、軽いUI SEとv1.2.1互換のCloud Syncを維持したまま、EXERCISEの新規入力を整理した更新版です。
+v1.3.3のEXERCISE入力、週間運動目標、Julius台詞、軽いUI SEとv1.2.1互換のCloud Syncを維持したまま、同期payloadの現在サイズを設定内で確認できる更新版です。
 
-## v1.3.3の変更
+## v1.3.4の変更
+
+- 設定／CLOUD SYNCへ、現在の同期payloadサイズ、900KB安全上限に対する使用率、残量、進捗バーを追加
+- 未ログイン時も、次回クラウド送信対象になるローカルdataの概算サイズを表示
+- サイズ計算と既存の900KB同期停止判定を、同じ `cleanPayload` + `Blob` 計算へ共通化
+- 70%／85%／95%の段階表示を追加し、900KBがFirebase全体の容量ではないことを明記
+- 表示のための保存フィールド、履歴、予測、Firestore write、revision更新は追加しない
+- 保存方式、単一ドキュメント構造、schema version 10、localStorageキー、JSON、Firebase、Cloud Sync、PWAを維持
+
+## v1.3.3までの主な機能
 
 - 新規運動入力の「ひとこと（任意）」を削除。旧ログのメモ表示と編集欄は維持
 - EXERCISE右カラムのRECENTを削除し、WEEKLY EXERCISEとTHIS MONTHだけへ整理。全ログの編集・削除はTODAY'S EXERCISEとCALENDARから継続可能
@@ -75,9 +84,18 @@ Firebase側は次の状態を前提にしています。
 
 `file://` で直接開いた場合、GoogleログインとPWA機能は使えません。
 
+## CLOUD DATA SIZE確認
+
+1. 設定または同期状態からCLOUD SYNCを開く
+2. 現在の同期payloadが `KB / 900 KB`、使用率、残量、進捗バーで表示されることを確認
+3. 未ログイン時もローカルdataのサイズが表示されることを確認
+4. 開いて閉じるだけではCloud Syncのrevisionが増えないことを確認
+5. テスト記録を追加した後に再度開き、サイズが自然に更新されることを確認
+6. 900KBはFirebase全体の容量ではなく、単一同期ドキュメントの安全上限であることを確認
+
 ## PC → iPhone → PC 同期テスト
 
-1. PCでv1.3.3を開き、表示と既存データを確認してJSONを保存
+1. PCでv1.3.4を開き、表示と既存データを確認してJSONを保存
 2. 「同期状態」から固定UIDのGoogleアカウントでログイン
 3. 初回比較が出た場合は内容を確認し、残す側を自分で選ぶ
 4. 端末名を `PC` にして「同期テストを追加」し、「同期済み」を待つ
@@ -92,15 +110,15 @@ Firebase側は次の状態を前提にしています。
 
 ## GitHub Pages更新手順
 
-1. 現在のJSONバックアップと、公開中v1.3.2一式のコピーを保管
+1. 現在のJSONバックアップと、公開中v1.3.3一式のコピーを保管
 2. このフォルダの中身を、GitHub Pages公開元のリポジトリ直下へ同じ構成で上書き
 3. GitHub Desktopで変更一覧を確認し、コミットしてPush
 4. GitHubの `Settings → Pages` で従来と同じブランチ／フォルダが公開元になっていることを確認
-5. Pagesの更新完了後、PCで公開URLを開き `v1.3.3 CLOUD SYNC` 表記を確認
+5. Pagesの更新完了後、PCで公開URLを開き `v1.3.4 CLOUD SYNC` 表記を確認
 6. iPhone PWAを完全終了して再起動。旧版ならSafariで公開URLを一度再読み込みしてからPWAを開く
 7. 上記のPC → iPhone → PC同期テストを実施
 
-Service Workerキャッシュ名は `julius-workroom-v1-3-3-exercise-input-cleanup` です。更新時に旧App Shellキャッシュだけを削除し、localStorageの作業記録、同期メタデータ、端末専用UI SE設定は削除しません。
+Service Workerキャッシュ名は `julius-workroom-v1-3-4-cloud-size-meter` です。更新時に旧App Shellキャッシュだけを削除し、localStorageの作業記録、同期メタデータ、端末専用UI SE設定は削除しません。
 
 ## 問題が起きた場合
 

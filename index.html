@@ -11,7 +11,7 @@
 <link rel="manifest" href="manifest.json" />
 <link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
-<title>今日、何をする。 — JULIUS WORKROOM v1.3.3</title>
+<title>今日、何をする。 — JULIUS WORKROOM v1.3.4</title>
 <style>
 :root{--bg:#0a0d12;--panel:#151c27;--panel2:#1b2431;--line:#2a3545;--text:#eef2f7;--muted:#99a6b6;--gold:#d8bd7b;--green:#91c8a1;--red:#cf8d93;--blue:#87a8d8;--shadow:0 20px 60px rgba(0,0,0,.35)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Yu Gothic UI","Yu Gothic","Meiryo",sans-serif;background:var(--bg);color:var(--text)}
@@ -106,13 +106,14 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 .calendarDay.exerciseLv1:hover{background:#fbedef}.calendarDay.exerciseLv2:hover{background:#f8dce0}.calendarDay.exerciseLv3:hover{background:#f1c7ce}.calendarDay.exerciseLv4:hover{background:#e9adb8}
 
 
-/* v1.3.3 EXERCISE INPUT CLEANUP — v1.3.2 weekly target and v1.2.1 Cloud Sync remain compatible */
+/* v1.3.4 CLOUD DATA SIZE METER — existing schema, storage and Cloud Sync remain compatible */
 #exerciseMinutesField[hidden],#exerciseRepsField[hidden],#exerciseLogMinutesField[hidden],#exerciseLogRepsField[hidden]{display:none!important}
 .syncButton{display:flex;align-items:center;gap:6px;white-space:nowrap}.syncDot{width:8px;height:8px;border-radius:50%;background:#8a929e;box-shadow:0 0 0 3px rgba(138,146,158,.12)}
 .syncButton[data-state="synced"] .syncDot{background:#2c9b62;box-shadow:0 0 0 3px rgba(44,155,98,.12)}.syncButton[data-state="saving"] .syncDot{background:#d79c22}.syncButton[data-state="offline"] .syncDot{background:#68707c}.syncButton[data-state="conflict"] .syncDot,.syncButton[data-state="error"] .syncDot{background:#cf3347}
 .cloudPanel{border-left:4px solid #2468d8}.cloudIdentity{display:flex;align-items:center;gap:10px;margin:9px 0}.cloudAvatar{width:34px;height:34px;border-radius:50%;object-fit:cover;background:#edf1f6}.cloudIdentityText{min-width:0}.cloudIdentityText strong,.cloudIdentityText span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cloudIdentityText span{font-size:10px;color:#68707c;margin-top:2px}
 .syncStatusGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin:10px 0}.syncStatusCell{padding:9px;border:1px solid #dfe3e9;border-radius:10px;background:#fafbfc}.syncStatusCell b{display:block;font-size:9px;letter-spacing:.08em;color:#68707c;margin-bottom:3px}.syncStatusCell span{display:block;font-size:11px;overflow-wrap:anywhere}
 .syncActions{display:flex;gap:7px;flex-wrap:wrap}.syncActions .btn{flex:1 1 150px}.syncTestList{display:grid;gap:6px;margin-top:8px}.syncTestItem{padding:8px 9px;border:1px solid #dfe3e9;border-radius:9px;font-size:10px;background:#fff}.syncChoice{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.syncChoice .card{display:flex;flex-direction:column;gap:7px}.syncChoice .card .btn{margin-top:auto}.syncWarning{padding:10px;border-radius:10px;background:#fff6e4;border:1px solid #efd69c;color:#6b511c;font-size:10px;line-height:1.65}.syncDanger{background:#fff0f2;border-color:#e8a4ad;color:#7b2632}.syncDetail{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9px;line-height:1.6;overflow-wrap:anywhere;color:#59616c}
+.syncSizeMeter{margin:10px 0;padding:11px;border:1px solid #d8e2f1;border-radius:11px;background:#f8fbff}.syncSizeHead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.syncSizeHead strong{display:block;margin-top:3px;font-size:17px;line-height:1.25}.syncSizeHead>b{font-size:17px;color:#2468d8}.syncSizeBar{height:8px;margin-top:9px;border-radius:999px;background:#e4e9f0;overflow:hidden}.syncSizeBar i{display:block;height:100%;border-radius:inherit;background:#2468d8;transition:width .2s ease}.syncSizeRemaining{margin-top:7px;font-size:11px;font-weight:700;color:#2e4f7a}.syncSizeMessage{margin-top:6px;font-size:10px;line-height:1.6;color:#4f5967}.syncSizeNote{margin-top:5px;font-size:9px;line-height:1.55;color:#737b86}.syncSizeMeter.caution{border-color:#ead7ac;background:#fffdf7}.syncSizeMeter.caution .syncSizeHead>b,.syncSizeMeter.caution .syncSizeRemaining{color:#826125}.syncSizeMeter.caution .syncSizeBar i{background:#b28738}.syncSizeMeter.warning{border-color:#e7be94;background:#fffaf4}.syncSizeMeter.warning .syncSizeHead>b,.syncSizeMeter.warning .syncSizeRemaining{color:#98551e}.syncSizeMeter.warning .syncSizeBar i{background:#c56b27}.syncSizeMeter.critical{border-color:#e8a4ad;background:#fff7f8}.syncSizeMeter.critical .syncSizeHead>b,.syncSizeMeter.critical .syncSizeRemaining{color:#a12639}.syncSizeMeter.critical .syncSizeBar i{background:#cf3347}
 @media(max-width:620px){.syncChoice{grid-template-columns:1fr}.syncStatusGrid{grid-template-columns:1fr 1fr}.cloudPanel .syncActions{display:grid;grid-template-columns:1fr}.cloudPanel .syncActions .btn{width:100%}}
 
 /* v1.1 MOBILE / PWA */
@@ -200,7 +201,7 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 </head>
 <body>
 <div class="app">
-<header class="top"><div class="brand"><small>PERSONAL LIFE COMMANDER v1.3.3 CLOUD SYNC</small><strong>今日、何をする。</strong></div><div class="topActions"><button class="btn small syncButton" id="cloudStatusBtn" data-state="local"><span class="syncDot"></span><span id="cloudStatusLabel">ローカル保存</span></button><button class="btn small" id="backupBtn">JSONを書き出す</button><button class="btn small" id="importBtn">JSONを読み込む</button><input type="file" id="importFile" accept="application/json" hidden><button class="btn small" id="settingsBtn">設定</button></div></header>
+<header class="top"><div class="brand"><small>PERSONAL LIFE COMMANDER v1.3.4 CLOUD SYNC</small><strong>今日、何をする。</strong></div><div class="topActions"><button class="btn small syncButton" id="cloudStatusBtn" data-state="local"><span class="syncDot"></span><span id="cloudStatusLabel">ローカル保存</span></button><button class="btn small" id="backupBtn">JSONを書き出す</button><button class="btn small" id="importBtn">JSONを読み込む</button><input type="file" id="importFile" accept="application/json" hidden><button class="btn small" id="settingsBtn">設定</button></div></header>
 <div class="layout">
 <aside class="side">
 <div class="date" id="todayLabel"></div>
@@ -277,7 +278,7 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 
 <div class="toast" id="toast"></div>
 <script>
-const APP_VERSION='1.3.3';
+const APP_VERSION='1.3.4';
 const KEY='julius_workroom_v1',DEVICE_UI_KEY='julius_workroom_device_ui_v1',OLD_KEY_V09='julius_workroom_v09',OLD_KEY_V8='julius_workroom_v08',OLD_KEY_V7='julius_workroom_v07',OLD_KEY_V6='julius_workroom_v06',OLD_KEY_V5='julius_workroom_v05',OLD_KEY_V4='julius_workroom_v04',OLD_KEY_V3='julius_workroom_v03',OLD_KEY_V2='julius_workroom_v02',OLD_KEY_V1='julius_workroom_v01';
 const juliusPortraits={normal:'assets/julius/normal.png',soft:'assets/julius/soft.png',think:'assets/julius/think.png',stern:'assets/julius/stern.png'};
 const defaultCategories=[
@@ -730,6 +731,17 @@ function importJson(file){let r=new FileReader();r.onload=()=>{try{
 }catch(e){alert('このJSONは読み込めなかった。対応するWORKROOMバックアップか確認してくれ。')}};r.readAsText(file)}
 function exportSettings(){document.getElementById('idleCheck').checked=data.settings.idleCheck;document.getElementById('juliusCheck').checked=data.settings.juliusCheck;document.getElementById('soundCheck').checked=data.settings.sound;document.getElementById('alarmVolume').value=data.settings.alarmVolume||'loud';document.getElementById('weeklyExerciseTargetSetting').value=weeklyExerciseTargetMinutes();document.getElementById('uiSoundCheck').checked=deviceUiSettings.uiSound;document.getElementById('uiSoundVolume').value=deviceUiSettings.uiSoundVolume;openModal('settingsModal')}function saveSettings(){data.settings.idleCheck=document.getElementById('idleCheck').checked;data.settings.juliusCheck=document.getElementById('juliusCheck').checked;data.settings.sound=document.getElementById('soundCheck').checked;data.settings.alarmVolume=document.getElementById('alarmVolume').value||'loud';let targetInput=document.getElementById('weeklyExerciseTargetSetting'),target=Math.min(600,Math.max(30,Math.round(Number(targetInput.value)||120)));data.settings.weeklyExerciseTarget=target;targetInput.value=target;if(data.timer?.running){if(data.settings.sound)alarmScheduled=scheduleTimerAlarm(timerRemaining());else cancelScheduledAlarm()}save();renderWeeklyExercise();renderCalendarWeeklyExercise()}function saveDeviceUiSettingsFromForm(){deviceUiSettings={uiSound:document.getElementById('uiSoundCheck').checked,uiSoundVolume:document.getElementById('uiSoundVolume').value==='normal'?'normal':'quiet'};storeDeviceUiSettings()}
 
+saveSettings=function(){
+ const next={idleCheck:document.getElementById('idleCheck').checked,juliusCheck:document.getElementById('juliusCheck').checked,sound:document.getElementById('soundCheck').checked,alarmVolume:document.getElementById('alarmVolume').value||'loud',weeklyExerciseTarget:Math.min(600,Math.max(30,Math.round(Number(document.getElementById('weeklyExerciseTargetSetting').value)||120)))};
+ const changed=next.idleCheck!==data.settings.idleCheck||next.juliusCheck!==data.settings.juliusCheck||next.sound!==data.settings.sound||next.alarmVolume!==data.settings.alarmVolume||next.weeklyExerciseTarget!==weeklyExerciseTargetMinutes();
+ Object.assign(data.settings,next);document.getElementById('weeklyExerciseTargetSetting').value=next.weeklyExerciseTarget;
+ if(!changed)return;
+ if(data.timer?.running){if(data.settings.sound)alarmScheduled=scheduleTimerAlarm(timerRemaining());else cancelScheduledAlarm()}
+ save();renderWeeklyExercise();renderCalendarWeeklyExercise();
+};
+const exportSettingsBase=exportSettings;
+exportSettings=function(){if(typeof window.cloudSyncRefreshPanel==='function')window.cloudSyncRefreshPanel();exportSettingsBase()};
+
 /* EXTENDED DATA MANAGEMENT */
 function activeProjects(){return allProjects().filter(x=>!x.project.completedAt)}
 function rebuildActivity(){let old=data.activity||{},activity={};for(const [k,v] of Object.entries(old)){if(v?.started)activity[k]={started:true,micro:0,completed:0}}let touch=k=>activity[k]||(activity[k]={started:false,micro:0,completed:0});for(const l of data.logs){let a=touch(dateKey(new Date(l.ts)));if(l.micro)a.micro=(a.micro||0)+1;else{a.started=true;a.completed=(a.completed||0)+1}}for(const k of Object.keys(activity)){let a=activity[k];if(!a.started&&!a.micro&&!a.completed)delete activity[k]}data.activity=activity}
@@ -799,7 +811,7 @@ function renderStats(){let periods=[['today','今日'],['week','今週'],['month
 function renderHistory(){let a=[...data.logs].sort((x,y)=>y.ts-x.ts);document.getElementById('historyList').innerHTML=a.length?a.map(l=>`<div class="hist"><div class="histTop"><div><div class="crumb">${esc(l.categoryName||categoryBy(l.categoryId)?.name||'未分類')}</div><div class="histTitle">${esc(l.projectName||projectBy(l.projectId)?.project.name||(l.micro?'小さな一歩':'削除済み'))}</div></div><div class="histMeta">${new Date(l.ts).toLocaleString('ja-JP')} ・ ${l.micro?'準備':fmtMin(l.minutes)}</div></div>${l.note?`<div class="histNote">${esc(l.note)}</div>`:''}<div class="logActions">${l.micro?`<button class="btn small danger" onclick="deleteMicroLog('${l.id}')">削除</button>`:`<button class="btn small" onclick="editWorkLog('${l.id}')">編集</button>`}</div></div>`).join(''):'<div class="empty">作業履歴はまだない。</div>';renderDailySummary(document.getElementById('summaryDate')?.value||dateKey())}
 
 function isStandaloneApp(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true}
-function updatePwaStatus(){let status=document.getElementById('pwaStatus'),hint=document.getElementById('pwaHintText');if(!status||!hint)return;if(isStandaloneApp()){status.textContent='ホーム画面アプリとして起動中';hint.textContent='同じGoogleアカウントでログインし、安全な初回選択を済ませるとPCと同期できる。オフライン中の変更も先にこの端末へ保存される。'}else if(location.protocol==='file:'){status.textContent='PCローカル版として起動中';hint.textContent='file:// ではGoogleログインとPWA機能は使えない。同期確認はGitHub PagesなどHTTPS上のv1.3.3を開いて行う。'}else{status.textContent='Web版として起動中';hint.textContent='iPhoneの共有メニューから「ホーム画面に追加」できる。Googleログインは必ず同期ボタンを自分で押して開始する。'}}
+function updatePwaStatus(){let status=document.getElementById('pwaStatus'),hint=document.getElementById('pwaHintText');if(!status||!hint)return;if(isStandaloneApp()){status.textContent='ホーム画面アプリとして起動中';hint.textContent='同じGoogleアカウントでログインし、安全な初回選択を済ませるとPCと同期できる。オフライン中の変更も先にこの端末へ保存される。'}else if(location.protocol==='file:'){status.textContent='PCローカル版として起動中';hint.textContent='file:// ではGoogleログインとPWA機能は使えない。同期確認はGitHub PagesなどHTTPS上のv1.3.4を開いて行う。'}else{status.textContent='Web版として起動中';hint.textContent='iPhoneの共有メニューから「ホーム画面に追加」できる。Googleログインは必ず同期ボタンを自分で押して開始する。'}}
 function registerServiceWorker(){if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(e=>console.warn('Service Worker registration failed',e)))}}
 function init(){
  document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>setView(b.dataset.view));
@@ -839,5 +851,5 @@ init();
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script src="./firebase-config.js"></script>
-<script src="./cloud-sync.js"></script>
+<script src="./cloud-sync.js?v=1.3.4"></script>
 </body></html>

@@ -6,6 +6,7 @@ const DEVICE_NAME_KEY='julius_workroom_device_name';
 const SAFETY_KEY='julius_workroom_cloud_safety_backup';
 const SYNC_META_PREFIX='julius_workroom_cloud_sync_meta_v1_';
 const SAVE_DELAY=1200;
+const CLOUD_PAYLOAD_SAFE_LIMIT=900*1024;
 const state={
   configured:false,auth:null,db:null,user:null,ref:null,unsubscribe:null,
   active:false,paused:false,dirty:false,saving:false,conflict:null,
@@ -20,6 +21,24 @@ function getOrCreateDeviceId(){
   return id;
 }
 function cleanPayload(value){return JSON.parse(JSON.stringify(value))}
+function getSyncPayloadBytes(payload=data){
+  return new Blob([JSON.stringify(cleanPayload(payload))]).size;
+}
+function formatPayloadKilobytes(bytes){
+  const kb=Math.max(0,Number(bytes)||0)/1024;
+  return kb>=100?`${Math.round(kb)} KB`:`${kb.toFixed(1)} KB`;
+}
+function syncPayloadSizeHtml(){
+  const bytes=getSyncPayloadBytes(data),percent=bytes/CLOUD_PAYLOAD_SAFE_LIMIT*100,roundedPercent=Math.round(percent);
+  const remaining=CLOUD_PAYLOAD_SAFE_LIMIT-bytes;
+  let level='normal',message='現在の同期データ量。900KBはWORK ROOM側の安全上限。';
+  if(percent>=95){level='critical';message='安全上限が近い。現在の1ドキュメント方式では、まもなくクラウド同期を継続できなくなる可能性がある。'}
+  else if(percent>=85){level='warning';message='同期データが安全上限へ近づいている。JSONバックアップを取り、今後の保存方式変更を検討してくれ。'}
+  else if(percent>=70){level='caution';message='記録量が増えてきた。まだ同期可能だが、将来的に保存方式の分割を検討できる。'}
+  const remainingText=remaining>=0?`残り 約${formatPayloadKilobytes(remaining)}`:`安全上限を 約${formatPayloadKilobytes(Math.abs(remaining))} 超過`;
+  const barPercent=Math.min(100,Math.max(0,percent));
+  return `<div class="syncSizeMeter ${level}"><div class="syncSizeHead"><div><div class="sectionTitle">CLOUD DATA SIZE</div><strong>${formatPayloadKilobytes(bytes)} / 900 KB</strong></div><b>${roundedPercent}%</b></div><div class="syncSizeBar" role="progressbar" aria-label="同期データ使用率" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(barPercent)}"><i style="width:${barPercent.toFixed(2)}%"></i></div><div class="syncSizeRemaining">${remainingText}</div><div class="syncSizeMessage">${message}</div><div class="syncSizeNote">900KBはFirebase全体の容量ではなく、WORK ROOMが使用する単一同期ドキュメントの安全上限だ。</div></div>`;
+}
 function canonicalize(value){
   if(Array.isArray(value))return value.map(canonicalize);
   if(value&&typeof value==='object')return Object.keys(value).sort().reduce((out,key)=>{out[key]=canonicalize(value[key]);return out},{});
@@ -81,16 +100,17 @@ function latestTestsHtml(){
 }
 function renderPanel(){
   const body=document.getElementById('cloudPanelBody');if(!body)return;
+  const sizeHtml=syncPayloadSizeHtml();
   if(!state.configured){
     const message=state.setupIssue||'Firebase設定が未入力のため、現在は安全なローカル保存だけで動作している。firebase-config.jsへFirebase Consoleの設定値を入れるとGoogleログインを有効化できる。';
-    body.innerHTML=`<div class="syncWarning">${escapeHtml(message)}</div><div class="syncActions" style="margin-top:9px"><button class="btn" onclick="backup()">JSONバックアップ</button></div>`;return;
+    body.innerHTML=`<div class="syncWarning">${escapeHtml(message)}</div>${sizeHtml}<div class="syncActions" style="margin-top:9px"><button class="btn" onclick="backup()">JSONバックアップ</button></div>`;return;
   }
   if(!state.user){
-    body.innerHTML=`<div class="notice">Googleアカウントでログインすると、同じアカウントのPCとiPhoneで記録を同期できる。初回は必ずローカル／クラウドの比較画面を出し、自動上書きしない。</div><div class="syncStatusGrid"><div class="syncStatusCell"><b>LOCAL</b><span>${escapeHtml(summaryText(data))}</span></div><div class="syncStatusCell"><b>CACHE</b><span>${escapeHtml(state.persistence)}</span></div></div><div class="syncActions"><button class="btn primary" onclick="cloudSyncSignIn()">Googleでログイン</button><button class="btn" onclick="backup()">先にJSON保存</button></div>`;return;
+    body.innerHTML=`<div class="notice">Googleアカウントでログインすると、同じアカウントのPCとiPhoneで記録を同期できる。初回は必ずローカル／クラウドの比較画面を出し、自動上書きしない。</div><div class="syncStatusGrid"><div class="syncStatusCell"><b>LOCAL</b><span>${escapeHtml(summaryText(data))}</span></div><div class="syncStatusCell"><b>CACHE</b><span>${escapeHtml(state.persistence)}</span></div></div>${sizeHtml}<div class="syncActions"><button class="btn primary" onclick="cloudSyncSignIn()">Googleでログイン</button><button class="btn" onclick="backup()">先にJSON保存</button></div>`;return;
   }
   const revision=state.baseRevision||0,remoteTime=state.remote?.updatedAt||state.remote?.updatedAtMs;
   const primaryAction=state.active?`<button class="btn primary" onclick="cloudSyncNow()" ${state.saving?'disabled':''}>今すぐ同期</button>`:`<button class="btn primary" onclick="cloudSyncResume()">同期を再確認</button>`;
-  body.innerHTML=`${userHtml()}<div class="syncStatusGrid"><div class="syncStatusCell"><b>STATUS</b><span>${escapeHtml(state.statusText)}</span></div><div class="syncStatusCell"><b>REVISION</b><span>${revision}</span></div><div class="syncStatusCell"><b>LAST CLOUD</b><span>${escapeHtml(formatTime(remoteTime))}</span></div><div class="syncStatusCell"><b>CACHE</b><span>${escapeHtml(state.persistence)}</span></div></div>${state.error?`<div class="syncWarning syncDanger">${escapeHtml(state.error)}</div><div class="gap"></div>`:''}<div class="syncActions">${primaryAction}<button class="btn" onclick="cloudSyncAddTest()">同期テストを追加</button><button class="btn" onclick="backup()">JSONバックアップ</button><button class="btn" onclick="cloudSyncSignOut()">ログアウト</button></div><div class="gap"></div><div class="field"><label>この端末の名前（テスト表示用）</label><input id="syncDeviceName" value="${escapeHtml(localStorage.getItem(DEVICE_NAME_KEY)||'')}" placeholder="例：PC / iPhone"></div><div class="gap"></div><div class="sectionTitle">RECENT SYNC TESTS</div>${latestTestsHtml()}<div class="gap"></div><div class="syncDetail">UID: ${escapeHtml(state.user.uid)}<br>writer: ${escapeHtml(state.deviceId)}<br>hash: ${escapeHtml(state.lastSyncedHash||'—')}</div>`;
+  body.innerHTML=`${userHtml()}<div class="syncStatusGrid"><div class="syncStatusCell"><b>STATUS</b><span>${escapeHtml(state.statusText)}</span></div><div class="syncStatusCell"><b>REVISION</b><span>${revision}</span></div><div class="syncStatusCell"><b>LAST CLOUD</b><span>${escapeHtml(formatTime(remoteTime))}</span></div><div class="syncStatusCell"><b>CACHE</b><span>${escapeHtml(state.persistence)}</span></div></div>${state.error?`<div class="syncWarning syncDanger">${escapeHtml(state.error)}</div><div class="gap"></div>`:''}${sizeHtml}<div class="syncActions">${primaryAction}<button class="btn" onclick="cloudSyncAddTest()">同期テストを追加</button><button class="btn" onclick="backup()">JSONバックアップ</button><button class="btn" onclick="cloudSyncSignOut()">ログアウト</button></div><div class="gap"></div><div class="field"><label>この端末の名前（テスト表示用）</label><input id="syncDeviceName" value="${escapeHtml(localStorage.getItem(DEVICE_NAME_KEY)||'')}" placeholder="例：PC / iPhone"></div><div class="gap"></div><div class="sectionTitle">RECENT SYNC TESTS</div>${latestTestsHtml()}<div class="gap"></div><div class="syncDetail">UID: ${escapeHtml(state.user.uid)}<br>writer: ${escapeHtml(state.deviceId)}<br>hash: ${escapeHtml(state.lastSyncedHash||'—')}</div>`;
 }
 function installDialogs(){
   if(document.getElementById('cloudMigrationModal'))return;
@@ -167,8 +187,8 @@ async function writeLocal(expectedRevision,backupRemote){
   if(!state.user||!state.ref)return;
   state.saving=true;setStatus('saving','保存中');
   const payload=cleanPayload(data),hash=hashPayload(payload),now=Date.now();
-  const payloadBytes=new Blob([JSON.stringify(payload)]).size;
-  if(payloadBytes>900*1024){state.saving=false;state.dirty=true;setStatus('error','クラウド容量上限に接近','データが約900KBを超えたため、Firestore文書の上限に達する前に同期を停止した。ローカルとJSONには全データが残っている。');return}
+  const payloadBytes=getSyncPayloadBytes(payload);
+  if(payloadBytes>CLOUD_PAYLOAD_SAFE_LIMIT){state.saving=false;state.dirty=true;setStatus('error','クラウド容量上限に接近','データが約900KBを超えたため、Firestore文書の上限に達する前に同期を停止した。ローカルとJSONには全データが残っている。');return}
   try{
     let nextRevision=expectedRevision+1;
     await state.db.runTransaction(async tx=>{
@@ -261,5 +281,6 @@ window.cloudSyncSignIn=signIn;window.cloudSyncSignOut=signOut;window.cloudSyncNo
 window.cloudSyncChooseLocal=chooseLocal;window.cloudSyncChooseCloud=chooseCloud;window.cloudSyncPause=pause;
 window.cloudSyncResolveLocal=resolveLocal;window.cloudSyncResolveCloud=resolveCloud;window.cloudSyncPauseConflict=pauseConflict;
 window.cloudSyncDownloadLocal=downloadLocal;window.cloudSyncDownloadCloud=downloadCloud;window.cloudSyncAddTest=addTest;window.cloudSyncResume=resume;
+window.cloudSyncRefreshPanel=renderPanel;
 init();
 })();

@@ -1,3 +1,14 @@
+JULIUS WORKROOM v1.3.4
+======================
+
+- 設定／CLOUD SYNCへ同期payloadの現在サイズ、900KB安全上限に対する使用率、残量、進捗バーを追加
+- 未ログイン時もローカルdataから次回同期payloadの概算サイズを表示
+- 表示と既存900KB同期停止判定を同じ `cleanPayload` + `Blob` 計算および共通上限定数へ統一
+- 70%／85%／95%の静かな段階表示と、Firebase全体容量ではない旨の注記を追加
+- サイズ履歴、寿命予測、新規保存フィールド、Firestore write、revision更新は追加しない
+- schema version 10、localStorageキー、JSON、Firebase、Cloud Sync、競合防止、PWA、既存台詞・SEを維持
+- Service Workerキャッシュをv1.3.4へ更新
+
 JULIUS WORKROOM v1.3.3
 ======================
 
