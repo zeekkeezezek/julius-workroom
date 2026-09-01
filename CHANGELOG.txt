@@ -1,3 +1,15 @@
+JULIUS WORKROOM v1.3.5
+======================
+
+- LIGHT UI SOUNDのQUIETを旧NORMALの2倍、NORMALを旧NORMALの4.8倍へ調整
+- micro / workComplete / exerciseの音色と保存成功時だけ鳴る発火条件を維持
+- 設定のLIGHT UI SOUNDへ「UI SEを試す」ボタンを追加
+- HOMEのINBOX振り分けを、既存プロジェクトへの追加と既存カテゴリ内の新規プロジェクト作成の2モードへ拡張
+- 新規プロジェクトは通常と同じ形式、active／負荷2／current・next空で作成
+- 進行中プロジェクト0件でも新規作成可能。キャンセル、名前空欄、カテゴリ0件ではINBOXを維持
+- schema version 10、localStorageキー、DEVICE UI設定、JSON、Firebase、Cloud Sync、CLOUD DATA SIZE、競合防止、PWAを維持
+- Service Workerキャッシュをv1.3.5へ更新
+
 JULIUS WORKROOM v1.3.4
 ======================
 

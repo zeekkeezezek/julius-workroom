@@ -1,8 +1,18 @@
-# JULIUS WORKROOM v1.3.4 — CLOUD DATA SIZE METER
+# JULIUS WORKROOM v1.3.5 — UI FEEDBACK & INBOX ROUTING
 
-v1.3.3のEXERCISE入力、週間運動目標、Julius台詞、軽いUI SEとv1.2.1互換のCloud Syncを維持したまま、同期payloadの現在サイズを設定内で確認できる更新版です。
+v1.3.4までの機能とデータ互換性を維持したまま、LIGHT UI SOUNDを認識しやすい音量へ調整し、HOMEのINBOXから既存カテゴリ内へ新規プロジェクトを作れる更新版です。
 
-## v1.3.4の変更
+## v1.3.5の変更
+
+- LIGHT UI SOUNDのQUIETを旧NORMALの2倍、NORMALを旧NORMALの4.8倍へ調整。音色、発火タイミング、3種類のSEは維持
+- 設定のLIGHT UI SOUNDカードへ「UI SEを試す」を追加。現在のON/OFFとQUIET/NORMALをその場で確認可能
+- HOMEの「プロジェクトへ」を「既存プロジェクトへ」「新規プロジェクトにする」の2モードへ拡張
+- 新規モードは既存大カテゴリ、編集可能なINBOX本文を使い、通常プロジェクトと同じ形式で作成
+- 進行中プロジェクトが0件でもモーダルを開き、新規モードを初期表示
+- キャンセル、名前空欄、カテゴリ0件ではINBOXを削除しない
+- schema version 10、localStorageキー、DEVICE UI設定、JSON、Firebase、Cloud Sync、CLOUD DATA SIZE、PWAを維持
+
+## v1.3.4までの主な機能
 
 - 設定／CLOUD SYNCへ、現在の同期payloadサイズ、900KB安全上限に対する使用率、残量、進捗バーを追加
 - 未ログイン時も、次回クラウド送信対象になるローカルdataの概算サイズを表示
@@ -84,6 +94,18 @@ Firebase側は次の状態を前提にしています。
 
 `file://` で直接開いた場合、GoogleログインとPWA機能は使えません。
 
+## v1.3.5機能確認
+
+1. 設定のLIGHT UI SOUNDで「UI SEを試す」を押し、QUIETが控えめに、NORMALが明確に聞こえることを確認
+2. UI SEをOFFにすると試聴ボタンも無音になることを確認
+3. INBOXの「プロジェクトへ」で、既存／新規の2モードを切り替えられることを確認
+4. 既存モードで移動し、元のnextを消さずINBOX本文が追記され、INBOXから消えることを確認
+5. 新規モードで既存大カテゴリを選び、初期入力された名称を必要に応じて直して作成する
+6. 作成後、温度active、負荷2、current／next空の通常プロジェクトとしてWORKへ表示されることを確認
+7. 新規モードをキャンセルした場合と名前空欄の場合、INBOXが残ることを確認
+8. 進行中プロジェクト0件でもモーダルが開き、新規モードを使用できることを確認
+9. PC幅とスマホ幅で、2モード、カテゴリ、名称、確定ボタンが操作できることを確認
+
 ## CLOUD DATA SIZE確認
 
 1. 設定または同期状態からCLOUD SYNCを開く
@@ -95,7 +117,7 @@ Firebase側は次の状態を前提にしています。
 
 ## PC → iPhone → PC 同期テスト
 
-1. PCでv1.3.4を開き、表示と既存データを確認してJSONを保存
+1. PCでv1.3.5を開き、表示と既存データを確認してJSONを保存
 2. 「同期状態」から固定UIDのGoogleアカウントでログイン
 3. 初回比較が出た場合は内容を確認し、残す側を自分で選ぶ
 4. 端末名を `PC` にして「同期テストを追加」し、「同期済み」を待つ
@@ -110,15 +132,15 @@ Firebase側は次の状態を前提にしています。
 
 ## GitHub Pages更新手順
 
-1. 現在のJSONバックアップと、公開中v1.3.3一式のコピーを保管
+1. 現在のJSONバックアップと、公開中v1.3.4一式のコピーを保管
 2. このフォルダの中身を、GitHub Pages公開元のリポジトリ直下へ同じ構成で上書き
 3. GitHub Desktopで変更一覧を確認し、コミットしてPush
 4. GitHubの `Settings → Pages` で従来と同じブランチ／フォルダが公開元になっていることを確認
-5. Pagesの更新完了後、PCで公開URLを開き `v1.3.4 CLOUD SYNC` 表記を確認
+5. Pagesの更新完了後、PCで公開URLを開き `v1.3.5 CLOUD SYNC` 表記を確認
 6. iPhone PWAを完全終了して再起動。旧版ならSafariで公開URLを一度再読み込みしてからPWAを開く
 7. 上記のPC → iPhone → PC同期テストを実施
 
-Service Workerキャッシュ名は `julius-workroom-v1-3-4-cloud-size-meter` です。更新時に旧App Shellキャッシュだけを削除し、localStorageの作業記録、同期メタデータ、端末専用UI SE設定は削除しません。
+Service Workerキャッシュ名は `julius-workroom-v1-3-5-ui-feedback-inbox-routing` です。更新時に旧App Shellキャッシュだけを削除し、localStorageの作業記録、同期メタデータ、端末専用UI SE設定は削除しません。
 
 ## 問題が起きた場合
 

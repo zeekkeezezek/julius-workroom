@@ -1,8 +1,12 @@
-JULIUS WORKROOM v1.3.4 — CLOUD DATA SIZE METER
+JULIUS WORKROOM v1.3.5 — UI FEEDBACK & INBOX ROUTING
 
 使い方、データ互換性、PC⇔iPhone同期テスト、GitHub Pages更新手順はREADME.mdを確認してください。
 
-この版はv1.3.3のEXERCISE入力、週間運動目標と台詞、schema version 10、JSONバックアップ、Firebase Cloud Sync、PWA、既存SEを維持しています。
+この版はv1.3.4までのEXERCISE、週間運動目標、CLOUD DATA SIZE、schema version 10、JSONバックアップ、Firebase Cloud Sync、PWAを維持しています。
+
+LIGHT UI SOUNDは音色と発火タイミングを変えず、QUIETを旧NORMALの2倍、NORMALを旧NORMALの4.8倍へ調整しました。設定から「UI SEを試す」で確認できます。
+
+HOMEのINBOXは、既存プロジェクトの「次にやること」へ移すほか、既存大カテゴリ内へ新規プロジェクトとして追加できます。
 
 設定／CLOUD SYNCで、現在の同期payloadサイズ、900KB安全上限に対する使用率と残量を確認できます。900KBはFirebase全体の容量ではありません。
 
