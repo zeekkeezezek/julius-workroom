@@ -1,6 +1,6 @@
-const CACHE_NAME='julius-workroom-v1-3-5-ui-feedback-inbox-routing';
+const CACHE_NAME='julius-workroom-v1-3-6-exercise-dialogue-expansion';
 const APP_SHELL=[
-  './','./index.html','./manifest.json','./firebase-config.js','./cloud-sync.js?v=1.3.5',
+  './','./index.html','./manifest.json','./firebase-config.js','./cloud-sync.js?v=1.3.6',
   './assets/julius/normal.png','./assets/julius/soft.png','./assets/julius/stern.png','./assets/julius/think.png',
   './assets/icons/icon-180.png','./assets/icons/icon-192.png','./assets/icons/icon-512.png',
   './assets/icons/nav/home.svg','./assets/icons/nav/folder.svg','./assets/icons/nav/calendar.svg',

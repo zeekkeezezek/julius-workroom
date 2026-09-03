@@ -1,10 +1,16 @@
-JULIUS WORKROOM v1.3.5 — UI FEEDBACK & INBOX ROUTING
+JULIUS WORKROOM v1.3.6 — EXERCISE DIALOGUE EXPANSION
 
 使い方、データ互換性、PC⇔iPhone同期テスト、GitHub Pages更新手順はREADME.mdを確認してください。
 
-この版はv1.3.4までのEXERCISE、週間運動目標、CLOUD DATA SIZE、schema version 10、JSONバックアップ、Firebase Cloud Sync、PWAを維持しています。
+この版はv1.3.5までのEXERCISE、週間運動目標、CLOUD DATA SIZE、schema version 10、JSONバックアップ、Firebase Cloud Sync、PWAを維持しています。
 
-LIGHT UI SOUNDは音色と発火タイミングを変えず、QUIETを旧NORMALの2倍、NORMALを旧NORMALの4.8倍へ調整しました。設定から「UI SEを試す」で確認できます。
+新規運動記録の台詞を1件／2件／3件／4件／5件以上に分けました。週間目標の初達成は従来どおり最優先です。
+
+当日3件以上かつ合計60分以上では25%、90分以上では35%の確率で長時間向け補助台詞が出ます。それ以外は件数別の反応になります。回数型プランクは分数に換算しません。
+
+計41種の台詞を追加しました。既存の台詞と直近の重複回避を維持し、新しい保存フィールドは追加していません。
+
+LIGHT UI SOUNDはv1.3.5の音量（QUIET 2.0／NORMAL 4.8）、音色、発火タイミングを維持しています。設定から「UI SEを試す」で確認できます。
 
 HOMEのINBOXは、既存プロジェクトの「次にやること」へ移すほか、既存大カテゴリ内へ新規プロジェクトとして追加できます。
 
