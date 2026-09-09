@@ -1,6 +1,22 @@
-# JULIUS WORKROOM v1.3.6 — EXERCISE DIALOGUE EXPANSION
+# JULIUS WORKROOM v1.4.0 — BODY TRACKER
 
-v1.3.5までの機能とデータ互換性を維持したまま、EXERCISEの新規記録に対するジュリアスの反応を、当日の記録件数に合わせて広げた更新版です。
+v1.3.6までのWORK／EXERCISEとデータを維持したまま、立った回数・水分・主睡眠・歩数を日単位で残せる独立したBODYページを追加した更新版です。
+
+## v1.4.0の変更
+
+- PCは `HOME / WORK / EXERCISE / BODY / CALENDAR / LOG`、スマホは `HOME / WORK / EXERCISE / BODY / MORE`。CALENDARとLOGはスマホのMOREから開ける
+- BODY上部で前日／次の日／今日を切り替え、当日と過去日を編集。未来日は入力不可
+- STANDINGは「立った」で回数だけ、5／10／15／任意分で回数と分数を加算。合計回数・分数を直接修正可能
+- WATERは200／300／500／任意mlを加算し、量と記録回数を直接修正可能。固定目標や未達表示はなし
+- SLEEPは就寝・起床日時から分数を自動計算し、起床日のBODYへ保存。日付またぎ対応、未記録へ戻す操作あり
+- STEPSは一日の総歩数を手入力。再入力は加算せず上書き
+- BODY HISTORYは記録のある直近7日を表示し、日付からその日の編集画面を開ける
+- `bodyDays[YYYY-MM-DD]` の日別集計だけを保存。個別イベント、ID、スコア、目標、連続記録は追加しない
+- schemaを11へ更新。schema 10の全項目を維持して `bodyDays: {}` だけ補完
+- BODYの保存にも既存localStorage、Cloud Sync、LIGHT UI SOUNDを使用。Firestoreの保存先、revision、hash、writerId、競合防止は維持
+- BODY記録用のジュリアス台詞を25種追加。未記録に対する警告は追加しない
+- HOME、CALENDAR、DAILY SUMMARYへBODY数値を追加しない
+- Service Workerキャッシュとアプリ表示をv1.4.0へ更新
 
 ## v1.3.6の変更
 
@@ -46,11 +62,12 @@ v1.3.5までの機能とデータ互換性を維持したまま、EXERCISEの新
 
 ## 画面構成
 
-- PC: `HOME / WORK / EXERCISE / CALENDAR / LOG`
-- スマホ: `HOME / WORK / EXERCISE / CAL / MORE`
+- PC: `HOME / WORK / EXERCISE / BODY / CALENDAR / LOG`
+- スマホ: `HOME / WORK / EXERCISE / BODY / MORE`
 - `WORK`: 旧PROJECTS、TIMER、STATSを一つの画面へ統合。PCではACTIVE PROJECTS／WORK TREE、FOCUS TIMER／TODAY'S BREAKDOWNを2列×2段で表示
 - `CALENDAR`: PCでは上段にWORK、下段にEXERCISEの月間記録を常時表示。スマホでは従来どおり切り替えて確認
 - `EXERCISE`: 週間運動目標、運動入力、TODAY'S EXERCISE、今月の3指標を省スペースで表示
+- `BODY`: 日付ごとのSTANDING／WATER／SLEEP／STEPSと直近7日の履歴を表示
 - `HOME`、`LOG`、設定、SE、JSON、PWA、Cloud Syncの機能は継続
 - 「小さな一歩」6項目は、PC／スマホともボタン内で一行表示
 
@@ -59,15 +76,16 @@ v1.3.5までの機能とデータ互換性を維持したまま、EXERCISEの新
 ## データ互換性
 
 - localStorageキーは従来と同じ `julius_workroom_v1`
-- 保存スキーマは従来と同じ `version: 10`
-- 既存データを削除・初期化する移行処理は追加していません
+- 保存スキーマは `version: 11`
+- schema 10は既存項目をすべて維持し、空の `bodyDays` だけを追加して移行
+- BODYは日付キー＋集計値だけを保持し、操作ごとの配列やIDは保存しない
 - JSON書き出し／読み込みを維持
-- `cloud-sync.js` とFirestore上のデータ形式はv1.2.1互換
+- Firestoreの保存先は従来と同じ単一ドキュメントで、`bodyDays` も既存payloadに含める
 - クラウドより先にlocalStorageへ保存
 - 初回ログイン、端末競合、ローカル／クラウド双方に変更がある場合は自動上書きせず選択画面を表示
 - 同期テスト用 `syncTests` はWORK／EXERCISE集計に入りません
 - 週間目標は既存 `data.settings` の任意項目として追加し、値が無い旧データには120分を補完
-- UI SE設定と台詞の直近履歴はメインデータへ追加せず、schema version 10を維持
+- UI SE設定と台詞の直近履歴はメインデータへ追加しない
 - `measure: "reps"` の運動だけ任意の `reps` を安全に補完。既存の `measure` が無いプランク、未知の追加フィールド、旧メモは変更しない
 
 念のため、更新前と初回同期テスト前に現在のJSONを書き出して保管してください。
@@ -89,7 +107,7 @@ Firebase側は次の状態を前提にしています。
 
 本番へ反映する前に、HTTPSまたはローカルWebサーバー経由で次を確認します。
 
-1. HOME、WORK、CALENDAR、EXERCISE、LOGをPC幅とスマホ幅で開く
+1. HOME、WORK、EXERCISE、BODY、CALENDAR、LOGをPC幅とスマホ幅で開く
 2. WORKで既存プロジェクトを選び、タイマー対象と時間を変更できることを確認
 3. EXERCISEで6つの選択肢が表示され、「ペダル漕ぎ」が時間入力になることを確認
 4. 「プランク」を選ぶと時間欄が回数欄へ切り替わり、既定10回になることを確認。自由入力で完全一致の「プランク」と入力した場合も同じになることを確認
@@ -106,6 +124,24 @@ Firebase側は次の状態を前提にしています。
 15. MOREの「同期状態」にある同期テストを使い、PC → iPhone → PCを確認
 
 `file://` で直接開いた場合、GoogleログインとPWA機能は使えません。
+
+## v1.4.0 BODY確認
+
+架空の記録を本番データへ混ぜないよう、未ログインのローカル確認環境か、削除可能なテストデータで行ってください。
+
+1. v1.3.6のJSONを読み込み、WORK／EXERCISE／PROJECT／INBOX／設定が残り、BODYが空で開くことを確認
+2. 「立った」で1回・0分、5分・10分で回数と分数が加算されることを確認。編集から0へ戻せることも確認
+3. 水分を200、300、500mlと追加し、1 L／3回になることを確認。任意量と編集も確認
+4. 同日内の睡眠と、前日23:50→当日7:10の睡眠を入力し、起床日の記録になることを確認。終了が開始より前なら保存されない
+5. 歩数2100を保存した後に4280を保存し、6380ではなく4280へ更新されることを確認
+6. 今日、昨日、過去日を切り替えて編集し、未来日は入力できないことを確認
+7. BODY HISTORYから日付を開いて修正できることを確認
+8. HOME、CALENDAR、DAILY SUMMARYにBODY数値が追加されていないことを確認
+9. JSONを書き出して読み戻し、`bodyDays` と既存データが残ることを確認
+10. CLOUD DATA SIZEがBODY追加後に自然に増え、900KB安全停止が維持されることを確認
+11. PCでBODYを入力して同期後、iPhoneで反映を確認。iPhoneから変更し、PCへ戻ることも確認
+
+自動検証の詳細は `VERIFICATION_v1.4.0.md` に記載しています。
 
 ## v1.3.6台詞確認
 
@@ -143,7 +179,7 @@ Firebase側は次の状態を前提にしています。
 
 ## PC → iPhone → PC 同期テスト
 
-1. PCでv1.3.6を開き、表示と既存データを確認してJSONを保存
+1. PCでv1.4.0を開き、表示と既存データを確認してJSONを保存
 2. 「同期状態」から固定UIDのGoogleアカウントでログイン
 3. 初回比較が出た場合は内容を確認し、残す側を自分で選ぶ
 4. 端末名を `PC` にして「同期テストを追加」し、「同期済み」を待つ
@@ -158,15 +194,15 @@ Firebase側は次の状態を前提にしています。
 
 ## GitHub Pages更新手順
 
-1. 現在のJSONバックアップと、公開中v1.3.5一式のコピーを保管
+1. 現在のJSONバックアップと、公開中v1.3.6一式のコピーを保管
 2. このフォルダの中身を、GitHub Pages公開元のリポジトリ直下へ同じ構成で上書き
 3. GitHub Desktopで変更一覧を確認し、コミットしてPush
 4. GitHubの `Settings → Pages` で従来と同じブランチ／フォルダが公開元になっていることを確認
-5. Pagesの更新完了後、PCで公開URLを開き `v1.3.6 CLOUD SYNC` 表記を確認
+5. Pagesの更新完了後、PCで公開URLを開き `v1.4.0 CLOUD SYNC` 表記を確認
 6. iPhone PWAを完全終了して再起動。旧版ならSafariで公開URLを一度再読み込みしてからPWAを開く
 7. 上記のPC → iPhone → PC同期テストを実施
 
-Service Workerキャッシュ名は `julius-workroom-v1-3-6-exercise-dialogue-expansion` です。更新時に旧App Shellキャッシュだけを削除し、localStorageの作業記録、同期メタデータ、端末専用UI SE設定は削除しません。
+Service Workerキャッシュ名は `julius-workroom-v1-4-0-body-tracker` です。更新時に旧App Shellキャッシュだけを削除し、localStorageの作業・運動・BODY記録、同期メタデータ、端末専用UI SE設定は削除しません。
 
 ## 問題が起きた場合
 

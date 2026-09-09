@@ -78,9 +78,9 @@ function formatTime(value){
   return Number.isNaN(date.getTime())?'—':date.toLocaleString('ja-JP');
 }
 function summary(payload){
-  return {projects:(payload.categories||[]).reduce((n,c)=>n+(c.projects||[]).length,0),work:(payload.logs||[]).length,exercise:(payload.exerciseLogs||[]).length,inbox:(payload.inbox||[]).length,updatedAt:payload.updatedAt||null};
+  return {projects:(payload.categories||[]).reduce((n,c)=>n+(c.projects||[]).length,0),work:(payload.logs||[]).length,exercise:(payload.exerciseLogs||[]).length,body:Object.keys(payload.bodyDays||{}).length,inbox:(payload.inbox||[]).length,updatedAt:payload.updatedAt||null};
 }
-function summaryText(payload){let s=summary(payload);return `プロジェクト ${s.projects} / 作業 ${s.work} / 運動 ${s.exercise} / INBOX ${s.inbox}`}
+function summaryText(payload){let s=summary(payload);return `プロジェクト ${s.projects} / 作業 ${s.work} / 運動 ${s.exercise} / BODY ${s.body}日 / INBOX ${s.inbox}`}
 function setStatus(kind,text,error=null){
   state.status=kind;state.statusText=text;state.error=error;
   const button=document.getElementById('cloudStatusBtn'),label=document.getElementById('cloudStatusLabel');

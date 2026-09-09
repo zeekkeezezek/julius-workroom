@@ -1,3 +1,19 @@
+JULIUS WORKROOM v1.4.0
+======================
+
+- 独立したBODYページと日付ナビゲーションを追加
+- STANDING、WATER、SLEEP、STEPSを日付キー単位の集計値として保存
+- STANDINGは回数のみ／5・10・15・任意分、WATERは200・300・500・任意mlをワンタップ追加
+- STANDINGとWATERの合計編集、睡眠の記録・解除、歩数総数の上書きに対応
+- 睡眠は就寝・起床日時から自動計算し、日付またぎでも起床日に保存
+- 記録済みの直近7日をBODY HISTORYに表示し、日付を開いて修正可能
+- PC／スマホの主要ナビへBODYを追加。スマホのCALENDARはMOREへ移動
+- schema 10→11。既存全項目を維持してbodyDaysだけを補完
+- BODY記録用ジュリアス台詞25種を追加し、既存LIGHT UI SOUNDを使用
+- HOME、CALENDAR、DAILY SUMMARYにBODY情報を追加せず、未記録を警告・採点しない
+- 既存Firestore単一ドキュメント、revision、hash、writerId、競合処理、900KB安全停止を維持
+- Service Workerキャッシュをv1.4.0へ更新し、BODYアイコンをApp Shellへ追加
+
 JULIUS WORKROOM v1.3.6
 ======================
 

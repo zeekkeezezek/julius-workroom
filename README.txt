@@ -1,8 +1,14 @@
-JULIUS WORKROOM v1.3.6 — EXERCISE DIALOGUE EXPANSION
+JULIUS WORKROOM v1.4.0 — BODY TRACKER
 
 使い方、データ互換性、PC⇔iPhone同期テスト、GitHub Pages更新手順はREADME.mdを確認してください。
 
-この版はv1.3.5までのEXERCISE、週間運動目標、CLOUD DATA SIZE、schema version 10、JSONバックアップ、Firebase Cloud Sync、PWAを維持しています。
+この版はv1.3.6までのWORK、EXERCISE、台詞、UI SE、CLOUD DATA SIZE、JSONバックアップ、Firebase Cloud Sync、PWAを維持しています。
+
+独立したBODYページで、日付ごとの立った回数・分数、水分量・回数、主睡眠、総歩数を記録できます。スマホでも下部のBODYから直接開けます。
+
+BODYは `bodyDays[YYYY-MM-DD]` の日別集計だけを保持します。操作履歴やID、目標、スコア、連続記録は追加しません。HOME、CALENDAR、DAILY SUMMARYにもBODY数値を混ぜません。
+
+schemaは11です。schema 10の既存データは全項目を保ち、`bodyDays: {}` だけを追加します。localStorageキーとFirestoreの保存先は変更していません。
 
 新規運動記録の台詞を1件／2件／3件／4件／5件以上に分けました。週間目標の初達成は従来どおり最優先です。
 
