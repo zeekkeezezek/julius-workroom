@@ -1,7 +1,8 @@
-const CACHE_NAME='julius-workroom-v1-4-0-body-tracker';
+const CACHE_NAME='julius-workroom-v1-4-1-julius-portrait-expansion';
 const APP_SHELL=[
-  './','./index.html','./manifest.json','./firebase-config.js','./cloud-sync.js?v=1.4.0',
-  './assets/julius/normal.png','./assets/julius/soft.png','./assets/julius/stern.png','./assets/julius/think.png',
+  './','./index.html','./manifest.json','./firebase-config.js','./cloud-sync.js?v=1.4.1',
+  './assets/julius/01_neutral.png','./assets/julius/02_smile.png','./assets/julius/03_focused.png',
+  './assets/julius/04_concerned.png','./assets/julius/05_blushing.png','./assets/julius/06_happy.png',
   './assets/icons/icon-180.png','./assets/icons/icon-192.png','./assets/icons/icon-512.png',
   './assets/icons/nav/home.svg','./assets/icons/nav/folder.svg','./assets/icons/nav/calendar.svg',
   './assets/icons/nav/activity.svg','./assets/icons/nav/body.svg','./assets/icons/nav/book-open.svg','./assets/icons/nav/more-horizontal.svg'

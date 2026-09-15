@@ -1,3 +1,16 @@
+JULIUS WORKROOM v1.4.1
+======================
+
+- ジュリアスの新立ち絵6枚をassets/juliusへ追加
+- neutral、smile、focused、concerned、blushing、happyの新mood構成へ更新
+- 既存台詞本文と抽選処理を維持し、台詞内容に合わせてmoodを個別調整
+- concernedは睡眠不足・深夜・長時間作業・長時間運動などの心配に限定
+- blushingは親密な好意、happyは週間目標達成や大きな成果に限定
+- 未知のmoodをneutralへ戻すフォールバックと画像プリロードを追加
+- 新立ち絵の拡大率をPC 1.35、スマホ 1.28へ調整し、顔と頭部の周囲に余白を確保
+- 新6画像をPWA App Shellへ追加し、Service Workerキャッシュをv1.4.1へ更新
+- schema 11、保存項目、Cloud Sync、JSON、UI SE、既存機能は変更なし
+
 JULIUS WORKROOM v1.4.0
 ======================
 

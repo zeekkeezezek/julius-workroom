@@ -11,7 +11,7 @@
 <link rel="manifest" href="manifest.json" />
 <link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
-<title>今日、何をする。 — JULIUS WORKROOM v1.4.0</title>
+<title>今日、何をする。 — JULIUS WORKROOM v1.4.1</title>
 <style>
 :root{--bg:#0a0d12;--panel:#151c27;--panel2:#1b2431;--line:#2a3545;--text:#eef2f7;--muted:#99a6b6;--gold:#d8bd7b;--green:#91c8a1;--red:#cf8d93;--blue:#87a8d8;--shadow:0 20px 60px rgba(0,0,0,.35)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Yu Gothic UI","Yu Gothic","Meiryo",sans-serif;background:var(--bg);color:var(--text)}
@@ -83,10 +83,10 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 /* DAILY REVIEW & QUICK ACTIONS */
 .quickActionRow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fiveMinBtn{background:#111318!important;color:#fff!important;border-color:#111318!important;font-weight:700}.fiveMinBtn:hover{background:#2a2e35!important}.weeklyReview{border-left:4px solid #2468d8}.reviewGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.reviewMetric{padding:12px;border:1px solid #dde2e9;border-radius:12px;background:#fafbfc}.reviewMetric .n{font:600 22px Georgia,serif}.reviewMetric .k{font-size:10px;color:#68707c;margin-top:3px}.reviewNote{font-size:11px;line-height:1.7;color:#505864;margin-top:10px}.summaryCard{border-left:4px solid #111318}.summaryControls{display:flex;gap:8px;align-items:end;flex-wrap:wrap}.summaryControls .field{min-width:180px}.dailySummary{margin-top:12px;padding:14px;border:1px solid #dfe3e9;border-radius:13px;background:#fafbfc;line-height:1.7}.summaryTitle{font-family:Georgia,"Yu Mincho",serif;font-size:18px;margin-bottom:8px}.summaryLine{font-size:12px;margin:4px 0}.summaryJulius{margin-top:12px;padding-top:10px;border-top:1px dashed #cfd5de;font-size:12px}.excludeBadge{display:inline-block;margin-left:6px;padding:2px 6px;border-radius:999px;background:#f1f3f6;color:#656d78;font-size:9px}.excludedTodayList{font-size:10px;color:#68707c;margin-top:7px}.excludedTodayList button{margin-left:6px}.weekCompare.up{color:#2468d8}.weekCompare.down{color:#7b838d}.weekCompare.same{color:#525a64}@media(max-width:720px){.quickActionRow,.reviewGrid{grid-template-columns:1fr 1fr}.summaryControls{display:grid;grid-template-columns:1fr}}
 
-/* PORTRAIT CROP & ACTIVITY HEATMAP */
+/* PORTRAIT FIT & ACTIVITY HEATMAP */
 .juliusWrap{grid-template-columns:112px 1fr;gap:14px;align-items:center}
 .juliusPortraitFrame{width:112px;height:138px;overflow:hidden;border-radius:12px;background:linear-gradient(180deg,#f4f7fb,#edf2f8);border:1px solid #d8dee7;position:relative}
-.juliusPortrait{width:100%;height:100%;object-fit:contain;transform:scale(2.2);transform-origin:50% 15%;filter:drop-shadow(0 8px 12px rgba(30,45,70,.14));display:block}
+.juliusPortrait{width:100%;height:100%;object-fit:contain;transform:scale(1.35);transform-origin:50% 15%;filter:drop-shadow(0 8px 12px rgba(30,45,70,.14));display:block}
 /* WORK: quiet blue gradient */
 .trackDay.workLv1{background:#f2f7fd!important;border-color:#d9e6f7!important;color:#26384f!important}.calendarDay.workLv1{background:#f2f7fd;border-color:#d9e6f7;color:#26384f}
 .trackDay.workLv2{background:#e3eefb!important;border-color:#c5d9f2!important;color:#20364f!important}.calendarDay.workLv2{background:#e3eefb;border-color:#c5d9f2;color:#20364f}
@@ -100,13 +100,13 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 .calendarDay.workLv1:hover,.calendarDay.workLv2:hover,.calendarDay.workLv3:hover,.calendarDay.workLv4:hover{filter:brightness(.985)}
 .calendarDay.exerciseLv1:hover,.calendarDay.exerciseLv2:hover,.calendarDay.exerciseLv3:hover,.calendarDay.exerciseLv4:hover{filter:brightness(.985)}
 .heatLegend{display:flex;align-items:center;gap:5px}.heatSwatch{width:18px;height:12px;border-radius:4px;border:1px solid #d6dbe3}.heatWork1{background:#f2f7fd}.heatWork2{background:#e3eefb}.heatWork3{background:#cee1f7}.heatWork4{background:#b4d2f2}.heatEx1{background:#fff3f4}.heatEx2{background:#fce5e8}.heatEx3{background:#f7d2d8}.heatEx4{background:#efbac3}
-@media(max-width:620px){.juliusWrap{grid-template-columns:92px 1fr}.juliusPortraitFrame{width:92px;height:120px}.juliusPortrait{transform:scale(2.12);transform-origin:50% 15%}}
+@media(max-width:620px){.juliusWrap{grid-template-columns:92px 1fr}.juliusPortraitFrame{width:92px;height:120px}.juliusPortrait{transform:scale(1.28);transform-origin:50% 15%}}
 
 .calendarDay.workLv1:hover{background:#edf4fc}.calendarDay.workLv2:hover{background:#dbe9f8}.calendarDay.workLv3:hover{background:#c3d9f2}.calendarDay.workLv4:hover{background:#a8c9ec}
 .calendarDay.exerciseLv1:hover{background:#fbedef}.calendarDay.exerciseLv2:hover{background:#f8dce0}.calendarDay.exerciseLv3:hover{background:#f1c7ce}.calendarDay.exerciseLv4:hover{background:#e9adb8}
 
 
-/* v1.4.0 BODY TRACKER — compact daily aggregates, schema 11 */
+/* v1.4.1 BODY TRACKER — compact daily aggregates, schema 11 */
 .bodyTrackerHead{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:12px}.bodyTrackerHead h2{font-family:Georgia,"Yu Mincho",serif;font-weight:500;margin:0}.bodyDateNav{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.bodyDateValue{min-width:150px;text-align:center;font-size:13px;font-weight:700}.bodyAccent{color:#187b75}.bodySummary{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.bodySummaryItem{padding:13px;border:1px solid #dbe6e4;border-radius:12px;background:#fbfdfd}.bodySummaryItem .k{font-size:9px;letter-spacing:.12em;color:#187b75;font-weight:800}.bodySummaryItem .n{font-size:19px;font-weight:700;margin-top:6px;line-height:1.3}.bodyEntryGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}.bodyEntryCard{border-top:3px solid #68aaa4}.bodyEntryCard h3{font-family:Georgia,"Yu Mincho",serif;font-weight:500;margin:2px 0 4px}.bodyCurrent{font-size:20px;font-weight:700;margin:8px 0 10px}.bodyQuickButtons{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.bodyQuickButtons .btn{min-width:0}.bodyEditRow{display:grid;grid-template-columns:1fr 1fr auto;gap:7px;align-items:end;margin-top:10px;padding-top:10px;border-top:1px solid #e1e8e7}.bodySleepGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.bodyActionRow{display:flex;gap:7px;margin-top:9px}.bodyActionRow .btn{flex:1}.bodyHistory{display:grid;gap:7px;margin-top:10px}.bodyHistoryRow{appearance:none;font:inherit;color:inherit;cursor:pointer;display:grid;grid-template-columns:90px repeat(4,1fr);gap:8px;align-items:center;padding:10px;border:1px solid #e0e6e5;border-radius:11px;background:#fff;text-align:left}.bodyHistoryRow:hover{border-color:#88bdb8}.bodyHistoryDate{font-weight:700;color:#187b75}.bodyHistoryMetric{font-size:11px;color:#58636a}.bodyHistoryMetric b{display:block;font-size:9px;color:#858e94;letter-spacing:.08em;margin-bottom:2px}.bodyFutureNotice{margin-top:10px;color:#68707c}.bodyEntryCard[aria-disabled="true"]{opacity:.62}.bodyEntryCard[aria-disabled="true"] button,.bodyEntryCard[aria-disabled="true"] input{pointer-events:none}
 #exerciseMinutesField[hidden],#exerciseRepsField[hidden],#exerciseLogMinutesField[hidden],#exerciseLogRepsField[hidden]{display:none!important}
 .syncButton{display:flex;align-items:center;gap:6px;white-space:nowrap}.syncDot{width:8px;height:8px;border-radius:50%;background:#8a929e;box-shadow:0 0 0 3px rgba(138,146,158,.12)}
@@ -139,7 +139,7 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
   .julius{padding:10px 11px;border-radius:14px;min-height:0}
   .juliusWrap{grid-template-columns:86px 1fr;gap:10px}
   .juliusPortraitFrame{width:86px;height:108px;border-radius:10px}
-  .juliusPortrait{transform:scale(2.12);transform-origin:50% 15%}
+  .juliusPortrait{transform:scale(1.28);transform-origin:50% 15%}
   .juliusText{font-size:12px;line-height:1.65}
   .quick{gap:10px;padding:12px}.quick .seg{gap:5px}.quick .seg .btn{min-height:40px;padding:7px 8px}
   .quickActionRow{grid-template-columns:1fr 1fr}.quickActionRow .btn{min-height:48px}
@@ -203,11 +203,11 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 </head>
 <body>
 <div class="app">
-<header class="top"><div class="brand"><small>PERSONAL LIFE COMMANDER v1.4.0 CLOUD SYNC</small><strong>今日、何をする。</strong></div><div class="topActions"><button class="btn small syncButton" id="cloudStatusBtn" data-state="local"><span class="syncDot"></span><span id="cloudStatusLabel">ローカル保存</span></button><button class="btn small" id="backupBtn">JSONを書き出す</button><button class="btn small" id="importBtn">JSONを読み込む</button><input type="file" id="importFile" accept="application/json" hidden><button class="btn small" id="settingsBtn">設定</button></div></header>
+<header class="top"><div class="brand"><small>PERSONAL LIFE COMMANDER v1.4.1 CLOUD SYNC</small><strong>今日、何をする。</strong></div><div class="topActions"><button class="btn small syncButton" id="cloudStatusBtn" data-state="local"><span class="syncDot"></span><span id="cloudStatusLabel">ローカル保存</span></button><button class="btn small" id="backupBtn">JSONを書き出す</button><button class="btn small" id="importBtn">JSONを読み込む</button><input type="file" id="importFile" accept="application/json" hidden><button class="btn small" id="settingsBtn">設定</button></div></header>
 <div class="layout">
 <aside class="side">
 <div class="date" id="todayLabel"></div>
-<div class="julius"><div class="juliusWrap"><div class="juliusPortraitFrame"><img class="juliusPortrait" id="juliusPortrait" src="assets/julius/normal.png" alt="ジュリアス"></div><div><b>JULIUS</b><div class="juliusText" id="juliusText">……今日は何をする。</div></div></div></div>
+<div class="julius"><div class="juliusWrap"><div class="juliusPortraitFrame"><img class="juliusPortrait" id="juliusPortrait" src="assets/julius/01_neutral.png" alt="ジュリアス"></div><div><b>JULIUS</b><div class="juliusText" id="juliusText">……今日は何をする。</div></div></div></div>
 <div class="gap"></div>
 <div class="card quick">
 <div><div class="label">今の元気</div><div class="seg"><button class="btn small" data-energy="low">ほぼ無い</button><button class="btn small" data-energy="normal">普通</button><button class="btn small" data-energy="high">やる気ある</button></div></div>
@@ -292,9 +292,17 @@ input,select,textarea{background:#fff;color:#111318;border-color:#cfd4dc}input:f
 
 <div class="toast" id="toast"></div>
 <script>
-const APP_VERSION='1.4.0';
+const APP_VERSION='1.4.1';
 const KEY='julius_workroom_v1',DEVICE_UI_KEY='julius_workroom_device_ui_v1',OLD_KEY_V09='julius_workroom_v09',OLD_KEY_V8='julius_workroom_v08',OLD_KEY_V7='julius_workroom_v07',OLD_KEY_V6='julius_workroom_v06',OLD_KEY_V5='julius_workroom_v05',OLD_KEY_V4='julius_workroom_v04',OLD_KEY_V3='julius_workroom_v03',OLD_KEY_V2='julius_workroom_v02',OLD_KEY_V1='julius_workroom_v01';
-const juliusPortraits={normal:'assets/julius/normal.png',soft:'assets/julius/soft.png',think:'assets/julius/think.png',stern:'assets/julius/stern.png'};
+const juliusPortraits={
+ neutral:'assets/julius/01_neutral.png',
+ smile:'assets/julius/02_smile.png',
+ focused:'assets/julius/03_focused.png',
+ concerned:'assets/julius/04_concerned.png',
+ blushing:'assets/julius/05_blushing.png',
+ happy:'assets/julius/06_happy.png'
+};
+Object.values(juliusPortraits).forEach(src=>{let img=new Image();img.src=src});
 const defaultCategories=[
  {id:'c1',name:'ジクジュリ小説作り',projects:[{id:'p1',name:'現在の小説・パロディ',temp:'hot',load:1,current:'',next:'',lastWorkedAt:null,completedAt:null}]},
  {id:'c2',name:'3Dモデリング',projects:[{id:'p2',name:'未分類プロジェクト',temp:'active',load:3,current:'',next:'',lastWorkedAt:null,completedAt:null}]},
@@ -341,404 +349,404 @@ function fromFor(period){if(period==='today'){let d=new Date();d.setHours(0,0,0,
 function activityEntry(key){return data.activity?.[key]||{started:false,micro:0,completed:0}}function activityStatus(key){let a=activityEntry(key);if((a.completed||0)>0)return 'done';if(a.started)return 'started';if((a.micro||0)>0)return 'micro';return 'none'}function markActivity(kind,ts=Date.now()){let k=dateKey(new Date(ts));data.activity=data.activity||{};let a=data.activity[k]||(data.activity[k]={started:false,micro:0,completed:0});if(kind==='started')a.started=true;if(kind==='micro')a.micro=(a.micro||0)+1;if(kind==='completed'){a.started=true;a.completed=(a.completed||0)+1}save()}function monthKeys(year,month){let days=new Date(year,month+1,0).getDate(),a=[];for(let d=1;d<=days;d++)a.push(dateKey(new Date(year,month,d)));return a}function monthActivityCount(year,month){return monthKeys(year,month).filter(k=>activityStatus(k)!=='none').length}
 const lines={
 start:[
- {t:'了解した。では、始めよう。まずファイルを開くだけでも構わない。',m:'normal'},
- {t:'承知した。時間は決めた。あとは手を動かすだけだ。',m:'stern'},
- {t:'……始めるのが一番重い。そこを越えたなら、後は少しずつでいい。',m:'soft'},
- {t:'君が開始を押したことは確認した。今日はもう「何もしなかった日」ではない。',m:'normal'},
- {t:'長くやる必要はない。区切りまで、私が付き合う。',m:'soft'},
- {t:'よし。集中できなくても構わない。五分だけ触ってみろ。',m:'stern'},
- {t:'やる気を待つより先に始めたな。……それでいい。',m:'soft'},
- {t:'今日はこの作業か。了解した。無理に完璧を狙うな。',m:'normal'}],
+ {t:'了解した。では、始めよう。まずファイルを開くだけでも構わない。',m:'neutral'},
+ {t:'承知した。時間は決めた。あとは手を動かすだけだ。',m:'focused'},
+ {t:'……始めるのが一番重い。そこを越えたなら、後は少しずつでいい。',m:'smile'},
+ {t:'君が開始を押したことは確認した。今日はもう「何もしなかった日」ではない。',m:'neutral'},
+ {t:'長くやる必要はない。区切りまで、私が付き合う。',m:'smile'},
+ {t:'よし。集中できなくても構わない。五分だけ触ってみろ。',m:'focused'},
+ {t:'やる気を待つより先に始めたな。……それでいい。',m:'smile'},
+ {t:'今日はこの作業か。了解した。無理に完璧を狙うな。',m:'neutral'}],
 complete:[
- {t:'……進んだな。十分だ。今日の君はちゃんと手を動かした。',m:'soft'},
- {t:'よくやった。続きは次でも構わない。ここまでを残しておこう。',m:'soft'},
- {t:'記録した。小さく見えても、昨日の状態からは確実に進んでいる。',m:'normal'},
- {t:'終わったか。……偉いな。始めただけでなく、一区切りまで来た。',m:'soft'},
- {t:'今日の分はこれでいい。まだやりたければ続ければいいし、休んでも構わない。',m:'normal'},
- {t:'君が何をしたか、私が覚えておく。今日は作業した日だ。',m:'soft'},
- {t:'十分成果だ。大きさではなく、実際に進めたことを評価する。',m:'stern'},
- {t:'……お疲れ。次に戻る場所も残せた。これなら再開しやすい。',m:'soft'}],
+ {t:'……進んだな。十分だ。今日の君はちゃんと手を動かした。',m:'smile'},
+ {t:'よくやった。続きは次でも構わない。ここまでを残しておこう。',m:'smile'},
+ {t:'記録した。小さく見えても、昨日の状態からは確実に進んでいる。',m:'neutral'},
+ {t:'終わったか。……偉いな。始めただけでなく、一区切りまで来た。',m:'smile'},
+ {t:'今日の分はこれでいい。まだやりたければ続ければいいし、休んでも構わない。',m:'neutral'},
+ {t:'君が何をしたか、私が覚えておく。今日は作業した日だ。',m:'smile'},
+ {t:'十分成果だ。大きさではなく、実際に進めたことを評価する。',m:'focused'},
+ {t:'……お疲れ。次に戻る場所も残せた。これなら再開しやすい。',m:'smile'}],
 return:[
- {t:'……今日は何をする。決められなければ、私が候補を出す。',m:'normal'},
- {t:'大仕事でなくていい。何か一つ、触って終わるだけでも構わない。',m:'soft'},
- {t:'君は趣味が多いからな。全部進める必要はない。今日は一つでいい。',m:'think'},
- {t:'さて。作業するか、運動したと報告するか、それとも今日は休むか。',m:'normal'},
- {t:'何をするか考えているうちに一日が終わるくらいなら、私に選ばせろ。',m:'stern'},
- {t:'戻ってきたな。昨日何も出来なくても関係ない。今日の一回だけ考えればいい。',m:'soft'},
- {t:'今日はまだ白紙だ。……だからといって、埋める義務もない。やれそうならやるか。',m:'think'},
- {t:'五分だけでも、起動だけでも構わない。君が動いた事実を私はちゃんと数える。',m:'soft'}],
+ {t:'……今日は何をする。決められなければ、私が候補を出す。',m:'neutral'},
+ {t:'大仕事でなくていい。何か一つ、触って終わるだけでも構わない。',m:'smile'},
+ {t:'君は趣味が多いからな。全部進める必要はない。今日は一つでいい。',m:'neutral'},
+ {t:'さて。作業するか、運動したと報告するか、それとも今日は休むか。',m:'neutral'},
+ {t:'何をするか考えているうちに一日が終わるくらいなら、私に選ばせろ。',m:'focused'},
+ {t:'戻ってきたな。昨日何も出来なくても関係ない。今日の一回だけ考えればいい。',m:'smile'},
+ {t:'今日はまだ白紙だ。……だからといって、埋める義務もない。やれそうならやるか。',m:'neutral'},
+ {t:'五分だけでも、起動だけでも構わない。君が動いた事実を私はちゃんと数える。',m:'smile'}],
 recommend:[
- {t:'これなら今の君でも始められると思う。面倒なら、さらに小さくしていい。',m:'normal'},
- {t:'候補を一つに絞った。気に入らなければ遠慮なく引き直せ。',m:'think'},
- {t:'「次にやること」を書き忘れていても問題ない。こういう時のためのお題だ。',m:'soft'},
- {t:'今日はこれにしてみるか。終わらせる必要はない、触るだけでいい。',m:'normal'},
- {t:'選択肢を減らした。考える仕事は私に任せて、君は開始だけ押せ。',m:'stern'},
- {t:'このくらいならどうだ。重ければ「ざっくりお題」に逃げても構わない。',m:'soft'}],
+ {t:'これなら今の君でも始められると思う。面倒なら、さらに小さくしていい。',m:'neutral'},
+ {t:'候補を一つに絞った。気に入らなければ遠慮なく引き直せ。',m:'neutral'},
+ {t:'「次にやること」を書き忘れていても問題ない。こういう時のためのお題だ。',m:'smile'},
+ {t:'今日はこれにしてみるか。終わらせる必要はない、触るだけでいい。',m:'neutral'},
+ {t:'選択肢を減らした。考える仕事は私に任せて、君は開始だけ押せ。',m:'focused'},
+ {t:'このくらいならどうだ。重ければ「ざっくりお題」に逃げても構わない。',m:'smile'}],
 micro:[
- {t:'それだけでも十分偉い。起動したなら、もう零ではない。',m:'soft'},
- {t:'……ちゃんと一歩だ。私はそれを軽く見ない。',m:'normal'},
- {t:'始めるための準備にも、確かに価値がある。記録しておいた。',m:'soft'},
- {t:'Blenderを開いただけ？　だから何だ。開かなければ作業は始まらないだろう。偉い。',m:'stern'},
- {t:'道具を出した。ファイルを開いた。……十分だ。今日の君は動いた。',m:'soft'},
- {t:'そんなことで褒めるのか、という顔をするな。君には必要だから私が褒める。',m:'normal'},
- {t:'面倒なのに準備したな。そこまで出来たなら、今日はもう一歩進んでいる。',m:'soft'},
- {t:'記録した。たとえこの後何もしなくても、「何もしなかった」ことにはしない。',m:'normal'},
- {t:'起動まで出来た。……よくやった。次は気が向いた時でいい。',m:'soft'},
- {t:'小さい？　構わない。小さい行動を積めない日もある。今日は積めた。',m:'think'}],
+ {t:'それだけでも十分偉い。起動したなら、もう零ではない。',m:'smile'},
+ {t:'……ちゃんと一歩だ。私はそれを軽く見ない。',m:'neutral'},
+ {t:'始めるための準備にも、確かに価値がある。記録しておいた。',m:'smile'},
+ {t:'Blenderを開いただけ？　だから何だ。開かなければ作業は始まらないだろう。偉い。',m:'focused'},
+ {t:'道具を出した。ファイルを開いた。……十分だ。今日の君は動いた。',m:'smile'},
+ {t:'そんなことで褒めるのか、という顔をするな。君には必要だから私が褒める。',m:'neutral'},
+ {t:'面倒なのに準備したな。そこまで出来たなら、今日はもう一歩進んでいる。',m:'smile'},
+ {t:'記録した。たとえこの後何もしなくても、「何もしなかった」ことにはしない。',m:'neutral'},
+ {t:'起動まで出来た。……よくやった。次は気が向いた時でいい。',m:'smile'},
+ {t:'小さい？　構わない。小さい行動を積めない日もある。今日は積めた。',m:'neutral'}],
 timerEnd:[
- {t:'時間だ。……ここまでで一度、記録するか。',m:'stern'},
- {t:'終了だ。よく集中したな。',m:'soft'},
- {t:'……時間になった。続けるかどうかは君が決めていい。',m:'think'},
- {t:'区切りだ。まだ乗っているなら続けてもいいが、一度成果を残しておけ。',m:'normal'},
- {t:'時間になった。ここまで出来た。それで十分だ。',m:'soft'},
- {t:'手を止めろとは言わない。ただ、一度肩と目を休ませるのも忘れるな。',m:'stern'}],
+ {t:'時間だ。……ここまでで一度、記録するか。',m:'focused'},
+ {t:'終了だ。よく集中したな。',m:'smile'},
+ {t:'……時間になった。続けるかどうかは君が決めていい。',m:'neutral'},
+ {t:'区切りだ。まだ乗っているなら続けてもいいが、一度成果を残しておけ。',m:'neutral'},
+ {t:'時間になった。ここまで出来た。それで十分だ。',m:'smile'},
+ {t:'手を止めろとは言わない。ただ、一度肩と目を休ませるのも忘れるな。',m:'concerned'}],
 exerciseReturn:[
- {t:'運動の報告か。……聞こう。今日は何をした。',m:'normal'},
- {t:'リングフィットでも、プランク一分でも構わない。身体を動かしたなら記録する。',m:'soft'},
- {t:'これは作業とは別だ。成果など求めない。動いた事実だけ持ってこい。',m:'stern'},
- {t:'「これだけしかしていない」は禁止だ。やったか、やっていないか。それだけでいい。',m:'normal'},
- {t:'運動不足を自覚しているなら、五分でも価値はある。……何をした。',m:'think'},
- {t:'ここではカロリーも体重も競わない。今日身体を使ったなら、それで報告成立だ。',m:'soft'}],
+ {t:'運動の報告か。……聞こう。今日は何をした。',m:'neutral'},
+ {t:'リングフィットでも、プランク一分でも構わない。身体を動かしたなら記録する。',m:'smile'},
+ {t:'これは作業とは別だ。成果など求めない。動いた事実だけ持ってこい。',m:'focused'},
+ {t:'「これだけしかしていない」は禁止だ。やったか、やっていないか。それだけでいい。',m:'neutral'},
+ {t:'運動不足を自覚しているなら、五分でも価値はある。……何をした。',m:'neutral'},
+ {t:'ここではカロリーも体重も競わない。今日身体を使ったなら、それで報告成立だ。',m:'smile'}],
 exerciseRecord:[
- {t:'……偉いな。今日はちゃんと身体を動かした。記録しておく。',m:'soft'},
- {t:'承知した。これで今日は「運動した日」だ。',m:'normal'},
- {t:'五分でも十分だ。ゼロと五分は同じではない。',m:'stern'},
- {t:'報告を受理した。……よくやった。今日はこれで許可する。',m:'soft'},
- {t:'リングフィットでも散歩でも、君が動いたなら私はちゃんと評価する。',m:'normal'},
- {t:'身体を動かした後は水分を取れ。記録は私が残しておく。',m:'stern'},
- {t:'運動したのか。……感心した。気が向いた日にまたやればいい。',m:'soft'},
- {t:'今日の一回は消えない。明日休んでも、今日動いた事実まで無くならない。',m:'normal'},
- {t:'よし。義務にする必要はないが、こうして報告が増えるのは悪くない。',m:'soft'},
- {t:'「これで許してください」？　……仕方ない。今日については十分許可する。',m:'soft'}],
+ {t:'……偉いな。今日はちゃんと身体を動かした。記録しておく。',m:'smile'},
+ {t:'承知した。これで今日は「運動した日」だ。',m:'neutral'},
+ {t:'五分でも十分だ。ゼロと五分は同じではない。',m:'focused'},
+ {t:'報告を受理した。……よくやった。今日はこれで許可する。',m:'smile'},
+ {t:'リングフィットでも散歩でも、君が動いたなら私はちゃんと評価する。',m:'neutral'},
+ {t:'身体を動かした後は水分を取れ。記録は私が残しておく。',m:'focused'},
+ {t:'運動したのか。……感心した。気が向いた日にまたやればいい。',m:'smile'},
+ {t:'今日の一回は消えない。明日休んでも、今日動いた事実まで無くならない。',m:'neutral'},
+ {t:'よし。義務にする必要はないが、こうして報告が増えるのは悪くない。',m:'smile'},
+ {t:'「これで許してください」？　……仕方ない。今日については十分許可する。',m:'smile'}],
 exerciseMulti:[
- {t:'二つもやったのか。……君にしては随分動いたな。立派だ。',m:'soft'},
- {t:'今日はもう十分だろう。複数記録が付いた。無理に追加する必要はない。',m:'stern'},
- {t:'一日に二件か。よくやった。後は休んで身体を労れ。',m:'soft'}]
+ {t:'二つもやったのか。……君にしては随分動いたな。立派だ。',m:'smile'},
+ {t:'今日はもう十分だろう。複数記録が付いた。無理に追加する必要はない。',m:'concerned'},
+ {t:'一日に二件か。よくやった。後は休んで身体を労れ。',m:'smile'}]
 };
 // v1.3.6: new-record reactions only; existing dialogue and recent-line history remain intact.
 Object.assign(lines,{
  exerciseMulti2:[
-  {t:'二件目か。……今日はよく動くな。まだ余力があるなら構わないが、無理はするな。',m:'soft'},
-  {t:'一日に二つ記録が並んだな。承知した。……よくやった。',m:'normal'},
-  {t:'また身体を動かしたのか。ふむ。今日はこまめに動いているな。',m:'think'},
-  {t:'二件目まで来たか。運動を一度で終わらせなかったのは立派だ。',m:'soft'},
-  {t:'もう一件追加だな。了解した。身体の方にも今日は仕事をさせているらしい。',m:'normal'},
-  {t:'二つ目か。……感心した。だが、回数を増やすこと自体を目的にはするな。',m:'stern'},
-  {t:'今日は一度動いて終わりではなかったんだな。良い傾向だ。',m:'soft'}],
+  {t:'二件目か。……今日はよく動くな。まだ余力があるなら構わないが、無理はするな。',m:'concerned'},
+  {t:'一日に二つ記録が並んだな。承知した。……よくやった。',m:'neutral'},
+  {t:'また身体を動かしたのか。ふむ。今日はこまめに動いているな。',m:'neutral'},
+  {t:'二件目まで来たか。運動を一度で終わらせなかったのは立派だ。',m:'smile'},
+  {t:'もう一件追加だな。了解した。身体の方にも今日は仕事をさせているらしい。',m:'neutral'},
+  {t:'二つ目か。……感心した。だが、回数を増やすこと自体を目的にはするな。',m:'focused'},
+  {t:'今日は一度動いて終わりではなかったんだな。良い傾向だ。',m:'smile'}],
  exerciseMulti3:[
-  {t:'三件目まで来たか。君、今日は随分やる気だな。……感心している。',m:'soft'},
-  {t:'三つ記録が並んだ。ふむ……今日は身体を動かす日にしたらしいな。',m:'think'},
-  {t:'三件目だな。承知した。今日はちゃんと「運動した日」として残っている。',m:'normal'},
-  {t:'また追加か。三件目……。君にしては随分まめに動いている。',m:'soft'},
-  {t:'今日は三つ記録が付いたな。細かくでも身体を動かせたなら、それでいい。',m:'normal'},
-  {t:'三件。よくやった。……ただし、数字を増やすために無理をする必要はない。',m:'stern'},
-  {t:'三つ目まで記録するとは思わなかった。良い意味で予想を外された。',m:'think'},
-  {t:'今日の君は随分働き者だな。……身体の方については、だが。',m:'soft'}],
+  {t:'三件目まで来たか。君、今日は随分やる気だな。……感心している。',m:'smile'},
+  {t:'三つ記録が並んだ。ふむ……今日は身体を動かす日にしたらしいな。',m:'neutral'},
+  {t:'三件目だな。承知した。今日はちゃんと「運動した日」として残っている。',m:'neutral'},
+  {t:'また追加か。三件目……。君にしては随分まめに動いている。',m:'smile'},
+  {t:'今日は三つ記録が付いたな。細かくでも身体を動かせたなら、それでいい。',m:'neutral'},
+  {t:'三件。よくやった。……ただし、数字を増やすために無理をする必要はない。',m:'focused'},
+  {t:'三つ目まで記録するとは思わなかった。良い意味で予想を外された。',m:'neutral'},
+  {t:'今日の君は随分働き者だな。……身体の方については、だが。',m:'smile'}],
  exerciseMulti4:[
-  {t:'四件。……そこまでやるとは思わなかった。よくやった。',m:'soft'},
-  {t:'四つも記録が並んだな。今日は随分こまめに身体を動かしている。',m:'normal'},
-  {t:'四件目か。君、今日は本当に活動的だな。……珍しいものを見た気分だ。',m:'think'},
-  {t:'四つ目まで来たか。承知した。今日は何度も身体を動かした日として残しておこう。',m:'normal'},
-  {t:'また追加だな。四件……。ふむ、これは素直に感心する。',m:'soft'},
-  {t:'四件目。よくやった。だが、ここから先は身体の調子を優先しろ。',m:'stern'},
-  {t:'四つもあると、記録欄が随分賑やかだな。悪くない。',m:'soft'},
-  {t:'今日は細かく何度も動いているな。そういう日があってもいい。',m:'normal'}],
+  {t:'四件。……そこまでやるとは思わなかった。よくやった。',m:'smile'},
+  {t:'四つも記録が並んだな。今日は随分こまめに身体を動かしている。',m:'neutral'},
+  {t:'四件目か。君、今日は本当に活動的だな。……珍しいものを見た気分だ。',m:'neutral'},
+  {t:'四つ目まで来たか。承知した。今日は何度も身体を動かした日として残しておこう。',m:'neutral'},
+  {t:'また追加だな。四件……。ふむ、これは素直に感心する。',m:'smile'},
+  {t:'四件目。よくやった。だが、ここから先は身体の調子を優先しろ。',m:'concerned'},
+  {t:'四つもあると、記録欄が随分賑やかだな。悪くない。',m:'smile'},
+  {t:'今日は細かく何度も動いているな。そういう日があってもいい。',m:'neutral'}],
  exerciseMultiMany:[
-  {t:'君。今日はもう随分な数の運動記録が付いている。……よくやった。',m:'soft'},
-  {t:'まだ増えるのか。今日は本当に身体を動かす日らしいな。',m:'think'},
-  {t:'ここまで件数が増えるとは思わなかった。承知した。全部、記録しておく。',m:'normal'},
-  {t:'今日は随分まめに動いているな。……感心はしている。無理だけはするな。',m:'stern'},
-  {t:'五件以上か。よくやった。今日動いた事実は、もう十分残っている。',m:'soft'},
-  {t:'今日は運動欄の方が随分賑やかだな。悪くない。',m:'normal'},
-  {t:'また追加か。……君、今日はどうした。随分と活動的ではないか。',m:'think'},
-  {t:'ここまで記録が付いたなら、あとは回数ではなく身体の具合を見ろ。',m:'stern'}],
+  {t:'君。今日はもう随分な数の運動記録が付いている。……よくやった。',m:'smile'},
+  {t:'まだ増えるのか。今日は本当に身体を動かす日らしいな。',m:'neutral'},
+  {t:'ここまで件数が増えるとは思わなかった。承知した。全部、記録しておく。',m:'neutral'},
+  {t:'今日は随分まめに動いているな。……感心はしている。無理だけはするな。',m:'concerned'},
+  {t:'五件以上か。よくやった。今日動いた事実は、もう十分残っている。',m:'smile'},
+  {t:'今日は運動欄の方が随分賑やかだな。悪くない。',m:'neutral'},
+  {t:'また追加か。……君、今日はどうした。随分と活動的ではないか。',m:'neutral'},
+  {t:'ここまで記録が付いたなら、あとは回数ではなく身体の具合を見ろ。',m:'concerned'}],
  exerciseLong60:[
-  {t:'合計で一時間以上だな。……よく動いた。水分を取って、一度休憩を挟め。',m:'stern'},
-  {t:'時間も確認した。今日は長く身体を動かしているな。この先は身体と相談しろ。',m:'think'},
-  {t:'件数だけではなく、時間も積み重なったな。今日はもう数字を増やすことを気にしなくていい。',m:'soft'},
-  {t:'今日の記録を合わせると、一時間は動いている。承知した。休む時間も忘れるな。',m:'normal'},
-  {t:'随分まめに動いて、時間も積み上げたな。……感心した。疲れを後回しにはするな。',m:'soft'}],
+  {t:'合計で一時間以上だな。……よく動いた。水分を取って、一度休憩を挟め。',m:'concerned'},
+  {t:'時間も確認した。今日は長く身体を動かしているな。この先は身体と相談しろ。',m:'concerned'},
+  {t:'件数だけではなく、時間も積み重なったな。今日はもう数字を増やすことを気にしなくていい。',m:'smile'},
+  {t:'今日の記録を合わせると、一時間は動いている。承知した。休む時間も忘れるな。',m:'concerned'},
+  {t:'随分まめに動いて、時間も積み上げたな。……感心した。疲れを後回しにはするな。',m:'concerned'}],
  exerciseLong90:[
-  {t:'君。今日は合計で九十分以上動いている。ここから先は休息も仕事だ。',m:'stern'},
-  {t:'記録時間もかなり長くなったな。……一度休め。身体の様子を確かめてからだ。',m:'stern'},
-  {t:'今日は長い時間、身体を使ったな。次は身体を休ませる時間も取ってくれ。',m:'soft'},
-  {t:'合計九十分以上か。承知した。記録は逃げない。ここで切り上げる選択も構わない。',m:'normal'},
-  {t:'件数も時間も確認した。君が動いたことは分かっている。……無理を重ねる必要はない。',m:'soft'}]
+  {t:'君。今日は合計で九十分以上動いている。ここから先は休息も仕事だ。',m:'concerned'},
+  {t:'記録時間もかなり長くなったな。……一度休め。身体の様子を確かめてからだ。',m:'concerned'},
+  {t:'今日は長い時間、身体を使ったな。次は身体を休ませる時間も取ってくれ。',m:'concerned'},
+  {t:'合計九十分以上か。承知した。記録は逃げない。ここで切り上げる選択も構わない。',m:'concerned'},
+  {t:'件数も時間も確認した。君が動いたことは分かっている。……無理を重ねる必要はない。',m:'concerned'}]
 });
 Object.assign(lines,{
  bodyStanding:[
-  {t:'立ったのか。承知した。……座り続けるよりは、ずっといい。',m:'normal'},
-  {t:'よし。一度椅子から離れたな。それでいい。',m:'soft'},
-  {t:'記録した。短時間でも構わない。身体を固めたままにするな。',m:'stern'},
-  {t:'立った記録が一つ増えたな。……君の場合、こういう小さな中断は大事だ。',m:'think'},
-  {t:'時間は短くても構わない。まず椅子から離れたことを評価する。',m:'soft'},
-  {t:'承知した。仕事に戻る前に、一度肩も動かしておけ。',m:'normal'}],
+  {t:'立ったのか。承知した。……座り続けるよりは、ずっといい。',m:'neutral'},
+  {t:'よし。一度椅子から離れたな。それでいい。',m:'smile'},
+  {t:'記録した。短時間でも構わない。身体を固めたままにするな。',m:'focused'},
+  {t:'立った記録が一つ増えたな。……君の場合、こういう小さな中断は大事だ。',m:'neutral'},
+  {t:'時間は短くても構わない。まず椅子から離れたことを評価する。',m:'smile'},
+  {t:'承知した。仕事に戻る前に、一度肩も動かしておけ。',m:'neutral'}],
  bodyWater:[
-  {t:'水分だな。記録した。作業に集中していても、飲むことまで忘れるな。',m:'stern'},
-  {t:'承知した。一杯分、追加しておく。',m:'normal'},
-  {t:'飲んだのか。よし。……こういうものは忘れず積み重ねろ。',m:'soft'},
-  {t:'記録した。量を競う必要はない。飲んだ事実だけ残しておけばいい。',m:'normal'},
-  {t:'また一回増えたな。悪くない。',m:'soft'},
-  {t:'仕事より身体の方が先に止まっては困る。水分は取れ。',m:'stern'}],
+  {t:'水分だな。記録した。作業に集中していても、飲むことまで忘れるな。',m:'focused'},
+  {t:'承知した。一杯分、追加しておく。',m:'neutral'},
+  {t:'飲んだのか。よし。……こういうものは忘れず積み重ねろ。',m:'smile'},
+  {t:'記録した。量を競う必要はない。飲んだ事実だけ残しておけばいい。',m:'neutral'},
+  {t:'また一回増えたな。悪くない。',m:'smile'},
+  {t:'仕事より身体の方が先に止まっては困る。水分は取れ。',m:'concerned'}],
  bodySleep:[
-  {t:'睡眠記録、受け取った。後から見返せるよう残しておこう。',m:'normal'},
-  {t:'昨夜の記録だな。承知した。',m:'normal'},
-  {t:'睡眠まで残すようになったか。……悪くない習慣だ。',m:'soft'},
-  {t:'時間は確認した。今日はその身体で動くのだということを忘れるな。',m:'stern'},
-  {t:'記録した。眠った時間も、君の一日の一部だ。',m:'soft'}],
+  {t:'睡眠記録、受け取った。後から見返せるよう残しておこう。',m:'neutral'},
+  {t:'昨夜の記録だな。承知した。',m:'neutral'},
+  {t:'睡眠まで残すようになったか。……悪くない習慣だ。',m:'smile'},
+  {t:'時間は確認した。今日はその身体で動くのだということを忘れるな。',m:'concerned'},
+  {t:'記録した。眠った時間も、君の一日の一部だ。',m:'smile'}],
  bodySleepShort:[
-  {t:'……短いな。今日は無理をするな。',m:'stern'},
-  {t:'睡眠記録は受け取った。短かったのなら、今日は身体の様子を優先しろ。',m:'stern'},
-  {t:'昨夜はあまり長く眠れなかったらしいな。できる範囲で休んでくれ。',m:'soft'}],
+  {t:'……短いな。今日は無理をするな。',m:'concerned'},
+  {t:'睡眠記録は受け取った。短かったのなら、今日は身体の様子を優先しろ。',m:'concerned'},
+  {t:'昨夜はあまり長く眠れなかったらしいな。できる範囲で休んでくれ。',m:'concerned'}],
  bodySteps:[
-  {t:'今日の歩数だな。承知した。記録しておく。',m:'normal'},
-  {t:'歩数まで残すのか。後から見れば、案外生活の差が分かるかもしれないな。',m:'think'},
-  {t:'今日はそれだけ歩いたのか。よく動いた。',m:'soft'},
-  {t:'数字は受け取った。多い少ないだけで一日を決める必要はない。',m:'normal'},
-  {t:'歩いた事実は残る。……それでいい。',m:'soft'}]
+  {t:'今日の歩数だな。承知した。記録しておく。',m:'neutral'},
+  {t:'歩数まで残すのか。後から見れば、案外生活の差が分かるかもしれないな。',m:'neutral'},
+  {t:'今日はそれだけ歩いたのか。よく動いた。',m:'smile'},
+  {t:'数字は受け取った。多い少ないだけで一日を決める必要はない。',m:'neutral'},
+  {t:'歩いた事実は残る。……それでいい。',m:'smile'}]
 });
-function setJuliusPortrait(m='normal'){let img=document.getElementById('juliusPortrait');if(img&&juliusPortraits[m])img.src=juliusPortraits[m]}
+function setJuliusPortrait(m='neutral'){let img=document.getElementById('juliusPortrait');if(!img)return;img.src=juliusPortraits[m]||juliusPortraits.neutral}
 Object.assign(lines,{
- returnLate:[{t:'……君。時計を見たか。こんな時間まで起きているなら、作業は五分で切り上げても構わない。',m:'stern'},{t:'深夜だな。会いに来たのは嬉しいが、無理に成果まで持ってくる必要はない。',m:'soft'},{t:'まだ起きていたのか。私に顔を見せたなら、それで一つ用事は済んだ。休む選択も許可する。',m:'soft'}],
- returnBoth:[{t:'作業も運動も報告済みだ。……今日はもう、私から文句を言うところがない。',m:'soft'},{t:'今日はよく動いたな。頭も身体も使っている。次は休むことも予定に入れろ。',m:'stern'},{t:'両方済ませたのか。立派だ。あとは好きなことをして構わない。',m:'soft'}],
- returnLong:[{t:'今日だけでもう一時間以上やっている。まだ続けるなら、先に水分と休憩を取れ。',m:'stern'},{t:'十分進めているな。ここから先は「追加分」だ。やめても今日の成果は減らない。',m:'soft'},{t:'今日は既にかなり働いた。……私としては、一度休ませたいところだ。',m:'think'}],
- returnAgain:[{t:'また来たのか。今日は随分やる気らしいな。……嬉しいが、詰め込みすぎるな。',m:'soft'},{t:'二度目の作業か。承知した。前の分はもう成果として残っているから、気楽に始めろ。',m:'normal'},{t:'今日は何度も顔を見るな。悪くない。次も小さく区切っていこう。',m:'soft'}],
- returnGap:[{t:'……久しいな。戻ってきたなら、それで構わない。空いた日数の埋め合わせなど不要だ。',m:'soft'},{t:'しばらく作業記録が無かったな。だが、今日ここを開いた。なら今日からでいい。',m:'normal'},{t:'久しぶりだな。何日休んだかではなく、今ここにいることだけ考えよう。',m:'soft'}],
- startAgain:[{t:'今日二度目以降だな。既に一度進めている。気負わず追加分として触ればいい。',m:'soft'},{t:'また始めるのか。了解した。今日はよく動くな。',m:'normal'},{t:'一度区切ったのに戻ってきたか。……その意欲は評価する。無理だけはするな。',m:'stern'}],
- completeLong:[{t:'これで今日の作業は一時間を越えた。十分だ。私は休憩を推奨する。',m:'stern'},{t:'かなり積み上がったな。今日はもう「よくやった」で締めてもいい。',m:'soft'},{t:'長く続けたな。成果は残した。次は身体を休ませろ。',m:'stern'}],
- exerciseBoth:[{t:'作業もした上で運動まで報告するのか。……偉いな。今日はもう十分だ。',m:'soft'},{t:'頭を使って、身体も動かした。承知した。今日は花丸にしておこう。',m:'soft'},{t:'両方済んだな。これ以上私に何を証明する必要もない。休め。',m:'stern'}],
- inboxAdd:[{t:'思いつきは預かった。今すぐ整理しなくていい。忘れない場所に置けた、それで十分だ。',m:'normal'},{t:'あとでやる箱に入れた。頭の中から一旦追い出して構わない。',m:'soft'},{t:'記録した。分類は後だ。思いついた時に捕まえられたことを評価する。',m:'soft'}],
- archive:[{t:'完成か。……おめでとう。消さずに残しておこう。君が終わらせた証拠だ。',m:'soft'},{t:'一区切りついたな。累積時間ごと保管しておく。よくやった。',m:'soft'},{t:'完了として受理した。次の候補からは外すが、ここまで積んだ時間は残る。',m:'normal'}],
- logEdit:[{t:'記録を直した。正確に残したいと思ったなら、それも立派な管理だ。',m:'normal'},{t:'修正した。間違いは気にするな。後から直せるようにしたのはそのためだ。',m:'soft'}]
+ returnLate:[{t:'……君。時計を見たか。こんな時間まで起きているなら、作業は五分で切り上げても構わない。',m:'concerned'},{t:'深夜だな。会いに来たのは嬉しいが、無理に成果まで持ってくる必要はない。',m:'blushing'},{t:'まだ起きていたのか。私に顔を見せたなら、それで一つ用事は済んだ。休む選択も許可する。',m:'concerned'}],
+ returnBoth:[{t:'作業も運動も報告済みだ。……今日はもう、私から文句を言うところがない。',m:'happy'},{t:'今日はよく動いたな。頭も身体も使っている。次は休むことも予定に入れろ。',m:'concerned'},{t:'両方済ませたのか。立派だ。あとは好きなことをして構わない。',m:'smile'}],
+ returnLong:[{t:'今日だけでもう一時間以上やっている。まだ続けるなら、先に水分と休憩を取れ。',m:'concerned'},{t:'十分進めているな。ここから先は「追加分」だ。やめても今日の成果は減らない。',m:'smile'},{t:'今日は既にかなり働いた。……私としては、一度休ませたいところだ。',m:'concerned'}],
+ returnAgain:[{t:'また来たのか。今日は随分やる気らしいな。……嬉しいが、詰め込みすぎるな。',m:'smile'},{t:'二度目の作業か。承知した。前の分はもう成果として残っているから、気楽に始めろ。',m:'neutral'},{t:'今日は何度も顔を見るな。悪くない。次も小さく区切っていこう。',m:'blushing'}],
+ returnGap:[{t:'……久しいな。戻ってきたなら、それで構わない。空いた日数の埋め合わせなど不要だ。',m:'smile'},{t:'しばらく作業記録が無かったな。だが、今日ここを開いた。なら今日からでいい。',m:'neutral'},{t:'久しぶりだな。何日休んだかではなく、今ここにいることだけ考えよう。',m:'smile'}],
+ startAgain:[{t:'今日二度目以降だな。既に一度進めている。気負わず追加分として触ればいい。',m:'smile'},{t:'また始めるのか。了解した。今日はよく動くな。',m:'neutral'},{t:'一度区切ったのに戻ってきたか。……その意欲は評価する。無理だけはするな。',m:'focused'}],
+ completeLong:[{t:'これで今日の作業は一時間を越えた。十分だ。私は休憩を推奨する。',m:'concerned'},{t:'かなり積み上がったな。今日はもう「よくやった」で締めてもいい。',m:'smile'},{t:'長く続けたな。成果は残した。次は身体を休ませろ。',m:'concerned'}],
+ exerciseBoth:[{t:'作業もした上で運動まで報告するのか。……偉いな。今日はもう十分だ。',m:'smile'},{t:'頭を使って、身体も動かした。承知した。今日は花丸にしておこう。',m:'happy'},{t:'両方済んだな。これ以上私に何を証明する必要もない。休め。',m:'concerned'}],
+ inboxAdd:[{t:'思いつきは預かった。今すぐ整理しなくていい。忘れない場所に置けた、それで十分だ。',m:'neutral'},{t:'あとでやる箱に入れた。頭の中から一旦追い出して構わない。',m:'smile'},{t:'記録した。分類は後だ。思いついた時に捕まえられたことを評価する。',m:'smile'}],
+ archive:[{t:'完成か。……おめでとう。消さずに残しておこう。君が終わらせた証拠だ。',m:'happy'},{t:'一区切りついたな。累積時間ごと保管しておく。よくやった。',m:'smile'},{t:'完了として受理した。次の候補からは外すが、ここまで積んだ時間は残る。',m:'neutral'}],
+ logEdit:[{t:'記録を直した。正確に残したいと思ったなら、それも立派な管理だ。',m:'neutral'},{t:'修正した。間違いは気にするな。後から直せるようにしたのはそのためだ。',m:'smile'}]
 });
 Object.assign(lines,{
  fiveMin:[
-  {t:'五分だけだ。それ以上やる義務はない。……開始するぞ。',m:'normal'},
-  {t:'了解した。五分なら、考える前に始められる。終わったらそこで止めても構わない。',m:'soft'},
-  {t:'「五分だけ」を選べた時点で十分だ。私が時間を見る。君は触ってこい。',m:'soft'},
-  {t:'大仕事は禁止だ。今日は五分だけ、手を付ける。',m:'stern'},
-  {t:'よし。五分後にまだやりたければ続ければいい。今は五分だけ考えろ。',m:'normal'}],
+  {t:'五分だけだ。それ以上やる義務はない。……開始するぞ。',m:'neutral'},
+  {t:'了解した。五分なら、考える前に始められる。終わったらそこで止めても構わない。',m:'smile'},
+  {t:'「五分だけ」を選べた時点で十分だ。私が時間を見る。君は触ってこい。',m:'smile'},
+  {t:'大仕事は禁止だ。今日は五分だけ、手を付ける。',m:'focused'},
+  {t:'よし。五分後にまだやりたければ続ければいい。今は五分だけ考えろ。',m:'neutral'}],
  excludeToday:[
-  {t:'今日はそれではないのだな。了解した。明日には候補へ戻しておく。',m:'normal'},
-  {t:'気分でない作業を無理に選ぶ必要はない。今日だけ外した。',m:'soft'},
-  {t:'承知した。休眠にするほどではない、ただ今日は違う。それで十分だ。',m:'think'}],
+  {t:'今日はそれではないのだな。了解した。明日には候補へ戻しておく。',m:'neutral'},
+  {t:'気分でない作業を無理に選ぶ必要はない。今日だけ外した。',m:'smile'},
+  {t:'承知した。休眠にするほどではない、ただ今日は違う。それで十分だ。',m:'neutral'}],
  summaryGood:[
-  {t:'今日はちゃんと積み上がっている。……十分だ。あとは休め。',m:'soft'},
-  {t:'作業したことも、身体を動かしたことも残っている。今日の君はよくやった。',m:'soft'},
-  {t:'一日分、確かに記録した。成果を小さく見積もる必要はない。',m:'normal'}],
+  {t:'今日はちゃんと積み上がっている。……十分だ。あとは休め。',m:'smile'},
+  {t:'作業したことも、身体を動かしたことも残っている。今日の君はよくやった。',m:'happy'},
+  {t:'一日分、確かに記録した。成果を小さく見積もる必要はない。',m:'neutral'}],
  summaryWork:[
-  {t:'今日は作業した日だ。運動まで要求はしない。ここまでで十分だ。',m:'soft'},
-  {t:'手を動かした記録が残った。それで今日の成果は成立している。',m:'normal'}],
+  {t:'今日は作業した日だ。運動まで要求はしない。ここまでで十分だ。',m:'smile'},
+  {t:'手を動かした記録が残った。それで今日の成果は成立している。',m:'neutral'}],
  summaryExercise:[
-  {t:'今日は身体を動かした。それだけでも立派な記録だ。作業が休みでも構わない。',m:'soft'},
-  {t:'運動の報告は受理済みだ。今日はそれを成果として持って帰れ。',m:'normal'}],
+  {t:'今日は身体を動かした。それだけでも立派な記録だ。作業が休みでも構わない。',m:'smile'},
+  {t:'運動の報告は受理済みだ。今日はそれを成果として持って帰れ。',m:'neutral'}],
  summaryEmpty:[
-  {t:'今日は記録なしだ。それも構わない。……また次に顔を見せてくれ。',m:'soft'},
-  {t:'何もしなかった日を罰するつもりはない。今日は休んだ。それだけだ。',m:'normal'},
-  {t:'空白の日もある。埋め合わせは不要だ。次の日に一つ触ればいい。',m:'soft'}],
+  {t:'今日は記録なしだ。それも構わない。……また次に顔を見せてくれ。',m:'smile'},
+  {t:'何もしなかった日を罰するつもりはない。今日は休んだ。それだけだ。',m:'neutral'},
+  {t:'空白の日もある。埋め合わせは不要だ。次の日に一つ触ればいい。',m:'smile'}],
  returnExerciseOnly:[
-  {t:'今日は作業記録はないが、運動はしたのか。なら今日はそれでいい。身体を動かしたことも立派な一日だ。',m:'soft'},
-  {t:'作業は休み、運動だけ済ませた日だな。……十分だ。何もしていない日ではない。',m:'normal'},
-  {t:'今日は身体の方を動かしたのか。なら、作業まで無理に足す必要はない。',m:'soft'}],
+  {t:'今日は作業記録はないが、運動はしたのか。なら今日はそれでいい。身体を動かしたことも立派な一日だ。',m:'smile'},
+  {t:'作業は休み、運動だけ済ませた日だな。……十分だ。何もしていない日ではない。',m:'neutral'},
+  {t:'今日は身体の方を動かしたのか。なら、作業まで無理に足す必要はない。',m:'smile'}],
  returnMorning:[
-  {t:'まだ朝だな。今日全部を決める必要はない。最初の一つだけ選ぶか。',m:'normal'},
-  {t:'朝から顔を見せたのか。……感心だ。五分だけ始めてしまうのも悪くない。',m:'soft'}],
+  {t:'まだ朝だな。今日全部を決める必要はない。最初の一つだけ選ぶか。',m:'neutral'},
+  {t:'朝から顔を見せたのか。……感心だ。五分だけ始めてしまうのも悪くない。',m:'smile'}],
  returnEvening:[
-  {t:'もう夜だ。ここから大仕事を始める必要はない。小さく一つ触るか、今日は終わりにしても構わない。',m:'think'},
-  {t:'一日の終わりが近いな。まだ何かしたいなら、五分だけにしておくか。',m:'soft'}],
+  {t:'もう夜だ。ここから大仕事を始める必要はない。小さく一つ触るか、今日は終わりにしても構わない。',m:'neutral'},
+  {t:'一日の終わりが近いな。まだ何かしたいなら、五分だけにしておくか。',m:'smile'}],
  returnMonthActive:[
-  {t:'今月はもう何日も手を動かしているな。……私はちゃんと見ている。今日までの分は消えない。',m:'soft'},
-  {t:'今月の記録が随分埋まってきた。毎日でなくても、これだけ戻ってきた日があるということだ。',m:'normal'}],
+  {t:'今月はもう何日も手を動かしているな。……私はちゃんと見ている。今日までの分は消えない。',m:'smile'},
+  {t:'今月の記録が随分埋まってきた。毎日でなくても、これだけ戻ってきた日があるということだ。',m:'neutral'}],
  weekActive:[
-  {t:'今週もいくつか手を動かした日がある。数字は評価ではなく、君が動いた跡だ。',m:'normal'},
-  {t:'今週の記録が見えているな。多い少ないより、何に時間を使ったか眺めればいい。',m:'think'}]
+  {t:'今週もいくつか手を動かした日がある。数字は評価ではなく、君が動いた跡だ。',m:'neutral'},
+  {t:'今週の記録が見えているな。多い少ないより、何に時間を使ったか眺めればいい。',m:'neutral'}]
 });
 const dialogueRefreshV131={
  return:[
-  {t:'ああ、君か。……何か用だろうか。いや、ここへ来たなら作業の話か。',m:'normal'},
-  {t:'来たな。私はここにいる。君は先に、今日触りたいものを見てくれ。',m:'soft'},
-  {t:'さて……一覧を見る限り、やることだけは随分あるな。どれから手を付けるつもりだ。',m:'think'},
-  {t:'君の作業場なのだから、好きに使えばいい。私まで毎回構える必要はない。',m:'normal'},
-  {t:'……またプロジェクトが増えていないだろうな。いや、先に確認しておこうと思っただけだ。',m:'stern'},
-  {t:'何か始める顔にも見えるし、ただ眺めに来た顔にも見える。……どちらだ。',m:'think'},
-  {t:'君が何を選ぶかは任せる。選べないなら、その時は私の仕事だ。',m:'normal'},
-  {t:'ああ、戻ったか。……………。以上だが、他に何か。……いや、まだ何も始まっていなかったな。',m:'soft'}],
+  {t:'ああ、君か。……何か用だろうか。いや、ここへ来たなら作業の話か。',m:'neutral'},
+  {t:'来たな。私はここにいる。君は先に、今日触りたいものを見てくれ。',m:'smile'},
+  {t:'さて……一覧を見る限り、やることだけは随分あるな。どれから手を付けるつもりだ。',m:'neutral'},
+  {t:'君の作業場なのだから、好きに使えばいい。私まで毎回構える必要はない。',m:'neutral'},
+  {t:'……またプロジェクトが増えていないだろうな。いや、先に確認しておこうと思っただけだ。',m:'focused'},
+  {t:'何か始める顔にも見えるし、ただ眺めに来た顔にも見える。……どちらだ。',m:'neutral'},
+  {t:'君が何を選ぶかは任せる。選べないなら、その時は私の仕事だ。',m:'neutral'},
+  {t:'ああ、戻ったか。……………。以上だが、他に何か。……いや、まだ何も始まっていなかったな。',m:'smile'}],
  start:[
-  {t:'選んだな。承知した。ではその件は君に任せる。',m:'normal'},
-  {t:'対象を確認した。……行ってこい。戻った時に続きを聞こう。',m:'stern'},
-  {t:'始めるのか。なら私は時間を預かる。君はそちらへ集中してくれ。',m:'soft'},
-  {t:'その作業か。ふむ……悪くない選択だ。',m:'think'},
-  {t:'開始を確認した。ここから先は私が口を挟むところではないな。',m:'normal'},
-  {t:'では任務開始だ。……と言うほど大仰なものでもないか。好きに進めろ。',m:'soft'},
-  {t:'君。始めた直後に別のプロジェクトを開くのは禁止だ。……一応言っておく。',m:'stern'},
-  {t:'行ってこい。途中で方針が変わっても構わない。報告は最後に聞く。',m:'normal'}],
+  {t:'選んだな。承知した。ではその件は君に任せる。',m:'neutral'},
+  {t:'対象を確認した。……行ってこい。戻った時に続きを聞こう。',m:'focused'},
+  {t:'始めるのか。なら私は時間を預かる。君はそちらへ集中してくれ。',m:'smile'},
+  {t:'その作業か。ふむ……悪くない選択だ。',m:'neutral'},
+  {t:'開始を確認した。ここから先は私が口を挟むところではないな。',m:'neutral'},
+  {t:'では任務開始だ。……と言うほど大仰なものでもないか。好きに進めろ。',m:'smile'},
+  {t:'君。始めた直後に別のプロジェクトを開くのは禁止だ。……一応言っておく。',m:'focused'},
+  {t:'行ってこい。途中で方針が変わっても構わない。報告は最後に聞く。',m:'neutral'}],
  startAgain:[
-  {t:'また出るのか。……今日は君をここでよく見るな。',m:'soft'},
-  {t:'もう一件か。了解した。なら前の作業とは頭を切り替えろ。',m:'stern'},
-  {t:'随分機嫌よく作業へ戻っていくな。何か面白くなってきたらしい。',m:'think'},
-  {t:'君が自分から戻ってきたなら、私は止めない。……ただし時間は見る。',m:'soft'},
-  {t:'二度目だな。今日は私の仕事も増える。まあ、構わない。',m:'normal'}],
+  {t:'また出るのか。……今日は君をここでよく見るな。',m:'smile'},
+  {t:'もう一件か。了解した。なら前の作業とは頭を切り替えろ。',m:'focused'},
+  {t:'随分機嫌よく作業へ戻っていくな。何か面白くなってきたらしい。',m:'neutral'},
+  {t:'君が自分から戻ってきたなら、私は止めない。……ただし時間は見る。',m:'smile'},
+  {t:'二度目だな。今日は私の仕事も増える。まあ、構わない。',m:'neutral'}],
  complete:[
-  {t:'終わったのか。……見せてくれ。いや、記録の話だ。',m:'soft'},
-  {t:'ふむ。そこまで進んだか。次に戻る場所も分かる。悪くない。',m:'think'},
-  {t:'報告を確認した。君が考えていたところまでは届いたらしいな。',m:'normal'},
-  {t:'一件片付いた。……こうして減ると、一覧まで少し気持ちがいい。',m:'soft'},
-  {t:'そこを直したのか。前に気にしていた箇所だっただろう。覚えている。',m:'normal'},
-  {t:'終えたなら、一度画面から離れて自分の成果を見てみろ。作業中とは見え方が違う。',m:'think'},
-  {t:'……満足そうだな。なら今回は成功ということにしておこう。',m:'soft'},
-  {t:'記録は私が預かる。君は作ったものの方を見ていろ。',m:'soft'}],
+  {t:'終わったのか。……見せてくれ。いや、記録の話だ。',m:'smile'},
+  {t:'ふむ。そこまで進んだか。次に戻る場所も分かる。悪くない。',m:'neutral'},
+  {t:'報告を確認した。君が考えていたところまでは届いたらしいな。',m:'neutral'},
+  {t:'一件片付いた。……こうして減ると、一覧まで少し気持ちがいい。',m:'smile'},
+  {t:'そこを直したのか。前に気にしていた箇所だっただろう。覚えている。',m:'neutral'},
+  {t:'終えたなら、一度画面から離れて自分の成果を見てみろ。作業中とは見え方が違う。',m:'neutral'},
+  {t:'……満足そうだな。なら今回は成功ということにしておこう。',m:'smile'},
+  {t:'記録は私が預かる。君は作ったものの方を見ていろ。',m:'smile'}],
  completeLong:[
-  {t:'随分長く潜っていたな。……時間の感覚を失っていなかったか。',m:'stern'},
-  {t:'ここまで続くとは思わなかった。相当乗っていたらしい。',m:'think'},
-  {t:'長丁場だったな。今すぐ次を考える必要はない。まず完成したところを眺めろ。',m:'soft'},
-  {t:'君が集中している間、こちらの時計だけがよく進んだ。……お疲れ。',m:'soft'},
-  {t:'一時間以上か。なるほど。それなら私が何度呼んでも聞こえなかっただろうな。',m:'think'}],
+  {t:'随分長く潜っていたな。……時間の感覚を失っていなかったか。',m:'concerned'},
+  {t:'ここまで続くとは思わなかった。相当乗っていたらしい。',m:'neutral'},
+  {t:'長丁場だったな。今すぐ次を考える必要はない。まず完成したところを眺めろ。',m:'concerned'},
+  {t:'君が集中している間、こちらの時計だけがよく進んだ。……お疲れ。',m:'concerned'},
+  {t:'一時間以上か。なるほど。それなら私が何度呼んでも聞こえなかっただろうな。',m:'neutral'}],
  micro:[
-  {t:'起動したのか。……では、少なくとも作業場所までは辿り着いたな。',m:'normal'},
-  {t:'道具を出しただけか。承知した。机の景色が昨日とは違う。それでいい。',m:'soft'},
-  {t:'準備まで済ませたのか。なら次回の君が少し楽になる。',m:'normal'},
-  {t:'……机を片付けた？　それは作業以上に難しい時があるな。記録しておく。',m:'think'},
-  {t:'Blenderを起動したな。……起動時間を眺めて閉じただけでも、私は見なかったことにはしない。',m:'stern'},
-  {t:'裁縫道具を出したのか。針を踏まない場所に置け。それだけは守れ。',m:'stern'},
-  {t:'MMDを開いたなら、とりあえずモデルの顔でも見て帰るか。',m:'soft'},
-  {t:'準備完了。続きをやるかどうかは、今の君に任せる。',m:'normal'},
-  {t:'そこまで出来たなら、今日は入口だけ開けたことにしよう。',m:'soft'}],
+  {t:'起動したのか。……では、少なくとも作業場所までは辿り着いたな。',m:'neutral'},
+  {t:'道具を出しただけか。承知した。机の景色が昨日とは違う。それでいい。',m:'smile'},
+  {t:'準備まで済ませたのか。なら次回の君が少し楽になる。',m:'neutral'},
+  {t:'……机を片付けた？　それは作業以上に難しい時があるな。記録しておく。',m:'neutral'},
+  {t:'Blenderを起動したな。……起動時間を眺めて閉じただけでも、私は見なかったことにはしない。',m:'focused'},
+  {t:'裁縫道具を出したのか。針を踏まない場所に置け。それだけは守れ。',m:'focused'},
+  {t:'MMDを開いたなら、とりあえずモデルの顔でも見て帰るか。',m:'smile'},
+  {t:'準備完了。続きをやるかどうかは、今の君に任せる。',m:'neutral'},
+  {t:'そこまで出来たなら、今日は入口だけ開けたことにしよう。',m:'smile'}],
  recommend:[
-  {t:'選んだ。理由は……まあ、私なりにある。気に入らなければ却下してくれ。',m:'think'},
-  {t:'今日はこれだ。君が候補を眺め続ける時間を、私が少し減らした。',m:'normal'},
-  {t:'私なら先にこちらを片付ける。君はどうする。',m:'think'},
-  {t:'これを出しておく。……顔を見る限り、あまり乗り気ではなさそうだな。',m:'soft'},
-  {t:'候補はこれだ。採用するかは君の権限だ。',m:'normal'},
-  {t:'ふむ、このプロジェクトが随分こちらを見ている。今日は相手をしてやったらどうだ。',m:'soft'},
-  {t:'これを推す。……異議があるなら聞こう。',m:'stern'}],
+  {t:'選んだ。理由は……まあ、私なりにある。気に入らなければ却下してくれ。',m:'neutral'},
+  {t:'今日はこれだ。君が候補を眺め続ける時間を、私が少し減らした。',m:'neutral'},
+  {t:'私なら先にこちらを片付ける。君はどうする。',m:'neutral'},
+  {t:'これを出しておく。……顔を見る限り、あまり乗り気ではなさそうだな。',m:'smile'},
+  {t:'候補はこれだ。採用するかは君の権限だ。',m:'neutral'},
+  {t:'ふむ、このプロジェクトが随分こちらを見ている。今日は相手をしてやったらどうだ。',m:'smile'},
+  {t:'これを推す。……異議があるなら聞こう。',m:'focused'}],
  fiveMin:[
-  {t:'五分か。了解した。……短い任務だな。',m:'normal'},
-  {t:'私が五分だけ借りる。終わったら君へ返そう。',m:'soft'},
-  {t:'では五分。成果は報告不要でも構わない。時間が来たら一度戻れ。',m:'normal'},
-  {t:'五分なら、迷っている時間の方が長くなりそうだな。開始する。',m:'think'},
-  {t:'短いからこそ、一つだけ決めろ。あれもこれも触るな。',m:'stern'}],
+  {t:'五分か。了解した。……短い任務だな。',m:'neutral'},
+  {t:'私が五分だけ借りる。終わったら君へ返そう。',m:'smile'},
+  {t:'では五分。成果は報告不要でも構わない。時間が来たら一度戻れ。',m:'neutral'},
+  {t:'五分なら、迷っている時間の方が長くなりそうだな。開始する。',m:'neutral'},
+  {t:'短いからこそ、一つだけ決めろ。あれもこれも触るな。',m:'focused'}],
  timerEnd:[
-  {t:'君、時間だ。…………聞こえているか。',m:'stern'},
-  {t:'終了時刻になった。思ったより静かだったな。集中していたらしい。',m:'soft'},
-  {t:'戻れ。時計の方が先に君を見つけた。',m:'normal'},
-  {t:'時間だ。続けるなら続けてもいいが、私には一度顔を見せろ。',m:'soft'},
-  {t:'区切りの時刻だ。……さて、どこまで行った。',m:'normal'},
-  {t:'終了。報告を聞こう。大したことがなくても構わない。',m:'think'}],
+  {t:'君、時間だ。…………聞こえているか。',m:'focused'},
+  {t:'終了時刻になった。思ったより静かだったな。集中していたらしい。',m:'smile'},
+  {t:'戻れ。時計の方が先に君を見つけた。',m:'neutral'},
+  {t:'時間だ。続けるなら続けてもいいが、私には一度顔を見せろ。',m:'smile'},
+  {t:'区切りの時刻だ。……さて、どこまで行った。',m:'neutral'},
+  {t:'終了。報告を聞こう。大したことがなくても構わない。',m:'neutral'}],
  exerciseReturn:[
-  {t:'今日は身体の方か。了解した。では報告を聞こう。',m:'normal'},
-  {t:'運動記録だな。……君が自分からここを開いたなら感心する。',m:'soft'},
-  {t:'作業机から離れたのか。それはそれで良い判断だ。',m:'normal'},
-  {t:'今日は何をした。走ったか、殴ったか、リングを押し潰したか。',m:'think'},
-  {t:'身体を動かしたなら、その内容を残そう。後から見ると案外面白い。',m:'soft'},
-  {t:'ここは私が細かく口を出す場所ではない。君がやったものを教えてくれ。',m:'normal'}],
+  {t:'今日は身体の方か。了解した。では報告を聞こう。',m:'neutral'},
+  {t:'運動記録だな。……君が自分からここを開いたなら感心する。',m:'smile'},
+  {t:'作業机から離れたのか。それはそれで良い判断だ。',m:'neutral'},
+  {t:'今日は何をした。走ったか、殴ったか、リングを押し潰したか。',m:'neutral'},
+  {t:'身体を動かしたなら、その内容を残そう。後から見ると案外面白い。',m:'smile'},
+  {t:'ここは私が細かく口を出す場所ではない。君がやったものを教えてくれ。',m:'neutral'}],
  exerciseRecord:[
-  {t:'記録した。……少し顔色が良くなったように見える。',m:'soft'},
-  {t:'終わったのか。では汗が引く前に水を飲め。',m:'stern'},
-  {t:'運動まで済ませたなら、今日は随分まともな生活をしているな。',m:'think'},
-  {t:'ふむ。その種目か。君、最近それをよく選んでいないか。',m:'think'},
-  {t:'報告は受け取った。身体の方にも一件、記録が増えた。',m:'normal'},
-  {t:'今日の君はそこを動かしたのだな。明日痛くても私に文句を言うな。',m:'soft'},
-  {t:'終わったなら座れ。……いや、ストレッチならまだ座るな。',m:'think'}],
+  {t:'記録した。……少し顔色が良くなったように見える。',m:'smile'},
+  {t:'終わったのか。では汗が引く前に水を飲め。',m:'focused'},
+  {t:'運動まで済ませたなら、今日は随分まともな生活をしているな。',m:'neutral'},
+  {t:'ふむ。その種目か。君、最近それをよく選んでいないか。',m:'neutral'},
+  {t:'報告は受け取った。身体の方にも一件、記録が増えた。',m:'neutral'},
+  {t:'今日の君はそこを動かしたのだな。明日痛くても私に文句を言うな。',m:'smile'},
+  {t:'終わったなら座れ。……いや、ストレッチならまだ座るな。',m:'neutral'}],
  exerciseBoth:[
-  {t:'両方か。…………君、本当に今日はどうした。',m:'think'},
-  {t:'作業記録と運動記録が並んでいる。妙に整った一日だな。',m:'normal'},
-  {t:'今日は頭も身体も使ったらしい。そういう日もあるのだな。',m:'soft'},
-  {t:'二つとも済んでいる。……私が催促する前にやるとは珍しい。',m:'think'},
-  {t:'なるほど。今日は私の出番が少なかったわけだ。',m:'soft'}],
+  {t:'両方か。…………君、本当に今日はどうした。',m:'neutral'},
+  {t:'作業記録と運動記録が並んでいる。妙に整った一日だな。',m:'neutral'},
+  {t:'今日は頭も身体も使ったらしい。そういう日もあるのだな。',m:'smile'},
+  {t:'二つとも済んでいる。……私が催促する前にやるとは珍しい。',m:'happy'},
+  {t:'なるほど。今日は私の出番が少なかったわけだ。',m:'smile'}],
  returnBoth:[
-  {t:'両方か。…………君、本当に今日はどうした。',m:'think'},
-  {t:'作業記録と運動記録が並んでいる。妙に整った一日だな。',m:'normal'},
-  {t:'今日は頭も身体も使ったらしい。そういう日もあるのだな。',m:'soft'},
-  {t:'二つとも済んでいる。……私が催促する前にやるとは珍しい。',m:'think'},
-  {t:'なるほど。今日は私の出番が少なかったわけだ。',m:'soft'}],
+  {t:'両方か。…………君、本当に今日はどうした。',m:'neutral'},
+  {t:'作業記録と運動記録が並んでいる。妙に整った一日だな。',m:'neutral'},
+  {t:'今日は頭も身体も使ったらしい。そういう日もあるのだな。',m:'smile'},
+  {t:'二つとも済んでいる。……私が催促する前にやるとは珍しい。',m:'happy'},
+  {t:'なるほど。今日は私の出番が少なかったわけだ。',m:'smile'}],
  inboxAdd:[
-  {t:'預かった。……また思いついたのか。君の頭は随分忙しいな。',m:'think'},
-  {t:'そこへ置いておこう。今扱う案件ではない。',m:'normal'},
-  {t:'了解した。忘れて構わない。こちらには残っている。',m:'soft'},
-  {t:'また一件増えたな。……片付ける日については、今は聞かないでおこう。',m:'think'},
-  {t:'分類不能か。なら一度ここで預かる。',m:'normal'}],
+  {t:'預かった。……また思いついたのか。君の頭は随分忙しいな。',m:'neutral'},
+  {t:'そこへ置いておこう。今扱う案件ではない。',m:'neutral'},
+  {t:'了解した。忘れて構わない。こちらには残っている。',m:'smile'},
+  {t:'また一件増えたな。……片付ける日については、今は聞かないでおこう。',m:'neutral'},
+  {t:'分類不能か。なら一度ここで預かる。',m:'neutral'}],
  archive:[
-  {t:'……終わったのか。そうか。長くここにあったから、少し妙な感じがするな。',m:'soft'},
-  {t:'完了扱いにする。…………おめでとう。これは言っておくべきだろう。',m:'soft'},
-  {t:'これでもう「次にやること」を考えなくていいのだな。……よく終わらせた。',m:'soft'},
-  {t:'一つ、棚へ移そう。消すわけではない。君が作ったものだからな。',m:'normal'},
-  {t:'随分長くこの名前を見ていた。完成すると、少し寂しいものだな。',m:'soft'},
-  {t:'君に紹介しよう――と言いたいところだが、作った本人に紹介しても仕方ないか。',m:'think'},
-  {t:'これはもう作業ではなく成果物だ。扱いを変えておこう。',m:'normal'}],
+  {t:'……終わったのか。そうか。長くここにあったから、少し妙な感じがするな。',m:'smile'},
+  {t:'完了扱いにする。…………おめでとう。これは言っておくべきだろう。',m:'happy'},
+  {t:'これでもう「次にやること」を考えなくていいのだな。……よく終わらせた。',m:'smile'},
+  {t:'一つ、棚へ移そう。消すわけではない。君が作ったものだからな。',m:'neutral'},
+  {t:'随分長くこの名前を見ていた。完成すると、少し寂しいものだな。',m:'smile'},
+  {t:'君に紹介しよう――と言いたいところだが、作った本人に紹介しても仕方ないか。',m:'neutral'},
+  {t:'これはもう作業ではなく成果物だ。扱いを変えておこう。',m:'neutral'}],
  logEdit:[
-  {t:'訂正を反映した。これで記録と実際が合ったな。',m:'normal'},
-  {t:'了解した。記憶より記録を直す方が簡単で助かる。',m:'think'},
-  {t:'修正完了。……こういう細かいところまで気になるのは君らしい。',m:'soft'},
-  {t:'日時を直したか。承知した。帳簿はこちらで合わせておく。',m:'normal'}],
+  {t:'訂正を反映した。これで記録と実際が合ったな。',m:'neutral'},
+  {t:'了解した。記憶より記録を直す方が簡単で助かる。',m:'neutral'},
+  {t:'修正完了。……こういう細かいところまで気になるのは君らしい。',m:'smile'},
+  {t:'日時を直したか。承知した。帳簿はこちらで合わせておく。',m:'neutral'}],
  returnLate:[
-  {t:'……まだいたのか。こんな時間に君と話すことになるとは思わなかった。',m:'soft'},
-  {t:'夜中の作業場は妙に静かだな。……嫌いではないが。',m:'soft'},
-  {t:'君。私は眠らないから構わないが、君はそうではないだろう。',m:'stern'},
-  {t:'こんな時間に新しいプロジェクトを始めようとしていないだろうな。',m:'stern'},
-  {t:'…………。ああ、君か。時計を見てから何か言おうと思ったが……まあいい。何をする。',m:'normal'}],
+  {t:'……まだいたのか。こんな時間に君と話すことになるとは思わなかった。',m:'concerned'},
+  {t:'夜中の作業場は妙に静かだな。……嫌いではないが。',m:'smile'},
+  {t:'君。私は眠らないから構わないが、君はそうではないだろう。',m:'concerned'},
+  {t:'こんな時間に新しいプロジェクトを始めようとしていないだろうな。',m:'concerned'},
+  {t:'…………。ああ、君か。時計を見てから何か言おうと思ったが……まあいい。何をする。',m:'concerned'}],
  returnMorning:[
-  {t:'早いな。まだ今日の記録が何もない。……当然か。',m:'think'},
-  {t:'朝から君を見るとは思わなかった。今日は少し珍しい日になりそうだ。',m:'soft'},
-  {t:'おはよう――……いや、何でもない。作業か。',m:'soft'},
-  {t:'まだ一日は長い。急いで使い切る必要はない。',m:'normal'}],
+  {t:'早いな。まだ今日の記録が何もない。……当然か。',m:'neutral'},
+  {t:'朝から君を見るとは思わなかった。今日は少し珍しい日になりそうだ。',m:'smile'},
+  {t:'おはよう――……いや、何でもない。作業か。',m:'blushing'},
+  {t:'まだ一日は長い。急いで使い切る必要はない。',m:'neutral'}],
  returnEvening:[
-  {t:'戻ったか。一日分の用事は済んだのか。',m:'normal'},
-  {t:'夜だな。今から何か作る時間は、案外好きだ。',m:'soft'},
-  {t:'今日の最後に少しだけ触るつもりか。それとも本番はこれからか。',m:'think'},
-  {t:'君の作業時間は夜に偏っている気がするが……気のせいだろうか。',m:'think'}],
+  {t:'戻ったか。一日分の用事は済んだのか。',m:'neutral'},
+  {t:'夜だな。今から何か作る時間は、案外好きだ。',m:'smile'},
+  {t:'今日の最後に少しだけ触るつもりか。それとも本番はこれからか。',m:'neutral'},
+  {t:'君の作業時間は夜に偏っている気がするが……気のせいだろうか。',m:'neutral'}],
  returnGap:[
-  {t:'……久しいな。息災にしていたか。',m:'soft'},
-  {t:'しばらく静かだったから、作業場まで眠っているようだった。',m:'soft'},
-  {t:'戻ったのだな。……それなら話は早い。どこから再開する。',m:'normal'},
-  {t:'以前どこまで進めていたか、こちらには残っている。必要なら確認しよう。',m:'normal'},
-  {t:'久しぶりだからといって特別扱いはしない。いつも通りでいい。',m:'stern'}],
+  {t:'……久しいな。息災にしていたか。',m:'smile'},
+  {t:'しばらく静かだったから、作業場まで眠っているようだった。',m:'smile'},
+  {t:'戻ったのだな。……それなら話は早い。どこから再開する。',m:'neutral'},
+  {t:'以前どこまで進めていたか、こちらには残っている。必要なら確認しよう。',m:'neutral'},
+  {t:'久しぶりだからといって特別扱いはしない。いつも通りでいい。',m:'focused'}],
  summaryGood:[
-  {t:'こうして並べると、今日は色々していたのだな。本人は気付いていたか。',m:'think'},
-  {t:'作業も身体も記録がある。……見栄えの良い一日だ。',m:'soft'},
-  {t:'一日の終わりにこうして結果だけ見るのも悪くない。',m:'normal'}],
+  {t:'こうして並べると、今日は色々していたのだな。本人は気付いていたか。',m:'neutral'},
+  {t:'作業も身体も記録がある。……見栄えの良い一日だ。',m:'happy'},
+  {t:'一日の終わりにこうして結果だけ見るのも悪くない。',m:'neutral'}],
  summaryWork:[
-  {t:'今日はこれを作っていた日だったのだな。後から見れば、案外はっきり残るものだ。',m:'think'},
-  {t:'作業の記録だけで充分に君らしい一日だ。',m:'soft'},
-  {t:'今日はここへ時間を使った。それだけ分かれば記録としては役目を果たしている。',m:'normal'}],
+  {t:'今日はこれを作っていた日だったのだな。後から見れば、案外はっきり残るものだ。',m:'neutral'},
+  {t:'作業の記録だけで充分に君らしい一日だ。',m:'smile'},
+  {t:'今日はここへ時間を使った。それだけ分かれば記録としては役目を果たしている。',m:'neutral'}],
  summaryExercise:[
-  {t:'今日は作業机ではなく身体の方だったか。そういう日も必要だ。',m:'normal'},
-  {t:'運動の記録が残っている。明日の筋肉痛までは記録しなくていい。',m:'think'},
-  {t:'身体を使った日として残しておこう。',m:'soft'}],
+  {t:'今日は作業机ではなく身体の方だったか。そういう日も必要だ。',m:'neutral'},
+  {t:'運動の記録が残っている。明日の筋肉痛までは記録しなくていい。',m:'neutral'},
+  {t:'身体を使った日として残しておこう。',m:'smile'}],
  summaryEmpty:[
-  {t:'……空白だな。こういう日も後から見ると、それはそれで一日の形だ。',m:'think'},
-  {t:'何も書かれていない。つまり今日は記録するほどの用事が無かったということだろう。',m:'normal'},
-  {t:'白紙か。…………。以上だが、他に何か。',m:'soft'}]
+  {t:'……空白だな。こういう日も後から見ると、それはそれで一日の形だ。',m:'neutral'},
+  {t:'何も書かれていない。つまり今日は記録するほどの用事が無かったということだろう。',m:'neutral'},
+  {t:'白紙か。…………。以上だが、他に何か。',m:'smile'}]
 };
 for(const [kind,added] of Object.entries(dialogueRefreshV131))lines[kind]=[...(lines[kind]||[]),...added];
 const weeklyExerciseDialogueV132={
  exerciseWeeklyProgress:[
-  {t:'今週の運動時間も確認しておこう。まだ目標までは残っているな。',m:'normal'},
-  {t:'週間の数字はここに出ている。急ぐ必要はないが、忘れないようにはしてくれ。',m:'think'},
-  {t:'まだ途中だな。残り時間は表示してある。いつ使うかは君に任せる。',m:'normal'},
-  {t:'今週はあと少し身体を動かす時間が必要らしい。……予定のどこかに入れておけ。',m:'stern'},
-  {t:'作業時間ばかり見ていると、こちらを忘れるからな。運動の方も一応確認しておけ。',m:'think'}],
+  {t:'今週の運動時間も確認しておこう。まだ目標までは残っているな。',m:'neutral'},
+  {t:'週間の数字はここに出ている。急ぐ必要はないが、忘れないようにはしてくれ。',m:'neutral'},
+  {t:'まだ途中だな。残り時間は表示してある。いつ使うかは君に任せる。',m:'neutral'},
+  {t:'今週はあと少し身体を動かす時間が必要らしい。……予定のどこかに入れておけ。',m:'focused'},
+  {t:'作業時間ばかり見ていると、こちらを忘れるからな。運動の方も一応確認しておけ。',m:'neutral'}],
  exerciseWeeklyLow:[
-  {t:'君。今週はまだ目標に届いていない。……これは身体のことだから、私は見過ごさん。',m:'stern'},
-  {t:'残り時間を見ろ。まだ不足している。今週中に少し時間を作れ。',m:'stern'},
-  {t:'作業なら休む日があって構わない。だが身体を動かす時間まで全部後回しにするのは許可できない。',m:'stern'},
-  {t:'数字は誤魔化さない。今週はまだ足りていない。……何をするか考えておけ。',m:'stern'},
-  {t:'君が忙しいことは知っている。だが、身体は後からまとめて面倒を見られるものでもない。',m:'think'},
-  {t:'まだ間に合う。だから今言っている。残りを全部一度にやれとは言わない。少しずつ分けろ。',m:'normal'}],
+  {t:'君。今週はまだ目標に届いていない。……これは身体のことだから、私は見過ごさん。',m:'focused'},
+  {t:'残り時間を見ろ。まだ不足している。今週中に少し時間を作れ。',m:'focused'},
+  {t:'作業なら休む日があって構わない。だが身体を動かす時間まで全部後回しにするのは許可できない。',m:'focused'},
+  {t:'数字は誤魔化さない。今週はまだ足りていない。……何をするか考えておけ。',m:'focused'},
+  {t:'君が忙しいことは知っている。だが、身体は後からまとめて面倒を見られるものでもない。',m:'focused'},
+  {t:'まだ間に合う。だから今言っている。残りを全部一度にやれとは言わない。少しずつ分けろ。',m:'neutral'}],
  exerciseWeeklyNear:[
-  {t:'あと少しだな。ここまで来たなら、残りはそう重くないだろう。',m:'soft'},
-  {t:'目標までかなり近い。……ふむ、これなら今週中に届きそうだ。',m:'think'},
-  {t:'残り時間は僅かだ。無理に一度で終わらせず、適当なところで分けてもいい。',m:'normal'},
-  {t:'もう大半は済んでいる。最後の分まで忘れなければ問題ない。',m:'soft'}],
+  {t:'あと少しだな。ここまで来たなら、残りはそう重くないだろう。',m:'smile'},
+  {t:'目標までかなり近い。……ふむ、これなら今週中に届きそうだ。',m:'neutral'},
+  {t:'残り時間は僅かだ。無理に一度で終わらせず、適当なところで分けてもいい。',m:'neutral'},
+  {t:'もう大半は済んでいる。最後の分まで忘れなければ問題ない。',m:'smile'}],
  exerciseWeeklyAchieved:[
-  {t:'今週は目標時間を越えたな。了解した。……この件については、もう私から言うことはない。',m:'soft'},
-  {t:'週間目標、達成だ。よくやった。あとは数字を増やすためだけに無理をするな。',m:'soft'},
-  {t:'必要な分は済んでいる。ここから先は君が動きたい時だけで構わない。',m:'normal'},
-  {t:'設定した目標時間は越えたな。これなら私も安心だ。',m:'soft'}],
+  {t:'今週は目標時間を越えたな。了解した。……この件については、もう私から言うことはない。',m:'happy'},
+  {t:'週間目標、達成だ。よくやった。あとは数字を増やすためだけに無理をするな。',m:'happy'},
+  {t:'必要な分は済んでいる。ここから先は君が動きたい時だけで構わない。',m:'neutral'},
+  {t:'設定した目標時間は越えたな。これなら私も安心だ。',m:'smile'}],
  exerciseWeeklyNewWeek:[
-  {t:'新しい週だな。運動の方もここから数え直しだ。',m:'normal'},
-  {t:'今週分はまだ白紙だ。……まあ、始まったばかりだからな。',m:'soft'},
-  {t:'今週の目標も確認した。最初から急ぐ必要はない。',m:'normal'},
-  {t:'初日から一週間分を要求するほど、私は理不尽ではない。週のどこかで動けばいい。',m:'soft'}]
+  {t:'新しい週だな。運動の方もここから数え直しだ。',m:'neutral'},
+  {t:'今週分はまだ白紙だ。……まあ、始まったばかりだからな。',m:'smile'},
+  {t:'今週の目標も確認した。最初から急ぐ必要はない。',m:'neutral'},
+  {t:'初日から一週間分を要求するほど、私は理不尽ではない。週のどこかで動けばいい。',m:'smile'}]
 };
 for(const [kind,added] of Object.entries(weeklyExerciseDialogueV132))lines[kind]=[...(lines[kind]||[]),...added];
 function lastWorkTimestampBeforeToday(){let start=fromFor('today');let a=data.logs.filter(l=>!l.micro&&l.ts<start).map(l=>l.ts);return a.length?Math.max(...a):null}
@@ -746,7 +754,7 @@ function resolvedJuliusKind(kind){if(kind==='return'){let h=new Date().getHours(
 const juliusRecentByKind=new Map();
 function juliusLineKey(line){return typeof line==='string'?line:line.t}
 function pickJuliusLine(kind,pool){let a=pool?.length?pool:lines.return,limit=a.length<=4?1:Math.min(3,a.length-1),recent=(juliusRecentByKind.get(kind)||[]).slice(-limit),candidates=a.filter(line=>!recent.includes(juliusLineKey(line)));while(!candidates.length&&recent.length){recent.shift();candidates=a.filter(line=>!recent.includes(juliusLineKey(line)))}if(!candidates.length)candidates=a;let pick=candidates[Math.floor(Math.random()*candidates.length)],key=juliusLineKey(pick);juliusRecentByKind.set(kind,[...recent,key].slice(-limit));return pick}
-function julius(kind='return'){if(!data.settings.juliusCheck)return;kind=resolvedJuliusKind(kind);let a=lines[kind]||lines.return,pick=pickJuliusLine(kind,a),msg=juliusLineKey(pick),mood=typeof pick==='string'?'normal':(pick.m||'normal');document.getElementById('juliusText').textContent=msg;setJuliusPortrait(mood)}
+function julius(kind='return'){if(!data.settings.juliusCheck)return;kind=resolvedJuliusKind(kind);let a=lines[kind]||lines.return,pick=pickJuliusLine(kind,a),msg=juliusLineKey(pick),mood=typeof pick==='string'?'neutral':(pick.m||'neutral');document.getElementById('juliusText').textContent=msg;setJuliusPortrait(mood)}
 function toast(t){let x=document.getElementById('toast');x.textContent=t;x.classList.add('show');clearTimeout(x._t);x._t=setTimeout(()=>x.classList.remove('show'),1600)}
 function microCount(period='today'){return logsFor(period).filter(l=>l.micro).length}
 function workLogs(period='today'){return logsFor(period).filter(l=>!l.micro)}
@@ -942,7 +950,7 @@ function renderStats(){let periods=[['today','今日'],['week','今週'],['month
 function renderHistory(){let a=[...data.logs].sort((x,y)=>y.ts-x.ts);document.getElementById('historyList').innerHTML=a.length?a.map(l=>`<div class="hist"><div class="histTop"><div><div class="crumb">${esc(l.categoryName||categoryBy(l.categoryId)?.name||'未分類')}</div><div class="histTitle">${esc(l.projectName||projectBy(l.projectId)?.project.name||(l.micro?'小さな一歩':'削除済み'))}</div></div><div class="histMeta">${new Date(l.ts).toLocaleString('ja-JP')} ・ ${l.micro?'準備':fmtMin(l.minutes)}</div></div>${l.note?`<div class="histNote">${esc(l.note)}</div>`:''}<div class="logActions">${l.micro?`<button class="btn small danger" onclick="deleteMicroLog('${l.id}')">削除</button>`:`<button class="btn small" onclick="editWorkLog('${l.id}')">編集</button>`}</div></div>`).join(''):'<div class="empty">作業履歴はまだない。</div>';renderDailySummary(document.getElementById('summaryDate')?.value||dateKey())}
 
 function isStandaloneApp(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true}
-function updatePwaStatus(){let status=document.getElementById('pwaStatus'),hint=document.getElementById('pwaHintText');if(!status||!hint)return;if(isStandaloneApp()){status.textContent='ホーム画面アプリとして起動中';hint.textContent='同じGoogleアカウントでログインし、安全な初回選択を済ませるとPCと同期できる。オフライン中の変更も先にこの端末へ保存される。'}else if(location.protocol==='file:'){status.textContent='PCローカル版として起動中';hint.textContent='file:// ではGoogleログインとPWA機能は使えない。同期確認はGitHub PagesなどHTTPS上のv1.4.0を開いて行う。'}else{status.textContent='Web版として起動中';hint.textContent='iPhoneの共有メニューから「ホーム画面に追加」できる。Googleログインは必ず同期ボタンを自分で押して開始する。'}}
+function updatePwaStatus(){let status=document.getElementById('pwaStatus'),hint=document.getElementById('pwaHintText');if(!status||!hint)return;if(isStandaloneApp()){status.textContent='ホーム画面アプリとして起動中';hint.textContent='同じGoogleアカウントでログインし、安全な初回選択を済ませるとPCと同期できる。オフライン中の変更も先にこの端末へ保存される。'}else if(location.protocol==='file:'){status.textContent='PCローカル版として起動中';hint.textContent='file:// ではGoogleログインとPWA機能は使えない。同期確認はGitHub PagesなどHTTPS上のv1.4.1を開いて行う。'}else{status.textContent='Web版として起動中';hint.textContent='iPhoneの共有メニューから「ホーム画面に追加」できる。Googleログインは必ず同期ボタンを自分で押して開始する。'}}
 function registerServiceWorker(){if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(e=>console.warn('Service Worker registration failed',e)))}}
 function init(){
  document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>setView(b.dataset.view));
@@ -983,5 +991,5 @@ init();
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script src="./firebase-config.js"></script>
-<script src="./cloud-sync.js?v=1.4.0"></script>
+<script src="./cloud-sync.js?v=1.4.1"></script>
 </body></html>

@@ -1,8 +1,12 @@
-JULIUS WORKROOM v1.4.0 — BODY TRACKER
+JULIUS WORKROOM v1.4.1 — JULIUS PORTRAIT EXPANSION
 
 使い方、データ互換性、PC⇔iPhone同期テスト、GitHub Pages更新手順はREADME.mdを確認してください。
 
-この版はv1.3.6までのWORK、EXERCISE、台詞、UI SE、CLOUD DATA SIZE、JSONバックアップ、Firebase Cloud Sync、PWAを維持しています。
+この版はv1.4.0までのWORK、EXERCISE、BODY、台詞、UI SE、CLOUD DATA SIZE、JSONバックアップ、Firebase Cloud Sync、PWAを維持しています。
+
+ジュリアスの新立ち絵6枚を追加し、台詞の意味に合わせてneutral、smile、focused、concerned、blushing、happyを使い分けます。未知のmoodはneutralへ戻り、6枚はオフラインでも表示できます。
+
+保存データは変更せずschema 11のままです。表情状態や画像はCloud SyncとJSONへ含めません。
 
 独立したBODYページで、日付ごとの立った回数・分数、水分量・回数、主睡眠、総歩数を記録できます。スマホでも下部のBODYから直接開けます。
 
