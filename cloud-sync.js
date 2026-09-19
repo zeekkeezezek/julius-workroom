@@ -1,5 +1,6 @@
 (function(){
 'use strict';
+if(window.WORKROOM_LOAD_FAILED)return;
 
 const DEVICE_KEY='julius_workroom_device_id';
 const DEVICE_NAME_KEY='julius_workroom_device_name';
@@ -61,7 +62,7 @@ function rememberSynced(uid,revision,hash){
   try{localStorage.setItem(syncMetaKey(uid),JSON.stringify({version:1,revision:Number(revision)||0,hash,savedAt:Date.now()}))}
   catch(error){console.warn('Sync metadata could not be stored',error)}
 }
-function normalizedHash(payload){const normalized=normalizeV10(cleanPayload(payload));normalized.syncTests=normalized.syncTests||[];return hashPayload(normalized)}
+function normalizedHash(payload){return hashPayload(WorkroomSchema.normalize(payload))}
 function startupDecision(localHash,remoteHash,remoteRevision,meta){
   if(!remoteHash)return 'choose';
   if(localHash===remoteHash)return 'synced';
@@ -78,9 +79,10 @@ function formatTime(value){
   return Number.isNaN(date.getTime())?'—':date.toLocaleString('ja-JP');
 }
 function summary(payload){
-  return {projects:(payload.categories||[]).reduce((n,c)=>n+(c.projects||[]).length,0),work:(payload.logs||[]).length,exercise:(payload.exerciseLogs||[]).length,body:Object.keys(payload.bodyDays||{}).length,inbox:(payload.inbox||[]).length,updatedAt:payload.updatedAt||null};
+  const p=WorkroomSchema.normalize(payload);
+  return {items:p.workItems.length,work:p.logs.filter(l=>!l.micro).length,micro:p.logs.filter(l=>l.micro).length,exercise:p.exerciseLogs.length,inbox:p.inbox.length};
 }
-function summaryText(payload){let s=summary(payload);return `プロジェクト ${s.projects} / 作業 ${s.work} / 運動 ${s.exercise} / BODY ${s.body}日 / INBOX ${s.inbox}`}
+function summaryText(payload){let s=summary(payload);return `作業項目 ${s.items} / 作業記録 ${s.work} / 小さな一歩 ${s.micro} / 運動 ${s.exercise} / INBOX ${s.inbox}`}
 function setStatus(kind,text,error=null){
   state.status=kind;state.statusText=text;state.error=error;
   const button=document.getElementById('cloudStatusBtn'),label=document.getElementById('cloudStatusLabel');
@@ -156,7 +158,11 @@ async function beginForUser(user){
   setStatus('saving','クラウドを確認中');
   let remote;try{remote=await getServerState()}catch(_){return}
   state.remote=remote;state.baseRevision=Number(remote?.revision)||0;
-  const localHash=hashPayload(data),remoteHash=remote?.payload?normalizedHash(remote.payload):null,meta=readSyncMeta(user.uid),remoteRevision=Number(remote?.revision)||0,decision=startupDecision(localHash,remoteHash,remoteRevision,meta);
+  const localHash=hashPayload(data),meta=readSyncMeta(user.uid),remoteRevision=Number(remote?.revision)||0;
+  let remoteHash;try{remoteHash=remote?.payload?normalizedHash(remote.payload):null}catch(error){setStatus('error','同期を停止した','クラウドのデータ形式を読み込めない。ローカルは維持している。');return}
+  // Translate the previous successful v11 fingerprint only when our migrated copy is unchanged.
+  try{const original=migrationOriginal||JSON.parse(localStorage.getItem(MIGRATION_BACKUP_KEY)||'null')?.payload;if(meta&&original&&meta.hash===hashPayload(original)&&normalizedHash(original)===localHash)meta.hash=localHash}catch(_){}
+  const decision=startupDecision(localHash,remoteHash,remoteRevision,meta);
   if(remote&&remote.payload&&decision==='synced'){
     state.lastSyncedHash=remoteHash;state.active=true;state.dirty=false;rememberSynced(user.uid,remoteRevision,remoteHash);startListener();setStatus('synced','同期済み');return;
   }
@@ -168,8 +174,9 @@ async function beginForUser(user){
 function startListener(){
   if(state.unsubscribe)state.unsubscribe();
   state.unsubscribe=state.ref.onSnapshot({includeMetadataChanges:true},snap=>{
-    if(!snap.exists||snap.metadata.hasPendingWrites)return;
+    if(!snap.exists||snap.metadata.hasPendingWrites||state.saving||!state.active)return;
     const remote=snap.data(),revision=Number(remote.revision)||0;if(revision<=state.baseRevision)return;
+    try{normalizedHash(remote.payload)}catch(error){state.active=false;setStatus('error','同期を停止した','クラウドのデータ形式を読み込めない。ローカルは維持している。');return}
     const localHash=hashPayload(cleanPayload(data));
     if(localHash===state.lastSyncedHash&&!state.dirty&&!state.saving){applyRemote(remote,false);return}
     showConflict(remote);
@@ -177,14 +184,20 @@ function startListener(){
 }
 function applyRemote(remote,downloadLocal){
   if(!remote?.payload)return;
-  if(downloadLocal)backupBeforeReplace(data,'before_cloud_adopt');
-  data=normalizeV10(cleanPayload(remote.payload));data.syncTests=data.syncTests||[];save({cloudApply:true});renderAll();
+  const previous=data;
+  try{
+    const next=WorkroomSchema.normalize(remote.payload);
+    keepMigrationBackup(remote.payload);
+    if(downloadLocal)backupBeforeReplace(data,'before_cloud_adopt');
+    data=next;save({cloudApply:true});
+  }catch(error){data=previous;state.active=false;setStatus('error','取り込みを停止した','端末への安全な保存ができなかった。元のデータは維持している。');return}
   state.remote=remote;state.baseRevision=Number(remote.revision)||0;state.lastSyncedHash=hashPayload(data);state.dirty=false;state.conflict=null;state.active=true;
   rememberSynced(state.user?.uid,state.baseRevision,state.lastSyncedHash);
+  restoreTimerRuntime(previous.timer);renderAll();
   closeDialog('cloudMigrationModal');closeDialog('cloudConflictModal');startListener();setStatus('synced','同期済み');
 }
 async function writeLocal(expectedRevision,backupRemote){
-  if(!state.user||!state.ref)return;
+  if(!state.user||!state.ref||state.saving)return;
   state.saving=true;setStatus('saving','保存中');
   const payload=cleanPayload(data),hash=hashPayload(payload),now=Date.now();
   const payloadBytes=getSyncPayloadBytes(payload);
@@ -194,16 +207,16 @@ async function writeLocal(expectedRevision,backupRemote){
     await state.db.runTransaction(async tx=>{
       const snap=await tx.get(state.ref),current=snap.exists?(Number(snap.data().revision)||0):0;
       if(current!==expectedRevision){let error=new Error('revision-conflict');error.code='workroom/revision-conflict';error.remote=snap.exists?snap.data():null;throw error}
-      tx.set(state.ref,{payload,hash,revision:nextRevision,updatedAt:firebase.firestore.FieldValue.serverTimestamp(),updatedAtMs:now,writerId:state.deviceId,schemaVersion:10,appVersion:APP_VERSION});
+      tx.set(state.ref,{payload,hash,revision:nextRevision,updatedAt:firebase.firestore.FieldValue.serverTimestamp(),updatedAtMs:now,writerId:state.deviceId,schemaVersion:12,appVersion:APP_VERSION});
     });
-    state.baseRevision=nextRevision;state.lastSyncedHash=hash;state.remote={payload,hash,revision:nextRevision,updatedAtMs:now,writerId:state.deviceId};state.dirty=false;state.active=true;state.conflict=null;rememberSynced(state.user.uid,nextRevision,hash);closeDialog('cloudMigrationModal');closeDialog('cloudConflictModal');startListener();setStatus('synced','同期済み');
+    state.baseRevision=nextRevision;state.lastSyncedHash=hash;state.remote={payload,hash,revision:nextRevision,updatedAtMs:now,writerId:state.deviceId};state.dirty=hashPayload(data)!==hash;state.active=true;state.conflict=null;rememberSynced(state.user.uid,nextRevision,hash);closeDialog('cloudMigrationModal');closeDialog('cloudConflictModal');setStatus(state.dirty?'saving':'synced',state.dirty?'追加変更の同期待ち':'同期済み');
   }catch(error){
     if(error.code==='workroom/revision-conflict'){
       const remote=error.remote||await getServerState().catch(()=>null);
       if(remote?.payload)showConflict(remote);else setStatus('error','競合確認エラー','クラウドの最新データを取得できなかった。ローカルデータは保持している。');
     }
     else{state.dirty=true;setStatus(navigator.onLine?'error':'offline',navigator.onLine?'同期エラー':'オフライン・同期待ち',friendlyError(error))}
-  }finally{state.saving=false;renderPanel()}
+  }finally{state.saving=false;if(state.active&&!state.conflict){startListener();if(state.dirty&&state.status!=='error'&&state.status!=='offline')queueLocalSave()}renderPanel()}
 }
 function friendlyError(error){
   const code=error?.code||'';

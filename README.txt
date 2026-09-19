@@ -1,33 +1,17 @@
-JULIUS WORKROOM v1.4.1 — JULIUS PORTRAIT EXPANSION
+JULIUS WORKROOM v1.5.0 — WORK SIMPLIFICATION + BODY REMOVAL
 
-使い方、データ互換性、PC⇔iPhone同期テスト、GitHub Pages更新手順はREADME.mdを確認してください。
+作業名だけで追加 → カードの▶で開始 → 記録する。
+フラットな一覧へ変更。CURRENT／NEXT／カテゴリ／温度／負荷は廃止。
+BODYとbodyDaysも除去。EXERCISE、6立ち絵、SE、同期、PWAは維持。
 
-この版はv1.4.0までのWORK、EXERCISE、BODY、台詞、UI SE、CLOUD DATA SIZE、JSONバックアップ、Firebase Cloud Sync、PWAを維持しています。
+必ず更新前v1.4.1のJSONを保存してから更新すること。
+schema 11→12。作業ID・ログ・運動・INBOX・設定・有効なタイマーを引き継ぐ。
+移行原本は端末内にも退避。設定の「更新前のJSONを保存」で書き出せる。
+通常のJSONはschema 12。BODYと旧カテゴリ情報は含まない。
 
-ジュリアスの新立ち絵6枚を追加し、台詞の意味に合わせてneutral、smile、focused、concerned、blushing、happyを使い分けます。未知のmoodはneutralへ戻り、6枚はオフラインでも表示できます。
+PC・iPhoneの両方をv1.5.0へ揃えてから編集を再開する。
+ZIPを展開した中身を既存index.htmlと同じ階層へ反映する。
+新しいschema.jsとwork-ui.jsも必ず含めること。
 
-保存データは変更せずschema 11のままです。表情状態や画像はCloud SyncとJSONへ含めません。
-
-独立したBODYページで、日付ごとの立った回数・分数、水分量・回数、主睡眠、総歩数を記録できます。スマホでも下部のBODYから直接開けます。
-
-BODYは `bodyDays[YYYY-MM-DD]` の日別集計だけを保持します。操作履歴やID、目標、スコア、連続記録は追加しません。HOME、CALENDAR、DAILY SUMMARYにもBODY数値を混ぜません。
-
-schemaは11です。schema 10の既存データは全項目を保ち、`bodyDays: {}` だけを追加します。localStorageキーとFirestoreの保存先は変更していません。
-
-新規運動記録の台詞を1件／2件／3件／4件／5件以上に分けました。週間目標の初達成は従来どおり最優先です。
-
-当日3件以上かつ合計60分以上では25%、90分以上では35%の確率で長時間向け補助台詞が出ます。それ以外は件数別の反応になります。回数型プランクは分数に換算しません。
-
-計41種の台詞を追加しました。既存の台詞と直近の重複回避を維持し、新しい保存フィールドは追加していません。
-
-LIGHT UI SOUNDはv1.3.5の音量（QUIET 2.0／NORMAL 4.8）、音色、発火タイミングを維持しています。設定から「UI SEを試す」で確認できます。
-
-HOMEのINBOXは、既存プロジェクトの「次にやること」へ移すほか、既存大カテゴリ内へ新規プロジェクトとして追加できます。
-
-設定／CLOUD SYNCで、現在の同期payloadサイズ、900KB安全上限に対する使用率と残量を確認できます。900KBはFirebase全体の容量ではありません。
-
-軽いUI SEのON/OFFと音量は端末専用キーへ保存され、Cloud SyncとJSONには含まれません。
-
-週間運動目標は既定120分、設定範囲30～600分です。PCとiPhoneで同期され、JSONにも含まれます。
-
-新規のプランクは回数で記録し、週間・月間の分数へ換算しません。旧時間型プランク、旧メモ、未知の追加フィールドはそのまま維持します。
+使い方・移行・公開手順・PC⇔iPhone同期テストはREADME.mdへ。
+検証範囲はVERIFICATION_v1.5.0.mdへ。

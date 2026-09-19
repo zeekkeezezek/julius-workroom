@@ -1,11 +1,11 @@
-const CACHE_NAME='julius-workroom-v1-4-1-julius-portrait-expansion';
+const CACHE_NAME='julius-workroom-v1-5-0-work-simplification';
 const APP_SHELL=[
-  './','./index.html','./manifest.json','./firebase-config.js','./cloud-sync.js?v=1.4.1',
+  './','./index.html','./manifest.json','./firebase-config.js','./cloud-sync.js?v=1.5.0','./schema.js?v=1.5.0','./work-ui.js?v=1.5.0',
   './assets/julius/01_neutral.png','./assets/julius/02_smile.png','./assets/julius/03_focused.png',
   './assets/julius/04_concerned.png','./assets/julius/05_blushing.png','./assets/julius/06_happy.png',
   './assets/icons/icon-180.png','./assets/icons/icon-192.png','./assets/icons/icon-512.png',
   './assets/icons/nav/home.svg','./assets/icons/nav/folder.svg','./assets/icons/nav/calendar.svg',
-  './assets/icons/nav/activity.svg','./assets/icons/nav/body.svg','./assets/icons/nav/book-open.svg','./assets/icons/nav/more-horizontal.svg'
+  './assets/icons/nav/activity.svg','./assets/icons/nav/book-open.svg','./assets/icons/nav/more-horizontal.svg'
 ];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('julius-workroom-')&&k!==CACHE_NAME).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
