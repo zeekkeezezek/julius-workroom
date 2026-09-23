@@ -22,7 +22,43 @@ function renderWorkItems(){
  document.getElementById('archivedWorkItems').innerHTML=archived.map(p=>workCard(p)).join('')||'<div class="empty">保管中の作業はない。</div>';
  bindWorkCards();
 }
-function editWorkItem(id=null){const p=workItemBy(id);document.getElementById('workItemId').value=p?.id||'';document.getElementById('workItemName').value=p?.name||'';document.getElementById('workItemModalTitle').textContent=p?'作業名を変更':'作業を追加';document.getElementById('saveWorkItemBtn').textContent=p?'保存':'追加';document.getElementById('archiveWorkItemBtn').hidden=!p||p.archivedAt!=null;openModal('workItemModal');document.getElementById('workItemName').focus()}
+function editWorkItem(id=null){const p=workItemBy(id);document.getElementById('workItemId').value=p?.id||'';document.getElementById('workItemName').value=p?.name||'';document.getElementById('workItemModalTitle').textContent=p?'作業名を変更':'作業を追加';document.getElementById('saveWorkItemBtn').textContent=p?'保存':'追加';document.getElementById('archiveWorkItemBtn').hidden=!p||p.archivedAt!=null;document.getElementById('manualWorkLogBtn').hidden=!p||p.archivedAt!=null;openModal('workItemModal');document.getElementById('workItemName').focus()}
+
+// Separate creation state: never reuse the existing log editor's ID.
+function openManualWorkLog(){
+ const p=workItemBy(document.getElementById('workItemId').value);
+ if(!p||p.archivedAt!=null)return toast('作業一覧の項目を確認してくれ');
+ document.getElementById('manualWorkItemId').value=p.id;
+ document.getElementById('manualWorkLabel').textContent=p.name;
+ document.getElementById('manualWorkDate').value=toLocalInput(Date.now());
+ document.getElementById('manualWorkMinutes').value='';
+ document.getElementById('manualWorkNote').value='';
+ closeModal('workItemModal');openModal('manualWorkLogModal');
+ document.getElementById('manualWorkMinutes').focus();
+}
+function saveManualWorkLog(){
+ const p=workItemBy(document.getElementById('manualWorkItemId').value);
+ if(!p||p.archivedAt!=null)return toast('対象の作業が変更された。作業一覧から開き直してくれ');
+ const dateInput=document.getElementById('manualWorkDate'),ts=new Date(dateInput.value).getTime();
+ if(!dateInput.value||!dateInput.checkValidity()||!Number.isFinite(ts)||toLocalInput(ts)!==dateInput.value)return toast('日時を確認してくれ');
+ const minutes=Number(document.getElementById('manualWorkMinutes').value);
+ if(!Number.isSafeInteger(minutes)||minutes<1)return toast('作業時間を確認してくれ');
+ const previous=structuredClone(data);
+ data.logs.push({id:uid('l'),ts,workItemId:p.id,workItemName:p.name,minutes,note:document.getElementById('manualWorkNote').value.trim(),micro:false});
+ rebuildActivity();refreshWorkLastWorked();
+ try{save()}catch(e){data=previous;return toast('保存できなかった。入力を残しているので、空き容量を確認してくれ')}
+ document.getElementById('manualWorkItemId').value='';
+ closeModal('manualWorkLogModal');renderAll();playUiSound('workComplete');julius('manualWorkLog');toast('作業時間を'+minutes+'分追加した');
+}
+lines.manualWorkLog=[
+ {t:'記録した。開始を押し忘れていても、実際にやった作業まで無かったことにはしない。',m:'neutral'},
+ {t:'後からでも構わない。君がやった分は、きちんと残しておこう。',m:'smile'},
+ {t:'承知した。その時間は確かに作業したのだろう。記録しておく。',m:'neutral'},
+ {t:'タイマーを忘れたか。……まあいい。作業そのものを忘れたわけではない。',m:'smile'},
+ {t:'記録を忘れたことより、実際に手を動かしたことの方が重要だ。',m:'neutral'},
+ {t:'次から押せればそれでいい。今回は私が後から拾っておく。',m:'smile'},
+ {t:'君。記録のために作業しているわけではない。やった時間は、後からでも残せばいい。',m:'focused'}
+];
 function saveWorkItem(){const name=document.getElementById('workItemName').value.trim(),id=document.getElementById('workItemId').value;if(!name)return toast('作業名を入れてくれ');const p=workItemBy(id);if(p)p.name=name;else data.workItems.push({id:uid('p'),name,createdAt:Date.now(),lastWorkedAt:null,archivedAt:null});save();closeModal('workItemModal');renderAll();toast(p?'名前を変更した':'作業を追加した')}
 function archiveWorkItem(){const p=workItemBy(document.getElementById('workItemId').value);if(!p)return;if(data.timer?.workItemId===p.id)return toast('この作業のタイマーを先に記録・終了してくれ');p.archivedAt=Date.now();save();closeModal('workItemModal');renderAll();julius('archive');toast('アーカイブした。記録は残っている')}
 function restoreWorkItem(id){const p=workItemBy(id);if(!p)return;p.archivedAt=null;save();renderAll();toast('作業一覧へ戻した')}

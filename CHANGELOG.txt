@@ -1,3 +1,12 @@
+JULIUS WORKROOM v1.5.1 — MANUAL WORK LOG
+2026-09-23
+- WORKの「…」内に「時間を手動追加」。日時／整数分数／任意メモの専用モーダル。
+- schema 12の通常ログへ保存。過去日の集計、activity、lastWorkedAtの再計算に対応。
+- 入力検証、保存失敗時の巻き戻し、連打防止、対象作業の再確認。
+- ジュリアスの反応7本と既存WORK完了SE。音量設定は維持。
+- 下部CALENDARを含む5項目、EXERCISE、JSON、Cloud Sync、900KB安全上限を維持。
+- Service Workerキャッシュをv1.5.1へ更新。
+
 JULIUS WORKROOM v1.5.0 — WORK SIMPLIFICATION + BODY REMOVAL
 =======================================================
 

@@ -1,6 +1,6 @@
-const CACHE_NAME='julius-workroom-v1-5-0-calendar-nav';
+const CACHE_NAME='julius-workroom-v1-5-1-manual-work-log';
 const APP_SHELL=[
-  './','./index.html','./manifest.json','./firebase-config.js','./cloud-sync.js?v=1.5.0','./schema.js?v=1.5.0','./work-ui.js?v=1.5.0',
+  './','./index.html','./manifest.json','./firebase-config.js','./cloud-sync.js?v=1.5.1','./schema.js?v=1.5.1','./work-ui.js?v=1.5.1',
   './assets/julius/01_neutral.png','./assets/julius/02_smile.png','./assets/julius/03_focused.png',
   './assets/julius/04_concerned.png','./assets/julius/05_blushing.png','./assets/julius/06_happy.png',
   './assets/icons/icon-180.png','./assets/icons/icon-192.png','./assets/icons/icon-512.png',
