@@ -1,3 +1,12 @@
+JULIUS WORKROOM v1.5.2 — OTHER WORK
+2026-09-30
+- WORK一覧末尾に仮想カード「その他作業」。通常workItemsへの保存、編集、アーカイブはしない。
+- タイマー全操作と手動追加に対応。メモ不要、note空文字で通常WORKログへ保存。
+- 特殊IDのログ／タイマーをnormalize・JSON・同期・再起動で保持。
+- HOME候補、推薦、ARCHIVEから除外。集計／CALENDAR／日別まとめへは通常どおり加算。
+- schema 12、同期の競合防止、900KB安全上限、EXERCISE、既存SEを維持。
+- 両端末をv1.5.2へ更新してから新機能を使用すること。
+
 JULIUS WORKROOM v1.5.1 — MANUAL WORK LOG
 2026-09-23
 - WORKの「…」内に「時間を手動追加」。日時／整数分数／任意メモの専用モーダル。

@@ -1,5 +1,11 @@
 /* Flat WORK cards and timer controls. The existing exercise/audio/calendar code is shared. */
-function workItemBy(id){return data.workItems.find(p=>p.id===id)}
+const OTHER_WORK_ITEM_ID=WorkroomSchema.OTHER_WORK_ITEM_ID;
+const OTHER_WORK_ITEM=Object.freeze({id:OTHER_WORK_ITEM_ID,name:'その他作業',archivedAt:null});
+function workItemBy(id){return id===OTHER_WORK_ITEM_ID?OTHER_WORK_ITEM:data.workItems.find(p=>p.id===id)}
+function workNote(id,value){return id===OTHER_WORK_ITEM_ID?'':value.trim()}
+function otherWorkCard(){return `<article class="workItem otherWorkItem"><div class="workItemText"><h3>その他作業</h3><div class="workItemMeta">どのカードにもまだ入れていない作業</div><div class="workItemMeta">今日 ${fmtMin(minutesFor('today',OTHER_WORK_ITEM_ID))} ・ 累計 ${fmtMin(minutesFor('all',OTHER_WORK_ITEM_ID))}</div></div><div class="workItemActions"><button class="btn primary workPlay" data-work-start="${OTHER_WORK_ITEM_ID}" aria-label="その他作業を開始" ${data.timer?'disabled':''}>▶</button><button class="btn workManage" data-work-edit="${OTHER_WORK_ITEM_ID}" aria-label="その他作業の管理">…</button></div></article>`}
+function openOtherWorkMenu(){openModal('otherWorkMenu')}
+function manualOtherWork(){document.getElementById('workItemId').value=OTHER_WORK_ITEM_ID;closeModal('otherWorkMenu');openManualWorkLog()}
 function activeWorkItems(){return data.workItems.filter(p=>p.archivedAt==null).sort((a,b)=>(b.lastWorkedAt||b.createdAt||0)-(a.lastWorkedAt||a.createdAt||0))}
 function logWorkName(l){return !l.micro&&workItemBy(l.workItemId)?.name||l.workItemName||(l.micro?'小さな一歩':'旧記録')}
 function minutesFor(period,id=null){return logsFor(period).filter(l=>!l.micro&&(id===null||l.workItemId===id)).reduce((a,l)=>a+(Number(l.minutes)||0),0)}
@@ -18,11 +24,12 @@ function bindWorkCards(){
 function renderWorkItems(){
  document.getElementById('workItems').innerHTML=activeWorkItems().map(p=>workCard(p)).join('')||'<div class="empty">作業名を一つ追加すれば、ここから始められる。</div>';
  const archived=data.workItems.filter(p=>p.archivedAt!=null).sort((a,b)=>b.archivedAt-a.archivedAt);
+ document.getElementById('workItems').insertAdjacentHTML('beforeend',otherWorkCard());
  document.getElementById('archiveCount').textContent=archived.length;
  document.getElementById('archivedWorkItems').innerHTML=archived.map(p=>workCard(p)).join('')||'<div class="empty">保管中の作業はない。</div>';
  bindWorkCards();
 }
-function editWorkItem(id=null){const p=workItemBy(id);document.getElementById('workItemId').value=p?.id||'';document.getElementById('workItemName').value=p?.name||'';document.getElementById('workItemModalTitle').textContent=p?'作業名を変更':'作業を追加';document.getElementById('saveWorkItemBtn').textContent=p?'保存':'追加';document.getElementById('archiveWorkItemBtn').hidden=!p||p.archivedAt!=null;document.getElementById('manualWorkLogBtn').hidden=!p||p.archivedAt!=null;openModal('workItemModal');document.getElementById('workItemName').focus()}
+function editWorkItem(id=null){if(id===OTHER_WORK_ITEM_ID)return openOtherWorkMenu();const p=workItemBy(id);document.getElementById('workItemId').value=p?.id||'';document.getElementById('workItemName').value=p?.name||'';document.getElementById('workItemModalTitle').textContent=p?'作業名を変更':'作業を追加';document.getElementById('saveWorkItemBtn').textContent=p?'保存':'追加';document.getElementById('archiveWorkItemBtn').hidden=!p||p.archivedAt!=null;document.getElementById('manualWorkLogBtn').hidden=!p||p.archivedAt!=null;openModal('workItemModal');document.getElementById('workItemName').focus()}
 
 // Separate creation state: never reuse the existing log editor's ID.
 function openManualWorkLog(){
@@ -33,6 +40,7 @@ function openManualWorkLog(){
  document.getElementById('manualWorkDate').value=toLocalInput(Date.now());
  document.getElementById('manualWorkMinutes').value='';
  document.getElementById('manualWorkNote').value='';
+ document.getElementById('manualWorkNote').closest('.field').hidden=p.id===OTHER_WORK_ITEM_ID;
  closeModal('workItemModal');openModal('manualWorkLogModal');
  document.getElementById('manualWorkMinutes').focus();
 }
@@ -44,7 +52,7 @@ function saveManualWorkLog(){
  const minutes=Number(document.getElementById('manualWorkMinutes').value);
  if(!Number.isSafeInteger(minutes)||minutes<1)return toast('作業時間を確認してくれ');
  const previous=structuredClone(data);
- data.logs.push({id:uid('l'),ts,workItemId:p.id,workItemName:p.name,minutes,note:document.getElementById('manualWorkNote').value.trim(),micro:false});
+ data.logs.push({id:uid('l'),ts,workItemId:p.id,workItemName:p.name,minutes,note:workNote(p.id,document.getElementById('manualWorkNote').value),micro:false});
  rebuildActivity();refreshWorkLastWorked();
  try{save()}catch(e){data=previous;return toast('保存できなかった。入力を残しているので、空き容量を確認してくれ')}
  document.getElementById('manualWorkItemId').value='';
@@ -59,9 +67,9 @@ lines.manualWorkLog=[
  {t:'次から押せればそれでいい。今回は私が後から拾っておく。',m:'smile'},
  {t:'君。記録のために作業しているわけではない。やった時間は、後からでも残せばいい。',m:'focused'}
 ];
-function saveWorkItem(){const name=document.getElementById('workItemName').value.trim(),id=document.getElementById('workItemId').value;if(!name)return toast('作業名を入れてくれ');const p=workItemBy(id);if(p)p.name=name;else data.workItems.push({id:uid('p'),name,createdAt:Date.now(),lastWorkedAt:null,archivedAt:null});save();closeModal('workItemModal');renderAll();toast(p?'名前を変更した':'作業を追加した')}
-function archiveWorkItem(){const p=workItemBy(document.getElementById('workItemId').value);if(!p)return;if(data.timer?.workItemId===p.id)return toast('この作業のタイマーを先に記録・終了してくれ');p.archivedAt=Date.now();save();closeModal('workItemModal');renderAll();julius('archive');toast('アーカイブした。記録は残っている')}
-function restoreWorkItem(id){const p=workItemBy(id);if(!p)return;p.archivedAt=null;save();renderAll();toast('作業一覧へ戻した')}
+function saveWorkItem(){if(document.getElementById('workItemId').value===OTHER_WORK_ITEM_ID)return;const name=document.getElementById('workItemName').value.trim(),id=document.getElementById('workItemId').value;if(!name)return toast('作業名を入れてくれ');const p=workItemBy(id);if(p)p.name=name;else data.workItems.push({id:uid('p'),name,createdAt:Date.now(),lastWorkedAt:null,archivedAt:null});save();closeModal('workItemModal');renderAll();toast(p?'名前を変更した':'作業を追加した')}
+function archiveWorkItem(){if(document.getElementById('workItemId').value===OTHER_WORK_ITEM_ID)return;const p=workItemBy(document.getElementById('workItemId').value);if(!p)return;if(data.timer?.workItemId===p.id)return toast('この作業のタイマーを先に記録・終了してくれ');p.archivedAt=Date.now();save();closeModal('workItemModal');renderAll();julius('archive');toast('アーカイブした。記録は残っている')}
+function restoreWorkItem(id){if(id===OTHER_WORK_ITEM_ID)return;const p=workItemBy(id);if(!p)return;p.archivedAt=null;save();renderAll();toast('作業一覧へ戻した')}
 function renderWorkChart(id,period,limit=999){const sums=new Map();for(const l of logsFor(period)){if(l.micro)continue;const key=l.workItemId??l.id,prev=sums.get(key)||{name:logWorkName(l),m:0};prev.m+=Number(l.minutes)||0;sums.set(key,prev)}renderRows(id,[...sums.values()].filter(x=>x.m>0).sort((a,b)=>b.m-a.m).slice(0,limit))}
 function renderRows(id,rows){let max=Math.max(1,...rows.map(x=>x.m));document.getElementById(id).innerHTML=rows.length?rows.map(x=>`<div class="chartRow"><div class="chartName">${esc(x.name)}</div><div class="bar"><div class="fill" style="width:${x.m/max*100}%"></div></div><div class="chartVal">${fmtMin(x.m)}</div></div>`).join(''):'<div class="empty">まだ記録がない。</div>'}
 function renderHome(){
@@ -88,14 +96,14 @@ function quickStart(id,minutes=Number(data.ui.timerMinutes)||15){
 function startTimer(){const t=data.timer;if(!t)return toast('作業カードの ▶ を押してくれ');if(t.running)return;const p=workItemBy(t.workItemId);if(!p)return;const rem=timerRemaining();if(rem<=0)return openFinish(true);try{ensureAudio()}catch(_){}t.running=true;t.endAt=Date.now()+rem*1000;t.remaining=rem;idlePrompted=false;timerEndPlayed=false;lastActivity=Date.now();markActivity('started');alarmScheduled=scheduleTimerAlarm(rem);if(!tick)tick=setInterval(renderTimer,500);renderTimer();renderTimerState();julius('start');toast(p.name+'を開始した')}
 function pauseTimer(){if(!data.timer?.running)return;data.timer.remaining=timerRemaining();data.timer.running=false;data.timer.endAt=null;cancelScheduledAlarm();save();if(tick){clearInterval(tick);tick=null}renderTimer();renderTimerState();toast('一時停止した')}
 function elapsedMinutes(){return data.timer?Math.max(1,Math.round((data.timer.duration-timerRemaining())/60)):0}
-function openFinish(auto=false){if(!data.timer)return;pendingFinish={minutes:auto?Math.max(1,Math.round(data.timer.duration/60)):elapsedMinutes(),workItemId:data.timer.workItemId,startedAt:data.timer.startedAt};document.getElementById('finishSummary').textContent=`${workItemBy(pendingFinish.workItemId)?.name||'作業'} / ${fmtMin(pendingFinish.minutes)}`;document.getElementById('finishNote').value='';openModal('finishModal');renderTimerState()}
+function openFinish(auto=false){if(!data.timer)return;pendingFinish={minutes:auto?Math.max(1,Math.round(data.timer.duration/60)):elapsedMinutes(),workItemId:data.timer.workItemId,startedAt:data.timer.startedAt};document.getElementById('finishSummary').textContent=`${workItemBy(pendingFinish.workItemId)?.name||'作業'} / ${fmtMin(pendingFinish.minutes)}`;document.getElementById('finishNote').value='';document.getElementById('finishNote').closest('.field').hidden=pendingFinish.workItemId===OTHER_WORK_ITEM_ID;openModal('finishModal');renderTimerState()}
 function completeTimer(){if(!data.timer)return toast('作業カードから開始してくれ');pauseTimer();openFinish(false)}
 function saveFinish(){
  if(!pendingFinish)return;
  if(!data.timer||pendingFinish.workItemId!==data.timer.workItemId||pendingFinish.startedAt!==data.timer.startedAt){pendingFinish=null;closeModal('finishModal');return toast('別端末でタイマーが更新された。現在の作業を確認してくれ')}
  const p=workItemBy(pendingFinish.workItemId);if(!p)return;
  const previous=structuredClone(data),ts=Date.now();
- data.logs.push({id:uid('l'),ts,workItemId:p.id,workItemName:p.name,minutes:pendingFinish.minutes,note:document.getElementById('finishNote').value.trim(),micro:false});p.lastWorkedAt=ts;data.timer=null;rebuildActivity();
+ data.logs.push({id:uid('l'),ts,workItemId:p.id,workItemName:p.name,minutes:pendingFinish.minutes,note:workNote(p.id,document.getElementById('finishNote').value),micro:false});if(p.id!==OTHER_WORK_ITEM_ID)p.lastWorkedAt=ts;data.timer=null;rebuildActivity();
  try{save()}catch(e){data=previous;return toast('保存できなかった。記録を確定せず、タイマーを残した')}
  cancelScheduledAlarm();if(tick){clearInterval(tick);tick=null}pendingFinish=null;closeModal('finishModal');renderAll();playUiSound('workComplete');julius('complete');toast('記録した');
 }

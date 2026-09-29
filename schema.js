@@ -1,6 +1,7 @@
 /* Deterministic, non-mutating migrations shared by local, JSON and cloud entry points. */
 (function(root){
 'use strict';
+const OTHER_WORK_ITEM_ID='__other_work__';
 const defaults={idleCheck:true,juliusCheck:true,sound:true,alarmVolume:'loud',weeklyExerciseTarget:120};
 const microDefaults=['執筆ファイルを開いた','Blenderを起動した','ZBrushを起動した','MMDを起動した','裁縫道具を出した','作業机を片付けた'].map((label,i)=>({id:'ma_'+i,label}));
 const clone=x=>JSON.parse(JSON.stringify(x));
@@ -30,6 +31,8 @@ function normalize(input){
   const legacy=version<12;
   const originals=legacy?(x.categories||[]).flatMap(c=>{if(c.projects!=null&&!Array.isArray(c.projects))throw new Error('Invalid projects');return c.projects||[]}):(x.workItems||[]);
   const ids=new Set();
+  // Reserved IDs cannot be user-created work items. Fail closed on conflicting imports.
+  if(originals.some(p=>p.id===OTHER_WORK_ITEM_ID))throw new Error('Reserved work item ID');
   x.workItems=originals.map((p,i)=>{
     const id=p.id??'legacy-work-'+i;
     if(ids.has(id))throw new Error('Duplicate work item ID');ids.add(id);
@@ -41,7 +44,8 @@ function normalize(input){
     if(!Number.isFinite(Number(l.ts)))throw new Error('Invalid log timestamp');
     l.workItemId=l.micro?null:(old.workItemId??old.projectId??'legacy-orphan-'+(old.id??i));
     l.workItemName=String(old.workItemName||old.projectName||(l.micro?old.note:'')||byId.get(l.workItemId)?.name||(l.micro?'小さな一歩':'旧記録'));
-    if(!l.micro&&!byId.has(l.workItemId)){
+    if(!l.micro&&l.workItemId===OTHER_WORK_ITEM_ID){l.workItemName='その他作業';l.note='';}
+    if(!l.micro&&l.workItemId!==OTHER_WORK_ITEM_ID&&!byId.has(l.workItemId)){
       const item={id:l.workItemId,name:l.workItemName,createdAt:Number(l.ts)||0,lastWorkedAt:Number(l.ts)||null,archivedAt:Number(l.ts)||1};
       byId.set(item.id,item);x.workItems.push(item);
     }
@@ -54,7 +58,7 @@ function normalize(input){
   }
   if(x.timer){
     const t=x.timer,id=t.workItemId??t.projectId;
-    x.timer=originalIds.has(id)?{workItemId:id,duration:t.duration,remaining:t.remaining,running:!!t.running,startedAt:t.startedAt??null,endAt:t.endAt??null}:null;
+    x.timer=(id===OTHER_WORK_ITEM_ID||originalIds.has(id))?{workItemId:id,duration:t.duration,remaining:t.remaining,running:!!t.running,startedAt:t.startedAt??null,endAt:t.endAt??null}:null;
   }else x.timer=null;
   x.microActions=(x.microActions||microDefaults).map((a,i)=>({id:a.id??'legacy-micro-'+i,label:String(a.label||'小さな一歩')}));
   x.exerciseLogs=(x.exerciseLogs||[]).map(l=>{const n={...l,minutes:Number(l.minutes)||0};if(l.measure==='reps'){n.reps=Math.min(999,Math.max(1,Math.round(Number(l.reps)||10)));n.minutes=0}return n});
@@ -66,6 +70,6 @@ function normalize(input){
   x.activity=activityFrom(x.logs,x.timer,x.activity);x.version=12;
   return x;
 }
-const api={fresh,normalize,activityFrom};root.WorkroomSchema=api;
+const api={fresh,normalize,activityFrom,OTHER_WORK_ITEM_ID};root.WorkroomSchema=api;
 if(typeof module!=='undefined')module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
